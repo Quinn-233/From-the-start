@@ -18,7 +18,7 @@ uint8_t step3[]="3\n";
 
 uint8_t u8RxCnt=0;
 uint8_t u8RxFlg=0;
-uint8_t CheckFlg=0; 
+uint8_t CheckFlg=0;
 
 /****************** 发送一个字节 **********************/
 void Uart_SendByte(uint8_t u8Idx,uint8_t u8Data)
