@@ -1,5 +1,6 @@
 #include "ddl.h"
 #include "bt.h"
+#include "uart.h"
 #include "lpm.h"
 #include "gpio.h"
 
@@ -12,9 +13,16 @@ void Bt1Int(void)
     if (TRUE == Bt_GetIntFlag(TIM0))
     {
         Bt_ClearIntFlag(TIM0);
-        //(u32Cnt++)%2;
-		//if((u32Cnt++) == 2) u32Cnt=0;
-		Gpio_SetIO(3,2,0);
+        
+		if(u32Cnt == 0)
+		{
+			Gpio_SetIO(3,2,1);
+			u32Cnt++;
+		}else if(u32Cnt == 1)
+		{
+			Gpio_SetIO(3,2,0);
+			u32Cnt--;
+		}
     }
 }
 
@@ -22,21 +30,21 @@ void Bt1Int(void)
 void BtTimerTest(void)
 {
     stc_bt_config_t   stcConfig;
-    uint16_t          u16ArrData = 0x10000-31250;		//
-    uint16_t          u16InitCntData = 0x10000-31250;	//
+    uint16_t          u16ArrData = 0x10000-25000;		//25000=(0.1*4000000)/16
+    uint16_t          u16InitCntData = 0x10000-25000;	//25000=(0.1*4000000)/16
     
 	Clk_SetPeripheralGate(ClkPeripheralBt, TRUE);
 	
     stcConfig.pfnTim0Cb = Bt1Int;
     //门控使能IO
-	Gpio_SetFunc_TIM0_GATE_P35();
-//    Gpio_SetFunc_TIM1_GATE_P25();
-//    Gpio_SetFunc_TIM2_GATE_P02();
+//	Gpio_SetFunc_TIM0_GATE_P35();
+//  Gpio_SetFunc_TIM1_GATE_P25();
+//  Gpio_SetFunc_TIM2_GATE_P02();
 	
 	//Bt初始化
     stcConfig.enGateP = BtPositive;		//门控极性：高电平有效
-    stcConfig.enGate  = BtGateEnable;	//门控使能：有效
-    stcConfig.enPRS   = BtPCLKDiv64;	//预分频系数：64分频
+    stcConfig.enGate  = BtGateDisable;	//门控使能：无效
+    stcConfig.enPRS   = BtPCLKDiv16;	//预分频系数：16分频
     stcConfig.enTog   = BtTogDisable;	//反转输出使能：无效
     stcConfig.enCT    = BtTimer;		//定时/计数功能选择：定时
     stcConfig.enMD    = BtMode2;		//计数模式配置：自动重装载16位计数器/定时器
@@ -66,20 +74,17 @@ int32_t main(void)
     Clk_SetPeripheralGate(ClkPeripheralGpio, TRUE);
     
 	Gpio_InitIO(3,2,GpioDirOut);
-	Gpio_SetIO(3,2,1);
+	Gpio_SetIO(3,2,0);
 	
-#if 1
-	Gpio_InitIO(3,5,GpioDirOut);
-	Gpio_SetIO(3,5,1);
-	
+#if 1	
 	BtTimerTest();
 	
     while(1)
     {
-//		if (0 == u32Cnt)
-//        {
+//		if (5 == u32Cnt)
+//      {
 //			Gpio_SetIO(3,2,1);
-//		}else if(1 == u32Cnt)
+//		}else if(9 == u32Cnt)
 //		{
 //			Gpio_SetIO(3,2,0);
 //		}

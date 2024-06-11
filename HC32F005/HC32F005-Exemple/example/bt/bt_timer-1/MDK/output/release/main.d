@@ -18,4 +18,5 @@
 .\output\release\main.o: ..\..\..\..\driver\inc\gpio.h
 .\output\release\main.o: ..\source\ddl_device.h
 .\output\release\main.o: ..\..\..\..\driver\inc\bt.h
+.\output\release\main.o: ..\..\..\..\driver\inc\uart.h
 .\output\release\main.o: ..\..\..\..\driver\inc\lpm.h
