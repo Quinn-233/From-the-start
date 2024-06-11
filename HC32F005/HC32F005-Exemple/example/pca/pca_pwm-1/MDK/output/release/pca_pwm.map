@@ -6,9 +6,9 @@ Memory Map of the image
 
   Image Entry point : 0x000000c1
 
-  Load Region LR_IROM1 (Base: 0x00000000, Size: 0x00000e14, Max: 0x00008000, ABSOLUTE)
+  Load Region LR_IROM1 (Base: 0x00000000, Size: 0x00000e04, Max: 0x00008000, ABSOLUTE)
 
-    Execution Region ER_IROM1 (Exec base: 0x00000000, Load base: 0x00000000, Size: 0x00000e08, Max: 0x00008000, ABSOLUTE)
+    Execution Region ER_IROM1 (Exec base: 0x00000000, Load base: 0x00000000, Size: 0x00000df8, Max: 0x00008000, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -98,37 +98,37 @@ Memory Map of the image
     0x00000600   0x00000600   0x0000000a   Code   RO          248    i.IRQ030_Handler    interrupts_hc32f005.o
     0x0000060a   0x0000060a   0x0000000a   Code   RO          249    i.IRQ031_Handler    interrupts_hc32f005.o
     0x00000614   0x00000614   0x000000ac   Code   RO           94    i.PcaInt            main.o
-    0x000006c0   0x000006c0   0x000000a4   Code   RO           95    i.PcaPwmTest        main.o
-    0x00000764   0x00000764   0x00000088   Code   RO          558    i.Pca_CapDataHSet   pca.o
-    0x000007ec   0x000007ec   0x0000008c   Code   RO          559    i.Pca_CapDataLSet   pca.o
-    0x00000878   0x00000878   0x000002d0   Code   RO          560    i.Pca_CapModConfig  pca.o
-    0x00000b48   0x00000b48   0x00000018   Code   RO          561    i.Pca_ClearCntIntFlag  pca.o
-    0x00000b60   0x00000b60   0x00000070   Code   RO          562    i.Pca_ClearIntFlag  pca.o
-    0x00000bd0   0x00000bd0   0x00000010   Code   RO          570    i.Pca_GetCntIntFlag  pca.o
-    0x00000be0   0x00000be0   0x00000054   Code   RO          571    i.Pca_GetIntFlag    pca.o
-    0x00000c34   0x00000c34   0x00000010   Code   RO          572    i.Pca_IRQHandler    pca.o
-    0x00000c44   0x00000c44   0x0000005c   Code   RO          573    i.Pca_Init          pca.o
-    0x00000ca0   0x00000ca0   0x00000018   Code   RO          574    i.Pca_Run           pca.o
-    0x00000cb8   0x00000cb8   0x00000010   Code   RO           12    i.SystemCoreClockUpdate  system_hc32f005.o
-    0x00000cc8   0x00000cc8   0x00000034   Code   RO           13    i.SystemInit        system_hc32f005.o
-    0x00000cfc   0x00000cfc   0x0000001c   Code   RO          546    i.__ARM_common_switch8  clk.o
-    0x00000d18   0x00000d18   0x00000078   Code   RO          418    i.__NVIC_SetPriority  clk.o
-    0x00000d90   0x00000d90   0x00000004   Code   RO          144    i._sys_exit         ddl.o
-    0x00000d94   0x00000d94   0x00000020   Code   RO          146    i.ddl_memclr        ddl.o
-    0x00000db4   0x00000db4   0x0000002c   Code   RO           96    i.main              main.o
-    0x00000de0   0x00000de0   0x00000008   Data   RO          419    .constdata          clk.o
-    0x00000de8   0x00000de8   0x00000020   Data   RO          987    Region$$Table       anon$$obj.o
+    0x000006c0   0x000006c0   0x00000094   Code   RO           95    i.PcaPwmTest        main.o
+    0x00000754   0x00000754   0x00000088   Code   RO          558    i.Pca_CapDataHSet   pca.o
+    0x000007dc   0x000007dc   0x0000008c   Code   RO          559    i.Pca_CapDataLSet   pca.o
+    0x00000868   0x00000868   0x000002d0   Code   RO          560    i.Pca_CapModConfig  pca.o
+    0x00000b38   0x00000b38   0x00000018   Code   RO          561    i.Pca_ClearCntIntFlag  pca.o
+    0x00000b50   0x00000b50   0x00000070   Code   RO          562    i.Pca_ClearIntFlag  pca.o
+    0x00000bc0   0x00000bc0   0x00000010   Code   RO          570    i.Pca_GetCntIntFlag  pca.o
+    0x00000bd0   0x00000bd0   0x00000054   Code   RO          571    i.Pca_GetIntFlag    pca.o
+    0x00000c24   0x00000c24   0x00000010   Code   RO          572    i.Pca_IRQHandler    pca.o
+    0x00000c34   0x00000c34   0x0000005c   Code   RO          573    i.Pca_Init          pca.o
+    0x00000c90   0x00000c90   0x00000018   Code   RO          574    i.Pca_Run           pca.o
+    0x00000ca8   0x00000ca8   0x00000010   Code   RO           12    i.SystemCoreClockUpdate  system_hc32f005.o
+    0x00000cb8   0x00000cb8   0x00000034   Code   RO           13    i.SystemInit        system_hc32f005.o
+    0x00000cec   0x00000cec   0x0000001c   Code   RO          546    i.__ARM_common_switch8  clk.o
+    0x00000d08   0x00000d08   0x00000078   Code   RO          418    i.__NVIC_SetPriority  clk.o
+    0x00000d80   0x00000d80   0x00000004   Code   RO          144    i._sys_exit         ddl.o
+    0x00000d84   0x00000d84   0x00000020   Code   RO          146    i.ddl_memclr        ddl.o
+    0x00000da4   0x00000da4   0x0000002c   Code   RO           96    i.main              main.o
+    0x00000dd0   0x00000dd0   0x00000008   Data   RO          419    .constdata          clk.o
+    0x00000dd8   0x00000dd8   0x00000020   Data   RO          987    Region$$Table       anon$$obj.o
 
 
-    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x00000e08, Size: 0x00000270, Max: 0x00001000, ABSOLUTE)
+    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x00000df8, Size: 0x00000270, Max: 0x00001000, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x20000000   0x00000e08   0x00000004   Data   RW           14    .data               system_hc32f005.o
-    0x20000004   0x00000e0c   0x00000004   Data   RW           98    .data               main.o
-    0x20000008   0x00000e10   0x00000004   Data   RW          576    .data               pca.o
+    0x20000000   0x00000df8   0x00000004   Data   RW           14    .data               system_hc32f005.o
+    0x20000004   0x00000dfc   0x00000004   Data   RW           98    .data               main.o
+    0x20000008   0x00000e00   0x00000004   Data   RW          576    .data               pca.o
     0x2000000c        -       0x00000060   Zero   RW          866    .bss                c_p.l(libspace.o)
-    0x2000006c   0x00000e14   0x00000004   PAD
+    0x2000006c   0x00000e04   0x00000004   PAD
     0x20000070        -       0x00000000   Zero   RW            2    HEAP                startup_hc32f005.o
     0x20000070        -       0x00000200   Zero   RW            1    STACK               startup_hc32f005.o
 

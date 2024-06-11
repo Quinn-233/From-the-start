@@ -19,7 +19,7 @@ I (..\..\..\..\driver\inc\clk.h)(0x66679A7D)
 I (..\..\..\..\driver\inc\interrupts_hc32f005.h)(0x66679A7D)
 I (..\..\..\..\driver\inc\gpio.h)(0x66679A7D)
 I (..\source\ddl_device.h)(0x66679A7E)
-F (..\source\main.c)(0x666800EB)(-c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\..\..\..\mcu\common -I ..\source -I ..\..\..\..\driver\inc-I.\RTE\_pca_pwm_Release-IC:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\vboxuser\AppData\Local\Arm\Packs\HDSC\HC32F005\1.0.1\Device\Include-D__UVISION_VERSION="530" -D_RTE_ -D_RTE_-o .\output\release\main.o --omf_browse .\output\release\main.crf --depend .\output\release\main.d)
+F (..\source\main.c)(0x66680A2A)(-c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\..\..\..\mcu\common -I ..\source -I ..\..\..\..\driver\inc-I.\RTE\_pca_pwm_Release-IC:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\vboxuser\AppData\Local\Arm\Packs\HDSC\HC32F005\1.0.1\Device\Include-D__UVISION_VERSION="530" -D_RTE_ -D_RTE_-o .\output\release\main.o --omf_browse .\output\release\main.crf --depend .\output\release\main.d)
 I (..\..\..\..\driver\inc\pca.h)(0x66679A7D)
 I (..\..\..\..\driver\inc\ddl.h)(0x66679A7D)
 I (..\..\..\..\mcu\common\base_types.h)(0x66679A7F)
