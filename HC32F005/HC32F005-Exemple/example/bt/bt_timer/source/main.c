@@ -99,11 +99,12 @@ en_result_t BtTimerTest(void)
 {
     stc_bt_config_t   stcConfig;
     en_result_t       enResult = Error;
-    uint16_t          u16ArrData = 0x8000;
-    uint16_t          u16InitCntData = 0xC000;
+    uint16_t          u16ArrData = 0x8000;		//
+    uint16_t          u16InitCntData = 0xC000;	//
     
     stcConfig.pfnTim0Cb = Bt1Int;
-    //P25设置为门控使能IO
+    //门控使能IO
+	Gpio_SetFunc_TIM0_GATE_P35();
 //    Gpio_SetFunc_TIM1_GATE_P25();
 //    Gpio_SetFunc_TIM2_GATE_P02();
 	Gpio_SetFunc_TIM0_GATE_P35();
@@ -119,7 +120,7 @@ en_result_t BtTimerTest(void)
         enResult = Error;
     }
     
-    //TIM1中断使能
+    //TIM0中断使能
     Bt_ClearIntFlag(TIM0);
     Bt_EnableIrq(TIM0);
     EnableNvic(TIM0_IRQn, 3, TRUE);
