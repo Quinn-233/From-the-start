@@ -3619,11 +3619,11 @@
       <ActiveTab>0</ActiveTab>
       <Doc>
         <Name>..\source\main.c</Name>
-        <ColumnNumber>9</ColumnNumber>
-        <TopLine>54</TopLine>
-        <CurrentLine>169</CurrentLine>
+        <ColumnNumber>10</ColumnNumber>
+        <TopLine>67</TopLine>
+        <CurrentLine>164</CurrentLine>
         <Folding>1</Folding>
-        <ContractedFolders>25,32,42,69,73,143</ContractedFolders>
+        <ContractedFolders>25,32,42,69,73</ContractedFolders>
         <PaneID>0</PaneID>
       </Doc>
       <Doc>

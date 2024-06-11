@@ -136,8 +136,17 @@ void Uart_config(void)
 /*********** GPIO初始化配置函数 **************/
 void Gpio_config(void)
 {
-	Gpio_InitIO(0, 2, GpioDirIn);	//原理图为KEY1，丝印为BOTTOM2
-    Gpio_InitIO(0, 1, GpioDirIn);	//原理图为KEY2，丝印为BOTTOM1
+	Gpio_InitIO(0,2,GpioDirIn);	//原理图为KEY1，丝印为BOTTOM2
+    Gpio_InitIO(0,1,GpioDirIn);	//原理图为KEY2，丝印为BOTTOM1
+	
+	Gpio_InitIO(3,2,GpioDirOut);	//LED1
+	Gpio_SetIO(3,2,1);
+    Gpio_InitIO(0,3,GpioDirOut);	//LED2
+	Gpio_SetIO(0,3,1);
+	Gpio_InitIO(3,4,GpioDirOut);	//LED3
+	Gpio_SetIO(3,4,1);
+    Gpio_InitIO(3,5,GpioDirOut);	//LED4
+	Gpio_SetIO(3,5,1);
 }	
 /************* 按键检测函数 ******************/
 uint8_t Key_scale(void)
@@ -152,21 +161,19 @@ uint8_t Key_scale(void)
 
 int32_t main(void)
 {  
-	Uart_config();
+//	Uart_config();
 	Gpio_config();
     while(1)
-	{
-		switch(Key_scale())
-		{
-			case 0x01:
-				Gpio_InitIO(3, 4, GpioDirOut);
-				Gpio_SetIO(3,4,1);
-				break;
-			case 0x02:
-				Gpio_InitIO(3, 5, GpioDirOut);
-				Gpio_SetIO(3,5,1);
-				break;
-		}
+	{	
+//		switch(Key_scale())
+//		{
+//			case 0x01:
+//				Gpio_SetIO(3,4,1);
+//				break;
+//			case 0x02:
+//				Gpio_SetIO(3,5,1);
+//				break;
+//		}
 		
 //		Uart_SetTb8(UARTCH0,Even,u8RxData[0]);
 //		Uart_SendData(UARTCH0,step0[0]);

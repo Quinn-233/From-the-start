@@ -6,9 +6,9 @@ Memory Map of the image
 
   Image Entry point : 0x000000c1
 
-  Load Region LR_IROM1 (Base: 0x00000000, Size: 0x00001820, Max: 0x00008000, ABSOLUTE)
+  Load Region LR_IROM1 (Base: 0x00000000, Size: 0x00000cf4, Max: 0x00008000, ABSOLUTE)
 
-    Execution Region ER_IROM1 (Exec base: 0x00000000, Load base: 0x00000000, Size: 0x000017a4, Max: 0x00008000, ABSOLUTE)
+    Execution Region ER_IROM1 (Exec base: 0x00000000, Load base: 0x00000000, Size: 0x00000c98, Max: 0x00008000, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -62,119 +62,89 @@ Memory Map of the image
     0x00000162   0x00000162   0x00000002   PAD
     0x00000164   0x00000164   0x00000054   Code   RO            4    .text               startup_hc32f005.o
     0x000001b8   0x000001b8   0x00000002   Code   RO         2418    .text               c_p.l(use_no_semi_2.o)
-    0x000001ba   0x000001ba   0x0000015a   Code   RO         2420    .text               c_p.l(aeabi_sdiv.o)
-    0x00000314   0x00000314   0x00000006   Code   RO         2424    .text               c_p.l(heapauxi.o)
-    0x0000031a   0x0000031a   0x00000002   Code   RO         2428    .text               c_p.l(use_no_semi.o)
-    0x0000031c   0x0000031c   0x0000003e   Code   RO         2452    .text               c_p.l(sys_stackheap_outer.o)
-    0x0000035a   0x0000035a   0x00000010   Code   RO         2455    .text               c_p.l(exit.o)
-    0x0000036a   0x0000036a   0x00000002   PAD
-    0x0000036c   0x0000036c   0x00000008   Code   RO         2467    .text               c_p.l(libspace.o)
-    0x00000374   0x00000374   0x000000a8   Code   RO          195    i.Adc_IRQHandler    adc.o
-    0x0000041c   0x0000041c   0x00000158   Code   RO          419    i.Adt_IRQHandler    adt.o
-    0x00000574   0x00000574   0x0000005c   Code   RO          778    i.Bt_ARRSet         bt.o
-    0x000005d0   0x000005d0   0x0000005c   Code   RO          781    i.Bt_Cnt16Set       bt.o
-    0x0000062c   0x0000062c   0x000001f0   Code   RO          787    i.Bt_Init           bt.o
-    0x0000081c   0x0000081c   0x00000054   Code   RO          788    i.Bt_Run            bt.o
-    0x00000870   0x00000870   0x00000010   Code   RO         1479    i.ClkTrim_IRQHandler  trim.o
-    0x00000880   0x00000880   0x00000018   Code   RO         1908    i.ClkUnlock         clk.o
-    0x00000898   0x00000898   0x00000014   Code   RO         1909    i.ClkWriteDummy     clk.o
-    0x000008ac   0x000008ac   0x000000b0   Code   RO         1912    i.Clk_Enable        clk.o
-    0x0000095c   0x0000095c   0x000000a8   Code   RO         1914    i.Clk_GetHClkFreq   clk.o
-    0x00000a04   0x00000a04   0x00000020   Code   RO         1915    i.Clk_GetPClkFreq   clk.o
-    0x00000a24   0x00000a24   0x0000003c   Code   RO         1921    i.Clk_SetPeripheralGate  clk.o
-    0x00000a60   0x00000a60   0x000000a0   Code   RO         1922    i.Clk_SetRCHFreq    clk.o
-    0x00000b00   0x00000b00   0x000000b0   Code   RO         1928    i.Clk_SysTickConfig  clk.o
-    0x00000bb0   0x00000bb0   0x00000010   Code   RO          925    i.EfRam_IRQHandler  flash.o
-    0x00000bc0   0x00000bc0   0x00000002   Code   RO           94    i.ErrIntCallback    main.o
-    0x00000bc2   0x00000bc2   0x00000002   PAD
-    0x00000bc4   0x00000bc4   0x00000018   Code   RO         2157    i.Gpio_GetIO        gpio.o
-    0x00000bdc   0x00000bdc   0x000000b8   Code   RO         2159    i.Gpio_InitIO       gpio.o
-    0x00000c94   0x00000c94   0x00000040   Code   RO         2161    i.Gpio_SetAnalog    gpio.o
-    0x00000cd4   0x00000cd4   0x00000048   Code   RO         2164    i.Gpio_SetIO        gpio.o
-    0x00000d1c   0x00000d1c   0x00000018   Code   RO           95    i.Gpio_config       main.o
-    0x00000d34   0x00000d34   0x00000010   Code   RO         2253    i.HardFault_Handler  interrupts_hc32f005.o
-    0x00000d44   0x00000d44   0x00000010   Code   RO         1025    i.I2c_IRQHandler    i2c.o
-    0x00000d54   0x00000d54   0x0000000a   Code   RO         2254    i.IRQ000_Handler    interrupts_hc32f005.o
-    0x00000d5e   0x00000d5e   0x0000000a   Code   RO         2255    i.IRQ001_Handler    interrupts_hc32f005.o
-    0x00000d68   0x00000d68   0x0000000a   Code   RO         2256    i.IRQ002_Handler    interrupts_hc32f005.o
-    0x00000d72   0x00000d72   0x0000000a   Code   RO         2257    i.IRQ003_Handler    interrupts_hc32f005.o
-    0x00000d7c   0x00000d7c   0x0000000a   Code   RO         2258    i.IRQ006_Handler    interrupts_hc32f005.o
-    0x00000d86   0x00000d86   0x0000000a   Code   RO         2259    i.IRQ007_Handler    interrupts_hc32f005.o
-    0x00000d90   0x00000d90   0x0000000a   Code   RO         2260    i.IRQ010_Handler    interrupts_hc32f005.o
-    0x00000d9a   0x00000d9a   0x0000000a   Code   RO         2261    i.IRQ012_Handler    interrupts_hc32f005.o
-    0x00000da4   0x00000da4   0x0000000a   Code   RO         2262    i.IRQ014_Handler    interrupts_hc32f005.o
-    0x00000dae   0x00000dae   0x0000000a   Code   RO         2263    i.IRQ015_Handler    interrupts_hc32f005.o
-    0x00000db8   0x00000db8   0x0000000a   Code   RO         2264    i.IRQ016_Handler    interrupts_hc32f005.o
-    0x00000dc2   0x00000dc2   0x0000000a   Code   RO         2265    i.IRQ018_Handler    interrupts_hc32f005.o
-    0x00000dcc   0x00000dcc   0x0000000a   Code   RO         2266    i.IRQ019_Handler    interrupts_hc32f005.o
-    0x00000dd6   0x00000dd6   0x0000000a   Code   RO         2267    i.IRQ020_Handler    interrupts_hc32f005.o
-    0x00000de0   0x00000de0   0x0000000a   Code   RO         2268    i.IRQ021_Handler    interrupts_hc32f005.o
-    0x00000dea   0x00000dea   0x0000000a   Code   RO         2269    i.IRQ022_Handler    interrupts_hc32f005.o
-    0x00000df4   0x00000df4   0x0000000a   Code   RO         2270    i.IRQ024_Handler    interrupts_hc32f005.o
-    0x00000dfe   0x00000dfe   0x0000000a   Code   RO         2271    i.IRQ026_Handler    interrupts_hc32f005.o
-    0x00000e08   0x00000e08   0x0000000a   Code   RO         2272    i.IRQ027_Handler    interrupts_hc32f005.o
-    0x00000e12   0x00000e12   0x0000000a   Code   RO         2273    i.IRQ028_Handler    interrupts_hc32f005.o
-    0x00000e1c   0x00000e1c   0x0000000a   Code   RO         2274    i.IRQ030_Handler    interrupts_hc32f005.o
-    0x00000e26   0x00000e26   0x0000000a   Code   RO         2275    i.IRQ031_Handler    interrupts_hc32f005.o
-    0x00000e30   0x00000e30   0x00000028   Code   RO           96    i.Key_scale         main.o
-    0x00000e58   0x00000e58   0x00000028   Code   RO         1160    i.Lvd_IRQHandler    lvd.o
-    0x00000e80   0x00000e80   0x00000010   Code   RO         1260    i.Pca_IRQHandler    pca.o
-    0x00000e90   0x00000e90   0x0000004c   Code   RO           97    i.RxIntCallback     main.o
-    0x00000edc   0x00000edc   0x00000010   Code   RO         1420    i.Spi_IRQHandler    spi.o
-    0x00000eec   0x00000eec   0x00000010   Code   RO           12    i.SystemCoreClockUpdate  system_hc32f005.o
-    0x00000efc   0x00000efc   0x00000034   Code   RO           13    i.SystemInit        system_hc32f005.o
-    0x00000f30   0x00000f30   0x0000003c   Code   RO          790    i.Tim_IRQHandler    bt.o
-    0x00000f6c   0x00000f6c   0x00000038   Code   RO         1570    i.UartDeInitNvic    uart.o
-    0x00000fa4   0x00000fa4   0x00000030   Code   RO         1571    i.UartGetInternDataPtr  uart.o
-    0x00000fd4   0x00000fd4   0x00000038   Code   RO         1572    i.UartInitNvic      uart.o
-    0x0000100c   0x0000100c   0x0000005a   Code   RO         1574    i.Uart_ClrStatus    uart.o
-    0x00001066   0x00001066   0x00000030   Code   RO         1576    i.Uart_EnableFunc   uart.o
-    0x00001096   0x00001096   0x0000004c   Code   RO         1577    i.Uart_EnableIrq    uart.o
-    0x000010e2   0x000010e2   0x00000066   Code   RO         1579    i.Uart_GetStatus    uart.o
-    0x00001148   0x00001148   0x00000074   Code   RO         1580    i.Uart_IRQHandler   uart.o
-    0x000011bc   0x000011bc   0x0000006e   Code   RO         1581    i.Uart_Init         uart.o
-    0x0000122a   0x0000122a   0x0000003e   Code   RO         1583    i.Uart_SendData     uart.o
-    0x00001268   0x00001268   0x0000007a   Code   RO         1584    i.Uart_SetBaudRate  uart.o
-    0x000012e2   0x000012e2   0x00000030   Code   RO         1586    i.Uart_SetMode      uart.o
-    0x00001312   0x00001312   0x00000048   Code   RO         1587    i.Uart_SetMultiMode  uart.o
-    0x0000135a   0x0000135a   0x00000094   Code   RO         1590    i.Uart_SetTb8       uart.o
-    0x000013ee   0x000013ee   0x00000002   PAD
-    0x000013f0   0x000013f0   0x00000154   Code   RO          100    i.Uart_config       main.o
-    0x00001544   0x00001544   0x00000068   Code   RO         1735    i.Vc_IRQHandler     vc.o
-    0x000015ac   0x000015ac   0x0000002c   Code   RO         1848    i.Wdt_IRQHandler    wdt.o
-    0x000015d8   0x000015d8   0x00000014   Code   RO         1852    i.Wdt_Start         wdt.o
-    0x000015ec   0x000015ec   0x0000001c   Code   RO          360    i.__ARM_common_switch8  adc.o
-    0x00001608   0x00001608   0x00000018   Code   RO         1591    i.__NVIC_ClearPendingIRQ  uart.o
-    0x00001620   0x00001620   0x00000078   Code   RO         1592    i.__NVIC_SetPriority  uart.o
-    0x00001698   0x00001698   0x00000078   Code   RO         1931    i.__NVIC_SetPriority  clk.o
-    0x00001710   0x00001710   0x00000004   Code   RO         2072    i._sys_exit         ddl.o
-    0x00001714   0x00001714   0x00000020   Code   RO         2074    i.ddl_memclr        ddl.o
-    0x00001734   0x00001734   0x00000048   Code   RO          101    i.main              main.o
-    0x0000177c   0x0000177c   0x00000008   Data   RO         1932    .constdata          clk.o
-    0x00001784   0x00001784   0x00000020   Data   RO         2589    Region$$Table       anon$$obj.o
+    0x000001ba   0x000001ba   0x00000006   Code   RO         2424    .text               c_p.l(heapauxi.o)
+    0x000001c0   0x000001c0   0x00000002   Code   RO         2428    .text               c_p.l(use_no_semi.o)
+    0x000001c2   0x000001c2   0x0000003e   Code   RO         2452    .text               c_p.l(sys_stackheap_outer.o)
+    0x00000200   0x00000200   0x00000010   Code   RO         2455    .text               c_p.l(exit.o)
+    0x00000210   0x00000210   0x00000008   Code   RO         2467    .text               c_p.l(libspace.o)
+    0x00000218   0x00000218   0x000000a8   Code   RO          195    i.Adc_IRQHandler    adc.o
+    0x000002c0   0x000002c0   0x00000158   Code   RO          419    i.Adt_IRQHandler    adt.o
+    0x00000418   0x00000418   0x00000010   Code   RO         1479    i.ClkTrim_IRQHandler  trim.o
+    0x00000428   0x00000428   0x00000018   Code   RO         1908    i.ClkUnlock         clk.o
+    0x00000440   0x00000440   0x00000014   Code   RO         1909    i.ClkWriteDummy     clk.o
+    0x00000454   0x00000454   0x000000b0   Code   RO         1912    i.Clk_Enable        clk.o
+    0x00000504   0x00000504   0x000000a8   Code   RO         1914    i.Clk_GetHClkFreq   clk.o
+    0x000005ac   0x000005ac   0x000000a0   Code   RO         1922    i.Clk_SetRCHFreq    clk.o
+    0x0000064c   0x0000064c   0x000000b0   Code   RO         1928    i.Clk_SysTickConfig  clk.o
+    0x000006fc   0x000006fc   0x00000010   Code   RO          925    i.EfRam_IRQHandler  flash.o
+    0x0000070c   0x0000070c   0x000000b8   Code   RO         2159    i.Gpio_InitIO       gpio.o
+    0x000007c4   0x000007c4   0x00000040   Code   RO         2161    i.Gpio_SetAnalog    gpio.o
+    0x00000804   0x00000804   0x00000040   Code   RO           95    i.Gpio_config       main.o
+    0x00000844   0x00000844   0x00000010   Code   RO         2253    i.HardFault_Handler  interrupts_hc32f005.o
+    0x00000854   0x00000854   0x00000010   Code   RO         1025    i.I2c_IRQHandler    i2c.o
+    0x00000864   0x00000864   0x0000000a   Code   RO         2254    i.IRQ000_Handler    interrupts_hc32f005.o
+    0x0000086e   0x0000086e   0x0000000a   Code   RO         2255    i.IRQ001_Handler    interrupts_hc32f005.o
+    0x00000878   0x00000878   0x0000000a   Code   RO         2256    i.IRQ002_Handler    interrupts_hc32f005.o
+    0x00000882   0x00000882   0x0000000a   Code   RO         2257    i.IRQ003_Handler    interrupts_hc32f005.o
+    0x0000088c   0x0000088c   0x0000000a   Code   RO         2258    i.IRQ006_Handler    interrupts_hc32f005.o
+    0x00000896   0x00000896   0x0000000a   Code   RO         2259    i.IRQ007_Handler    interrupts_hc32f005.o
+    0x000008a0   0x000008a0   0x0000000a   Code   RO         2260    i.IRQ010_Handler    interrupts_hc32f005.o
+    0x000008aa   0x000008aa   0x0000000a   Code   RO         2261    i.IRQ012_Handler    interrupts_hc32f005.o
+    0x000008b4   0x000008b4   0x0000000a   Code   RO         2262    i.IRQ014_Handler    interrupts_hc32f005.o
+    0x000008be   0x000008be   0x0000000a   Code   RO         2263    i.IRQ015_Handler    interrupts_hc32f005.o
+    0x000008c8   0x000008c8   0x0000000a   Code   RO         2264    i.IRQ016_Handler    interrupts_hc32f005.o
+    0x000008d2   0x000008d2   0x0000000a   Code   RO         2265    i.IRQ018_Handler    interrupts_hc32f005.o
+    0x000008dc   0x000008dc   0x0000000a   Code   RO         2266    i.IRQ019_Handler    interrupts_hc32f005.o
+    0x000008e6   0x000008e6   0x0000000a   Code   RO         2267    i.IRQ020_Handler    interrupts_hc32f005.o
+    0x000008f0   0x000008f0   0x0000000a   Code   RO         2268    i.IRQ021_Handler    interrupts_hc32f005.o
+    0x000008fa   0x000008fa   0x0000000a   Code   RO         2269    i.IRQ022_Handler    interrupts_hc32f005.o
+    0x00000904   0x00000904   0x0000000a   Code   RO         2270    i.IRQ024_Handler    interrupts_hc32f005.o
+    0x0000090e   0x0000090e   0x0000000a   Code   RO         2271    i.IRQ026_Handler    interrupts_hc32f005.o
+    0x00000918   0x00000918   0x0000000a   Code   RO         2272    i.IRQ027_Handler    interrupts_hc32f005.o
+    0x00000922   0x00000922   0x0000000a   Code   RO         2273    i.IRQ028_Handler    interrupts_hc32f005.o
+    0x0000092c   0x0000092c   0x0000000a   Code   RO         2274    i.IRQ030_Handler    interrupts_hc32f005.o
+    0x00000936   0x00000936   0x0000000a   Code   RO         2275    i.IRQ031_Handler    interrupts_hc32f005.o
+    0x00000940   0x00000940   0x00000028   Code   RO         1160    i.Lvd_IRQHandler    lvd.o
+    0x00000968   0x00000968   0x00000010   Code   RO         1260    i.Pca_IRQHandler    pca.o
+    0x00000978   0x00000978   0x00000010   Code   RO         1420    i.Spi_IRQHandler    spi.o
+    0x00000988   0x00000988   0x00000010   Code   RO           12    i.SystemCoreClockUpdate  system_hc32f005.o
+    0x00000998   0x00000998   0x00000034   Code   RO           13    i.SystemInit        system_hc32f005.o
+    0x000009cc   0x000009cc   0x0000003c   Code   RO          790    i.Tim_IRQHandler    bt.o
+    0x00000a08   0x00000a08   0x00000030   Code   RO         1571    i.UartGetInternDataPtr  uart.o
+    0x00000a38   0x00000a38   0x0000005a   Code   RO         1574    i.Uart_ClrStatus    uart.o
+    0x00000a92   0x00000a92   0x00000074   Code   RO         1580    i.Uart_IRQHandler   uart.o
+    0x00000b06   0x00000b06   0x00000002   PAD
+    0x00000b08   0x00000b08   0x00000068   Code   RO         1735    i.Vc_IRQHandler     vc.o
+    0x00000b70   0x00000b70   0x0000002c   Code   RO         1848    i.Wdt_IRQHandler    wdt.o
+    0x00000b9c   0x00000b9c   0x00000014   Code   RO         1852    i.Wdt_Start         wdt.o
+    0x00000bb0   0x00000bb0   0x0000001c   Code   RO          360    i.__ARM_common_switch8  adc.o
+    0x00000bcc   0x00000bcc   0x00000078   Code   RO         1931    i.__NVIC_SetPriority  clk.o
+    0x00000c44   0x00000c44   0x00000004   Code   RO         2072    i._sys_exit         ddl.o
+    0x00000c48   0x00000c48   0x00000020   Code   RO         2074    i.ddl_memclr        ddl.o
+    0x00000c68   0x00000c68   0x00000008   Code   RO          101    i.main              main.o
+    0x00000c70   0x00000c70   0x00000008   Data   RO         1932    .constdata          clk.o
+    0x00000c78   0x00000c78   0x00000020   Data   RO         2589    Region$$Table       anon$$obj.o
 
 
-    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x000017a4, Size: 0x000003b0, Max: 0x00001000, ABSOLUTE)
+    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x00000c98, Size: 0x00000390, Max: 0x00001000, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x20000000   0x000017a4   0x00000004   Data   RW           14    .data               system_hc32f005.o
-    0x20000004   0x000017a8   0x0000001d   Data   RW          103    .data               main.o
-    0x20000021   0x000017c5   0x00000003   PAD
-    0x20000024   0x000017c8   0x0000000c   Data   RW          791    .data               bt.o
-    0x20000030   0x000017d4   0x00000004   Data   RW          936    .data               flash.o
-    0x20000034   0x000017d8   0x00000004   Data   RW         1026    .data               i2c.o
-    0x20000038   0x000017dc   0x00000004   Data   RW         1164    .data               lvd.o
-    0x2000003c   0x000017e0   0x00000004   Data   RW         1264    .data               pca.o
-    0x20000040   0x000017e4   0x00000004   Data   RW         1425    .data               spi.o
-    0x20000044   0x000017e8   0x00000004   Data   RW         1491    .data               trim.o
-    0x20000048   0x000017ec   0x00000028   Data   RW         1593    .data               uart.o
-    0x20000070   0x00001814   0x00000008   Data   RW         1738    .data               vc.o
-    0x20000078   0x0000181c   0x00000004   Data   RW         1854    .data               wdt.o
-    0x2000007c        -       0x00000010   Zero   RW          203    .bss                adc.o
-    0x2000008c        -       0x000000c0   Zero   RW          438    .bss                adt.o
-    0x2000014c        -       0x00000060   Zero   RW         2468    .bss                c_p.l(libspace.o)
-    0x200001ac   0x00001820   0x00000004   PAD
-    0x200001b0        -       0x00000000   Zero   RW            2    HEAP                startup_hc32f005.o
-    0x200001b0        -       0x00000200   Zero   RW            1    STACK               startup_hc32f005.o
+    0x20000000   0x00000c98   0x00000004   Data   RW           14    .data               system_hc32f005.o
+    0x20000004   0x00000c9c   0x0000000c   Data   RW          791    .data               bt.o
+    0x20000010   0x00000ca8   0x00000004   Data   RW          936    .data               flash.o
+    0x20000014   0x00000cac   0x00000004   Data   RW         1026    .data               i2c.o
+    0x20000018   0x00000cb0   0x00000004   Data   RW         1164    .data               lvd.o
+    0x2000001c   0x00000cb4   0x00000004   Data   RW         1264    .data               pca.o
+    0x20000020   0x00000cb8   0x00000004   Data   RW         1425    .data               spi.o
+    0x20000024   0x00000cbc   0x00000004   Data   RW         1491    .data               trim.o
+    0x20000028   0x00000cc0   0x00000028   Data   RW         1593    .data               uart.o
+    0x20000050   0x00000ce8   0x00000008   Data   RW         1738    .data               vc.o
+    0x20000058   0x00000cf0   0x00000004   Data   RW         1854    .data               wdt.o
+    0x2000005c        -       0x00000010   Zero   RW          203    .bss                adc.o
+    0x2000006c        -       0x000000c0   Zero   RW          438    .bss                adt.o
+    0x2000012c        -       0x00000060   Zero   RW         2468    .bss                c_p.l(libspace.o)
+    0x2000018c   0x00000cf4   0x00000004   PAD
+    0x20000190        -       0x00000000   Zero   RW            2    HEAP                startup_hc32f005.o
+    0x20000190        -       0x00000200   Zero   RW            1    STACK               startup_hc32f005.o
 
