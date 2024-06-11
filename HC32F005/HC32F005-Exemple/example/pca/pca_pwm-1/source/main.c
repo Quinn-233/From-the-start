@@ -4,7 +4,7 @@
 
 static volatile uint32_t u32PcaTestFlag = 0;
 static volatile uint16_t u16CcapData[8] = {0};
-
+/****************** 中断服务回调函数 *********************/
 void PcaInt(void)
 {
     if (TRUE == Pca_GetCntIntFlag())
@@ -49,7 +49,7 @@ en_result_t PcaPwmTest(void)
     stc_pca_capmodconfig_t stcModConfig;
     en_result_t      enResult = Ok;
     uint8_t          u8CcaplData = 0x20;
-    uint8_t          u8CcaphData = 0x40;
+    uint8_t          u8CcaphData = 0x80;
     uint32_t         u32Cnt;
     
     Gpio_SetFunc_PCA_CH0_P34(0);	//配置成PCA输出
@@ -75,30 +75,20 @@ en_result_t PcaPwmTest(void)
     {
         enResult = Error;
     }
-    
+    //0x4020(16416)
     Pca_CapDataLSet(Module0, u8CcaplData);
     Pca_CapDataHSet(Module0, u8CcaphData);
     Pca_Run();
 
-    //PWM波形输出……
-    u32Cnt = 0x80000;
-    while(u32Cnt--)
-    {
-        ;
-    }
+//    //PWM波形输出
+//    u32Cnt = 0x80000;
+//    while(u32Cnt--)
+//    {
+//        ;
+//    }
     
     return enResult;
 }
-
-/**
- ******************************************************************************
- ** \brief  Main function of project
- **
- ** \return uint32_t return value, if needed
- **
- ** This sample
- **
- ******************************************************************************/
 
 int32_t main(void)
 {
@@ -107,7 +97,8 @@ int32_t main(void)
     //PCA、GPIO外设时钟开启
     Clk_SetPeripheralGate(ClkPeripheralPca, TRUE);
     Clk_SetPeripheralGate(ClkPeripheralGpio, TRUE);
-        
+    
+	
     if(Ok != PcaPwmTest())
     {
         u8TestFlag |= 0x10;
