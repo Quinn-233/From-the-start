@@ -1,0 +1,143 @@
+Component: ARM Compiler 5.06 update 6 (build 750) Tool: armlink [4d35ed]
+
+==============================================================================
+
+Memory Map of the image
+
+  Image Entry point : 0x000000c1
+
+  Load Region LR_IROM1 (Base: 0x00000000, Size: 0x000010b8, Max: 0x00008000, ABSOLUTE)
+
+    Execution Region ER_IROM1 (Exec base: 0x00000000, Load base: 0x00000000, Size: 0x000010ac, Max: 0x00008000, ABSOLUTE)
+
+    Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
+
+    0x00000000   0x00000000   0x000000c0   Data   RO            3    RESET               startup_hc32f005.o
+    0x000000c0   0x000000c0   0x00000008   Code   RO          720  * !!!main             c_p.l(__main.o)
+    0x000000c8   0x000000c8   0x0000003c   Code   RO          885    !!!scatter          c_p.l(__scatter.o)
+    0x00000104   0x00000104   0x0000001a   Code   RO          887    !!handler_copy      c_p.l(__scatter_copy.o)
+    0x0000011e   0x0000011e   0x00000002   PAD
+    0x00000120   0x00000120   0x0000001c   Code   RO          889    !!handler_zi        c_p.l(__scatter_zi.o)
+    0x0000013c   0x0000013c   0x00000002   Code   RO          760    .ARM.Collect$$libinit$$00000000  c_p.l(libinit.o)
+    0x0000013e   0x0000013e   0x00000000   Code   RO          774    .ARM.Collect$$libinit$$00000002  c_p.l(libinit2.o)
+    0x0000013e   0x0000013e   0x00000000   Code   RO          776    .ARM.Collect$$libinit$$00000004  c_p.l(libinit2.o)
+    0x0000013e   0x0000013e   0x00000000   Code   RO          779    .ARM.Collect$$libinit$$0000000A  c_p.l(libinit2.o)
+    0x0000013e   0x0000013e   0x00000000   Code   RO          781    .ARM.Collect$$libinit$$0000000C  c_p.l(libinit2.o)
+    0x0000013e   0x0000013e   0x00000000   Code   RO          783    .ARM.Collect$$libinit$$0000000E  c_p.l(libinit2.o)
+    0x0000013e   0x0000013e   0x00000000   Code   RO          786    .ARM.Collect$$libinit$$00000011  c_p.l(libinit2.o)
+    0x0000013e   0x0000013e   0x00000000   Code   RO          788    .ARM.Collect$$libinit$$00000013  c_p.l(libinit2.o)
+    0x0000013e   0x0000013e   0x00000000   Code   RO          790    .ARM.Collect$$libinit$$00000015  c_p.l(libinit2.o)
+    0x0000013e   0x0000013e   0x00000000   Code   RO          792    .ARM.Collect$$libinit$$00000017  c_p.l(libinit2.o)
+    0x0000013e   0x0000013e   0x00000000   Code   RO          794    .ARM.Collect$$libinit$$00000019  c_p.l(libinit2.o)
+    0x0000013e   0x0000013e   0x00000000   Code   RO          796    .ARM.Collect$$libinit$$0000001B  c_p.l(libinit2.o)
+    0x0000013e   0x0000013e   0x00000000   Code   RO          798    .ARM.Collect$$libinit$$0000001D  c_p.l(libinit2.o)
+    0x0000013e   0x0000013e   0x00000000   Code   RO          800    .ARM.Collect$$libinit$$0000001F  c_p.l(libinit2.o)
+    0x0000013e   0x0000013e   0x00000000   Code   RO          802    .ARM.Collect$$libinit$$00000021  c_p.l(libinit2.o)
+    0x0000013e   0x0000013e   0x00000000   Code   RO          804    .ARM.Collect$$libinit$$00000023  c_p.l(libinit2.o)
+    0x0000013e   0x0000013e   0x00000000   Code   RO          806    .ARM.Collect$$libinit$$00000025  c_p.l(libinit2.o)
+    0x0000013e   0x0000013e   0x00000000   Code   RO          810    .ARM.Collect$$libinit$$0000002C  c_p.l(libinit2.o)
+    0x0000013e   0x0000013e   0x00000000   Code   RO          812    .ARM.Collect$$libinit$$0000002E  c_p.l(libinit2.o)
+    0x0000013e   0x0000013e   0x00000000   Code   RO          814    .ARM.Collect$$libinit$$00000030  c_p.l(libinit2.o)
+    0x0000013e   0x0000013e   0x00000000   Code   RO          816    .ARM.Collect$$libinit$$00000032  c_p.l(libinit2.o)
+    0x0000013e   0x0000013e   0x00000002   Code   RO          817    .ARM.Collect$$libinit$$00000033  c_p.l(libinit2.o)
+    0x00000140   0x00000140   0x00000002   Code   RO          841    .ARM.Collect$$libshutdown$$00000000  c_p.l(libshutdown.o)
+    0x00000142   0x00000142   0x00000000   Code   RO          867    .ARM.Collect$$libshutdown$$00000002  c_p.l(libshutdown2.o)
+    0x00000142   0x00000142   0x00000000   Code   RO          869    .ARM.Collect$$libshutdown$$00000004  c_p.l(libshutdown2.o)
+    0x00000142   0x00000142   0x00000000   Code   RO          872    .ARM.Collect$$libshutdown$$00000007  c_p.l(libshutdown2.o)
+    0x00000142   0x00000142   0x00000000   Code   RO          875    .ARM.Collect$$libshutdown$$0000000A  c_p.l(libshutdown2.o)
+    0x00000142   0x00000142   0x00000000   Code   RO          877    .ARM.Collect$$libshutdown$$0000000C  c_p.l(libshutdown2.o)
+    0x00000142   0x00000142   0x00000000   Code   RO          880    .ARM.Collect$$libshutdown$$0000000F  c_p.l(libshutdown2.o)
+    0x00000142   0x00000142   0x00000002   Code   RO          881    .ARM.Collect$$libshutdown$$00000010  c_p.l(libshutdown2.o)
+    0x00000144   0x00000144   0x00000000   Code   RO          724    .ARM.Collect$$rtentry$$00000000  c_p.l(__rtentry.o)
+    0x00000144   0x00000144   0x00000000   Code   RO          730    .ARM.Collect$$rtentry$$00000002  c_p.l(__rtentry2.o)
+    0x00000144   0x00000144   0x00000006   Code   RO          742    .ARM.Collect$$rtentry$$00000004  c_p.l(__rtentry4.o)
+    0x0000014a   0x0000014a   0x00000000   Code   RO          732    .ARM.Collect$$rtentry$$00000009  c_p.l(__rtentry2.o)
+    0x0000014a   0x0000014a   0x00000004   Code   RO          733    .ARM.Collect$$rtentry$$0000000A  c_p.l(__rtentry2.o)
+    0x0000014e   0x0000014e   0x00000000   Code   RO          735    .ARM.Collect$$rtentry$$0000000C  c_p.l(__rtentry2.o)
+    0x0000014e   0x0000014e   0x00000008   Code   RO          736    .ARM.Collect$$rtentry$$0000000D  c_p.l(__rtentry2.o)
+    0x00000156   0x00000156   0x00000002   Code   RO          765    .ARM.Collect$$rtexit$$00000000  c_p.l(rtexit.o)
+    0x00000158   0x00000158   0x00000000   Code   RO          819    .ARM.Collect$$rtexit$$00000002  c_p.l(rtexit2.o)
+    0x00000158   0x00000158   0x00000004   Code   RO          820    .ARM.Collect$$rtexit$$00000003  c_p.l(rtexit2.o)
+    0x0000015c   0x0000015c   0x00000006   Code   RO          821    .ARM.Collect$$rtexit$$00000004  c_p.l(rtexit2.o)
+    0x00000162   0x00000162   0x00000002   PAD
+    0x00000164   0x00000164   0x00000054   Code   RO            4    .text               startup_hc32f005.o
+    0x000001b8   0x000001b8   0x00000002   Code   RO          712    .text               c_p.l(use_no_semi_2.o)
+    0x000001ba   0x000001ba   0x0000015a   Code   RO          714    .text               c_p.l(aeabi_sdiv.o)
+    0x00000314   0x00000314   0x00000006   Code   RO          718    .text               c_p.l(heapauxi.o)
+    0x0000031a   0x0000031a   0x00000002   Code   RO          722    .text               c_p.l(use_no_semi.o)
+    0x0000031c   0x0000031c   0x0000003e   Code   RO          746    .text               c_p.l(sys_stackheap_outer.o)
+    0x0000035a   0x0000035a   0x00000010   Code   RO          749    .text               c_p.l(exit.o)
+    0x0000036a   0x0000036a   0x00000002   PAD
+    0x0000036c   0x0000036c   0x00000008   Code   RO          761    .text               c_p.l(libspace.o)
+    0x00000374   0x00000374   0x00000018   Code   RO          395    i.ClkUnlock         clk.o
+    0x0000038c   0x0000038c   0x00000014   Code   RO          396    i.ClkWriteDummy     clk.o
+    0x000003a0   0x000003a0   0x000000b0   Code   RO          399    i.Clk_Enable        clk.o
+    0x00000450   0x00000450   0x0000003c   Code   RO          400    i.Clk_GetClkRdy     clk.o
+    0x0000048c   0x0000048c   0x000000a8   Code   RO          401    i.Clk_GetHClkFreq   clk.o
+    0x00000534   0x00000534   0x0000003c   Code   RO          408    i.Clk_SetPeripheralGate  clk.o
+    0x00000570   0x00000570   0x000000a0   Code   RO          409    i.Clk_SetRCHFreq    clk.o
+    0x00000610   0x00000610   0x00000070   Code   RO          411    i.Clk_SetRCL_StableTime  clk.o
+    0x00000680   0x00000680   0x00000044   Code   RO          412    i.Clk_SetSource     clk.o
+    0x000006c4   0x000006c4   0x00000060   Code   RO          413    i.Clk_SetXTH_StableTime  clk.o
+    0x00000724   0x00000724   0x000000a0   Code   RO          414    i.Clk_SwitchTo      clk.o
+    0x000007c4   0x000007c4   0x000000b0   Code   RO          415    i.Clk_SysTickConfig  clk.o
+    0x00000874   0x00000874   0x00000074   Code   RO          229    i.EnableNvic        interrupts_hc32f005.o
+    0x000008e8   0x000008e8   0x000000b8   Code   RO          619    i.Gpio_InitIO       gpio.o
+    0x000009a0   0x000009a0   0x00000040   Code   RO          621    i.Gpio_SetAnalog    gpio.o
+    0x000009e0   0x000009e0   0x00000048   Code   RO          624    i.Gpio_SetIO        gpio.o
+    0x00000a28   0x00000a28   0x00000010   Code   RO          230    i.HardFault_Handler  interrupts_hc32f005.o
+    0x00000a38   0x00000a38   0x0000000a   Code   RO          231    i.IRQ000_Handler    interrupts_hc32f005.o
+    0x00000a42   0x00000a42   0x0000000a   Code   RO          232    i.IRQ001_Handler    interrupts_hc32f005.o
+    0x00000a4c   0x00000a4c   0x0000000a   Code   RO          233    i.IRQ002_Handler    interrupts_hc32f005.o
+    0x00000a56   0x00000a56   0x0000000a   Code   RO          234    i.IRQ003_Handler    interrupts_hc32f005.o
+    0x00000a60   0x00000a60   0x0000000a   Code   RO          235    i.IRQ006_Handler    interrupts_hc32f005.o
+    0x00000a6a   0x00000a6a   0x0000000a   Code   RO          236    i.IRQ007_Handler    interrupts_hc32f005.o
+    0x00000a74   0x00000a74   0x0000000a   Code   RO          237    i.IRQ010_Handler    interrupts_hc32f005.o
+    0x00000a7e   0x00000a7e   0x0000000a   Code   RO          238    i.IRQ012_Handler    interrupts_hc32f005.o
+    0x00000a88   0x00000a88   0x0000000a   Code   RO          239    i.IRQ014_Handler    interrupts_hc32f005.o
+    0x00000a92   0x00000a92   0x0000000a   Code   RO          240    i.IRQ015_Handler    interrupts_hc32f005.o
+    0x00000a9c   0x00000a9c   0x0000000a   Code   RO          241    i.IRQ016_Handler    interrupts_hc32f005.o
+    0x00000aa6   0x00000aa6   0x0000000a   Code   RO          242    i.IRQ018_Handler    interrupts_hc32f005.o
+    0x00000ab0   0x00000ab0   0x0000000a   Code   RO          243    i.IRQ019_Handler    interrupts_hc32f005.o
+    0x00000aba   0x00000aba   0x0000000a   Code   RO          244    i.IRQ020_Handler    interrupts_hc32f005.o
+    0x00000ac4   0x00000ac4   0x0000000a   Code   RO          245    i.IRQ021_Handler    interrupts_hc32f005.o
+    0x00000ace   0x00000ace   0x0000000a   Code   RO          246    i.IRQ022_Handler    interrupts_hc32f005.o
+    0x00000ad8   0x00000ad8   0x0000000a   Code   RO          247    i.IRQ024_Handler    interrupts_hc32f005.o
+    0x00000ae2   0x00000ae2   0x0000000a   Code   RO          248    i.IRQ026_Handler    interrupts_hc32f005.o
+    0x00000aec   0x00000aec   0x0000000a   Code   RO          249    i.IRQ027_Handler    interrupts_hc32f005.o
+    0x00000af6   0x00000af6   0x0000000a   Code   RO          250    i.IRQ028_Handler    interrupts_hc32f005.o
+    0x00000b00   0x00000b00   0x0000000a   Code   RO          251    i.IRQ030_Handler    interrupts_hc32f005.o
+    0x00000b0a   0x00000b0a   0x0000000a   Code   RO          252    i.IRQ031_Handler    interrupts_hc32f005.o
+    0x00000b14   0x00000b14   0x00000050   Code   RO           94    i.ReadData          main.o
+    0x00000b64   0x00000b64   0x00000028   Code   RO           95    i.SpiCallBack       main.o
+    0x00000b8c   0x00000b8c   0x00000048   Code   RO          557    i.Spi_GetStatus     spi.o
+    0x00000bd4   0x00000bd4   0x00000010   Code   RO          558    i.Spi_IRQHandler    spi.o
+    0x00000be4   0x00000be4   0x000000b8   Code   RO          559    i.Spi_Init          spi.o
+    0x00000c9c   0x00000c9c   0x0000000c   Code   RO          562    i.Spi_SetCS         spi.o
+    0x00000ca8   0x00000ca8   0x00000010   Code   RO           12    i.SystemCoreClockUpdate  system_hc32f005.o
+    0x00000cb8   0x00000cb8   0x00000034   Code   RO           13    i.SystemInit        system_hc32f005.o
+    0x00000cec   0x00000cec   0x00000048   Code   RO           96    i.WriteData         main.o
+    0x00000d34   0x00000d34   0x0000001c   Code   RO          546    i.__ARM_common_switch8  clk.o
+    0x00000d50   0x00000d50   0x00000078   Code   RO          253    i.__NVIC_SetPriority  interrupts_hc32f005.o
+    0x00000dc8   0x00000dc8   0x00000078   Code   RO          418    i.__NVIC_SetPriority  clk.o
+    0x00000e40   0x00000e40   0x00000004   Code   RO          147    i._sys_exit         ddl.o
+    0x00000e44   0x00000e44   0x00000020   Code   RO          149    i.ddl_memclr        ddl.o
+    0x00000e64   0x00000e64   0x0000003c   Code   RO          151    i.delay1ms          ddl.o
+    0x00000ea0   0x00000ea0   0x000001e4   Code   RO           97    i.main              main.o
+    0x00001084   0x00001084   0x00000008   Data   RO          419    .constdata          clk.o
+    0x0000108c   0x0000108c   0x00000020   Data   RO          883    Region$$Table       anon$$obj.o
+
+
+    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x000010ac, Size: 0x00000280, Max: 0x00001000, ABSOLUTE)
+
+    Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
+
+    0x20000000   0x000010ac   0x00000004   Data   RW           14    .data               system_hc32f005.o
+    0x20000004   0x000010b0   0x00000002   Data   RW           99    .data               main.o
+    0x20000006   0x000010b2   0x00000002   PAD
+    0x20000008   0x000010b4   0x00000004   Data   RW          563    .data               spi.o
+    0x2000000c        -       0x00000014   Zero   RW           98    .bss                main.o
+    0x20000020        -       0x00000060   Zero   RW          762    .bss                c_p.l(libspace.o)
+    0x20000080        -       0x00000000   Zero   RW            2    HEAP                startup_hc32f005.o
+    0x20000080        -       0x00000200   Zero   RW            1    STACK               startup_hc32f005.o
+
