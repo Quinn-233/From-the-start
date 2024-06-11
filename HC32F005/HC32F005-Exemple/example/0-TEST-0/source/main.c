@@ -133,23 +133,47 @@ void Uart_config(void)
 * GPIO 
 *************************************************************/
 #if 1
-	
+/*********** GPIO初始化配置函数 **************/
+void Gpio_config(void)
+{
+	Gpio_InitIO(0, 2, GpioDirIn);	//原理图为KEY1，丝印为BOTTOM2
+    Gpio_InitIO(0, 1, GpioDirIn);	//原理图为KEY2，丝印为BOTTOM1
+}	
+/************* 按键检测函数 ******************/
+uint8_t Key_scale(void)
+{
+	uint8_t res=0x00;
+	if(FALSE == Gpio_GetIO(0,2))	res|=0x01;
+	if(FALSE == Gpio_GetIO(0,1))	res|=0x02;
+	return res;
+}
 #endif
 
 
 int32_t main(void)
 {  
 	Uart_config();
+	Gpio_config();
     while(1)
 	{
+		switch(Key_scale())
+		{
+			case 0x01:
+				Gpio_InitIO(3, 4, GpioDirOut);
+				Gpio_SetIO(3,4,1);
+				break;
+			case 0x02:
+				Gpio_InitIO(3, 5, GpioDirOut);
+				Gpio_SetIO(3,5,1);
+				break;
+		}
+		
 //		Uart_SetTb8(UARTCH0,Even,u8RxData[0]);
 //		Uart_SendData(UARTCH0,step0[0]);
 //		delay1ms(500);
 		
-		
-		
-		sprintf(u8Buff, "%u\n", pclk);
-		Uart_SendString(UARTCH0,u8Buff);
-		delay1ms(500);
+//		sprintf(u8Buff, "%u\n", pclk);
+//		Uart_SendString(UARTCH0,u8Buff);
+//		delay1ms(500);
 	}
 }
