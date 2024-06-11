@@ -17,7 +17,7 @@ void Bt1Int(void)
 }
 
 /******************BT定时功能测试（重载模式）**********************/
-en_result_t BtTimerTest(void)
+void BtTimerTest(void)
 {
     stc_bt_config_t   stcConfig;
     en_result_t       enResult = Error;
@@ -51,6 +51,8 @@ en_result_t BtTimerTest(void)
     Bt_Cnt16Set(TIM0, u16InitCntData);
     Bt_Run(TIM0);
     
+	Gpio_InitIO(1,4,GpioDirOut);
+	
     //此处进入中断……
     while(1)
     {
@@ -58,17 +60,22 @@ en_result_t BtTimerTest(void)
         if (0x02 == u32BtTestFlag)
         {
             u32BtTestFlag = u32BtTestFlag & (~0x02);
-            if (1 == u32Cnt)
+            if (0 == u32Cnt)
             {
-                Bt_Stop(TIM0);
+				Gpio_SetIO(1,4,0);
+                //Bt_Stop(TIM0);
                 enResult = Ok;
-                break;
-            }
+                //break;
+            }else if(1 == u32Cnt)
+			{
+				Gpio_SetIO(1,4,1);
+                //Bt_Stop(TIM0);
+                enResult = Ok;
+                //break;
+			}
             u32Cnt++;
         }
     }    
-    
-    return enResult;
 }
 
 
@@ -98,12 +105,10 @@ int32_t main(void)
     Clk_SetPeripheralGate(ClkPeripheralGpio, TRUE);
     Clk_SetPeripheralGate(ClkPeripheralBt, TRUE);
        
-    if(Ok != BtTimerTest())
-    {
-        u8TestFlag |= 0x02;
-    }
+    BtTimerTest();
+    
      
-    while (1);
+    //while (1);
 }
 
 /******************************************************************************

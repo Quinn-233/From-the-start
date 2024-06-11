@@ -17,3 +17,4 @@
 .\output\release\interrupts_hc32f005.o: ..\..\..\..\driver\inc\interrupts_hc32f005.h
 .\output\release\interrupts_hc32f005.o: ..\..\..\..\driver\inc\gpio.h
 .\output\release\interrupts_hc32f005.o: ..\source\ddl_device.h
+.\output\release\interrupts_hc32f005.o: ..\..\..\..\driver\inc\uart.h
