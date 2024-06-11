@@ -16,7 +16,7 @@ uint8_t step1[]="1\n";
 uint8_t step2[]="2\n";
 uint8_t step3[]="3\n";
 
-uint8_t u8RxCnt=0;
+uint8_t u8RxCnt=0; 
 uint8_t u8RxFlg=0;
 uint8_t CheckFlg=0;
 

@@ -1,94 +1,10 @@
-/******************************************************************************
-* Copyright (C) 2016, Huada Semiconductor Co.,Ltd All rights reserved.
-*
-* This software is owned and published by:
-* Huada Semiconductor Co.,Ltd ("HDSC").
-*
-* BY DOWNLOADING, INSTALLING OR USING THIS SOFTWARE, YOU AGREE TO BE BOUND
-* BY ALL THE TERMS AND CONDITIONS OF THIS AGREEMENT.
-*
-* This software contains source code for use with HDSC
-* components. This software is licensed by HDSC to be adapted only
-* for use in systems utilizing HDSC components. HDSC shall not be
-* responsible for misuse or illegal use of this software for devices not
-* supported herein. HDSC is providing this software "AS IS" and will
-* not be responsible for issues arising from incorrect user implementation
-* of the software.
-*
-* Disclaimer:
-* HDSC MAKES NO WARRANTY, EXPRESS OR IMPLIED, ARISING BY LAW OR OTHERWISE,
-* REGARDING THE SOFTWARE (INCLUDING ANY ACOOMPANYING WRITTEN MATERIALS),
-* ITS PERFORMANCE OR SUITABILITY FOR YOUR INTENDED USE, INCLUDING,
-* WITHOUT LIMITATION, THE IMPLIED WARRANTY OF MERCHANTABILITY, THE IMPLIED
-* WARRANTY OF FITNESS FOR A PARTICULAR PURPOSE OR USE, AND THE IMPLIED
-* WARRANTY OF NONINFRINGEMENT.
-* HDSC SHALL HAVE NO LIABILITY (WHETHER IN CONTRACT, WARRANTY, TORT,
-* NEGLIGENCE OR OTHERWISE) FOR ANY DAMAGES WHATSOEVER (INCLUDING, WITHOUT
-* LIMITATION, DAMAGES FOR LOSS OF BUSINESS PROFITS, BUSINESS INTERRUPTION,
-* LOSS OF BUSINESS INFORMATION, OR OTHER PECUNIARY LOSS) ARISING FROM USE OR
-* INABILITY TO USE THE SOFTWARE, INCLUDING, WITHOUT LIMITATION, ANY DIRECT,
-* INDIRECT, INCIDENTAL, SPECIAL OR CONSEQUENTIAL DAMAGES OR LOSS OF DATA,
-* SAVINGS OR PROFITS,
-* EVEN IF Disclaimer HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
-* YOU ASSUME ALL RESPONSIBILITIES FOR SELECTION OF THE SOFTWARE TO ACHIEVE YOUR
-* INTENDED RESULTS, AND FOR THE INSTALLATION OF, USE OF, AND RESULTS OBTAINED
-* FROM, THE SOFTWARE.
-*
-* This software may be replicated in part or whole for the licensed use,
-* with the restriction that this Disclaimer and Copyright notice must be
-* included with each copy of this software, whether used in part or whole,
-* at all times.
-*/
-/******************************************************************************/
-/** \file main.c
- **
- ** A detailed description is available at
- ** @link Sample Group Some description @endlink
- **
- **   - 2016-02-16  1.0  XYZ First version for Device Driver Library of Module.
- **
- ******************************************************************************/
-
-/******************************************************************************
- * Include files
- ******************************************************************************/
 #include "pca.h"
 #include "lpm.h"
 #include "gpio.h"
 
-/******************************************************************************
- * Local pre-processor symbols/macros ('#define')
- ******************************************************************************/
-
-/******************************************************************************
- * Global variable definitions (declared in header file with 'extern')
- ******************************************************************************/
-
-/******************************************************************************
- * Local type definitions ('typedef')
- ******************************************************************************/
-
-/******************************************************************************
- * Local function prototypes ('static')
- ******************************************************************************/
-
-/*******************************************************************************
- * Local variable definitions ('static')
- ******************************************************************************/
 static volatile uint32_t u32PcaTestFlag = 0;
 static volatile uint16_t u16CcapData[8] = {0};
 
-/*******************************************************************************
- * Local function prototypes ('static')
- ******************************************************************************/
-
-
-/*******************************************************************************
- * Function implementation - global ('extern') and local ('static')
- ******************************************************************************/
-/*******************************************************************************
- * Pca中断服务程序
- ******************************************************************************/
 void PcaInt(void)
 {
     if (TRUE == Pca_GetCntIntFlag())
@@ -136,20 +52,19 @@ en_result_t PcaPwmTest(void)
     uint8_t          u8CcaphData = 0x40;
     uint32_t         u32Cnt;
     
-    Gpio_SetFunc_PCA_CH0_P34(0);
-    
-    stcConfig.enCIDL = IdleGoon; 
-    stcConfig.enWDTE = PCAWDTDisable;
-    stcConfig.enCPS  = PCAPCLKDiv32; 
-    
-    stcConfig.pfnPcaCb = PcaInt;
-    
-    stcModConfig.enECOM = ECOMEnable;
-    stcModConfig.enCAPP = CAPPDisable;
-    stcModConfig.enCAPN = CAPNDisable;
-    stcModConfig.enMAT  = MATDisable;
-    stcModConfig.enTOG  = TOGDisable;
-    stcModConfig.enPWM  = PCAPWMEnable;
+    Gpio_SetFunc_PCA_CH0_P34(0);	//配置成PCA输出
+    /******************PCA 配置结构体定义*********************/
+    stcConfig.enCIDL = IdleGoon; 		//休眠模式下启/停控制
+    stcConfig.enWDTE = PCAWDTDisable;	//WDT功能控制
+    stcConfig.enCPS  = PCAPCLKDiv32; 	//时钟分频及时钟源选择功能
+    stcConfig.pfnPcaCb = PcaInt;		//中断服务回调函数
+    /**************PCA 捕获模式配置结构体定义*****************/
+    stcModConfig.enECOM = ECOMEnable;	//比较器功能控制：允许
+    stcModConfig.enCAPP = CAPPDisable;	//正沿捕获控制：禁止
+    stcModConfig.enCAPN = CAPNDisable;	//负沿捕获控制：禁止
+    stcModConfig.enMAT  = MATDisable;	//匹配控制：禁止
+    stcModConfig.enTOG  = TOGDisable;	//翻转控制：禁止
+    stcModConfig.enPWM  = PCAPWMEnable;	//脉宽调制控制：允许
     
     
     if (Ok != Pca_Init(&stcConfig))
