@@ -4,6 +4,8 @@
 #include "lpm.h"
 #include "gpio.h"
 
+uint16_t timer=0;
+uint32_t pclk=0;
 
 uint8_t u8RxData[10];
 uint8_t u8Data[]="RusHHH!\n";
@@ -14,38 +16,39 @@ uint8_t step1[]="1\n";
 uint8_t step2[]="2\n";
 uint8_t step3[]="3\n";
 
-uint8_t u8RxCnt=0; 
-uint8_t u8RxFlg=0;
-uint8_t CheckFlg=0;
 
-/****************** 发送一个字节 **********************/
+/************************************************************
+* UART 
+*************************************************************/
+#if 1
+/************** 发送一个字节 *****************/
 void Uart_SendByte(uint8_t u8Idx,uint8_t u8Data)
 {
 	Uart_SetTb8(u8Idx,Even,u8Data);	
-	Uart_SendData(u8Idx,u8Data);				//库函数的发送一个字节
-	while(Uart_GetStatus(u8Idx, UartTxEmpty) == TRUE);	//获取TXE的状态，一直等于FLASE=0，表示TX buffer非空
+	Uart_SendData(u8Idx,u8Data);				
+	while(Uart_GetStatus(u8Idx, UartTxEmpty) == TRUE);
 }
-/***************** 发送一个字符串 **********************/
+/************* 发送一个字符串*****************/
 void Uart_SendString(uint8_t u8Idx,uint8_t *str)
 {
 	uint8_t k=0;
 	do
 	{
-		Uart_SendByte(u8Idx,*(str+k));	//循环发送一个字节一个字节的发
+		Uart_SendByte(u8Idx,*(str+k));	
 		k++;
-	}while(*(str+k)!='\0');//直至遇到字符串结束符 '\0'
+	}while(*(str+k)!='\0');	//直至遇到字符串结束符 '\0'
 }
-/************************接收中断回调函数************************/
+/************ 接收中断回调函数 ***************/
 void RxIntCallback(void)
 {
-	if(FALSE == Uart_GetStatus(UARTCH0,UartRxFull))
+	Uart_SetTb8(UARTCH0,Even,step1[0]);
+	Uart_SendData(UARTCH0,step1[0]);
+	if(TRUE == Uart_GetStatus(UARTCH0,UartRxFull))
 	{
 		Uart_ClrStatus(UARTCH0,UartRxFull);
-		
-		u8RxData[1]=M0P_UART0->SBUF;
-		u8RxFlg = 1;
-		Uart_SendData(UARTCH0,step0[0]);
-		//Uart_SendString(UARTCH0,step0);
+		//u8RxData[1]=M0P_UART0->SBUF;
+		Uart_SetTb8(UARTCH0,Even,step2[0]);
+		Uart_SendData(UARTCH0,step2[0]);
 	}
 	
 //	//先存储在数组中
@@ -62,34 +65,33 @@ void RxIntCallback(void)
 //		u8RxCnt=0;//置0，方便下次重复以上操作
 //	}
 }
-/************************错误中断回调函数************************/
+/************ 错误中断回调函数 ***************/
 void ErrIntCallback(void)
 { 
 }
-
-
-int32_t main(void)
-{  
-    uint16_t timer=0;
-    uint32_t pclk=0;
-	/************************结构体重命名************************/
+/*********** UART初始化配置函数 **************/
+void Uart_config(void)
+{ 
+	/*------- 结构体重命名 --------*/
     stc_uart_config_t  stcConfig;
     stc_uart_irq_cb_t stcUartIrqCb;
     stc_uart_multimode_t stcMulti;
     stc_uart_baud_config_t stcBaud;
     stc_bt_config_t stcBtConfig;
-	/************************结构体************************/
+	/*-------- 结构体清零 ---------*/
     DDL_ZERO_STRUCT(stcUartIrqCb);
     DDL_ZERO_STRUCT(stcMulti);
     DDL_ZERO_STRUCT(stcBaud);
     DDL_ZERO_STRUCT(stcBtConfig);
-	/************************.************************/
+	/*------- 未知 --------*/
 //    Gpio_InitIO(T1_PORT,T1_PIN,GpioDirIn); 
 //    Gpio_InitIO(0,3,GpioDirOut);
 //    Gpio_SetIO(0,3,1);
-    /***********************TXD、RXD引脚定义************************/
-    Gpio_InitIOExt(1,4,GpioDirOut,TRUE,FALSE,FALSE,FALSE);   
-    Gpio_InitIOExt(1,5,GpioDirIn,TRUE,FALSE,FALSE,FALSE); 
+	/*----- TXD、RXD引脚配置 -----*/
+    //Gpio_InitIOExt(1,4,GpioDirOut,TRUE,FALSE,FALSE,FALSE);   
+    //Gpio_InitIOExt(1,5,GpioDirIn,TRUE,FALSE,FALSE,FALSE); 
+	Gpio_InitIO(1,4,GpioDirOut);   
+    Gpio_InitIO(1,5,GpioDirIn);
 	
     Gpio_SetFunc_UART0TX_P14();
     Gpio_SetFunc_UART0RX_P15();
@@ -124,23 +126,27 @@ int32_t main(void)
     Uart_EnableIrq(UARTCH0,UartRxIrq);	//允许串口0接收中断
     Uart_ClrStatus(UARTCH0,UartRxFull);	//清串口0接收中断标志
     Uart_EnableFunc(UARTCH0,UartRx);	//串口0接收中断使能
+}
+#endif
+
+/************************************************************
+* GPIO 
+*************************************************************/
+#if 1
 	
+#endif
+
+
+int32_t main(void)
+{  
+	Uart_config();
     while(1)
 	{
-		CheckFlg = 0;
-		
-//		sprintf(u8Buff, "%u\n", pclk);
-//		Uart_SendString(UARTCH0,u8Buff);
-		
 //		Uart_SetTb8(UARTCH0,Even,u8RxData[0]);
 //		Uart_SendData(UARTCH0,step0[0]);
 //		delay1ms(500);
-//		
-//		Uart_SendByte(UARTCH0,u8RxData[1]);
-//		delay1ms(500);
 		
-//		Uart_SendString(UARTCH0,u8Data);
-//		delay1ms(500);
+		
 		
 		sprintf(u8Buff, "%u\n", pclk);
 		Uart_SendString(UARTCH0,u8Buff);
