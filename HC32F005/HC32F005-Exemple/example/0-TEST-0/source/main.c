@@ -373,8 +373,8 @@ en_result_t Pca_config(void)
 * ADT-PWM 
 *************************************************************/
 #if 1
-/*----------- PCA中断服务函数 --------------*/
-void App_AdvTimerInit(uint16_t u16Period, uint16_t u16CHA_PWMDuty, uint16_t u16CHB_PWMDuty)
+/*---------- ADT初始化配置函数 -------------*/
+void Adt_config(uint16_t u16Period, uint16_t u16CHA_PWM, uint16_t u16CHB_PWM)
 {
 	en_adt_compare_t	enAdtCompareA;
     en_adt_compare_t	enAdtCompareB;
@@ -390,8 +390,6 @@ void App_AdvTimerInit(uint16_t u16Period, uint16_t u16CHA_PWMDuty, uint16_t u16C
     Clk_SetPeripheralGate(ClkPeripheralAdt, TRUE);    //ADT外设时钟使能
     Clk_SetPeripheralGate(ClkPeripheralGpio, TRUE);
 	
-//	Gpio_SetFunc_TIM6_CHA_P02(0);
-//	Gpio_SetFunc_TIM6_CHB_P03(0);
 	Gpio_InitIO(0,2,GpioDirOut);
 	Gpio_InitIO(0,3,GpioDirOut);
 	Gpio_SetFunc_TIM6_CHA_P02();
@@ -406,10 +404,10 @@ void App_AdvTimerInit(uint16_t u16Period, uint16_t u16CHA_PWMDuty, uint16_t u16C
     Adt_SetPeriod(AdTIM6, u16Period);                         //周期设置
     
     enAdtCompareA = AdtCompareA;
-    Adt_SetCompareValue(AdTIM6, enAdtCompareA, u16CHA_PWMDuty);  //通用比较基准值寄存器A设置
+    Adt_SetCompareValue(AdTIM6, enAdtCompareA, u16CHA_PWM);  //通用比较基准值寄存器A设置
     
     enAdtCompareB = AdtCompareB;
-    Adt_SetCompareValue(AdTIM6, enAdtCompareB, u16CHB_PWMDuty);  //通用比较基准值寄存器B设置
+    Adt_SetCompareValue(AdTIM6, enAdtCompareB, u16CHB_PWM);  //通用比较基准值寄存器B设置
     
     stcAdtTIM6ACfg.enCap = AdtCHxCompareOutput;            //比较输出
     stcAdtTIM6ACfg.bOutEn = TRUE;                          //CHA输出使能
@@ -441,7 +439,7 @@ int32_t main(void)
 //	Gpio_config();
 //	Bt_config();
 //	Pca_config();
-//	App_AdvTimerInit(0XFA0, 0x07D0, 0x07D0);	//4M/4000=1kHz
+//	Adt_config(0XFA0, 0x07D0, 0x07D0);	//4M/4000=1kHz
     while(1)
 	{	
 //		LED_switch();	//KEY、LED测试
