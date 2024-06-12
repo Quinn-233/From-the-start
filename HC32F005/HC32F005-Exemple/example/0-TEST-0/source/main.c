@@ -1,11 +1,10 @@
 #include "ddl.h"
 #include "uart.h"
 #include "bt.h"
-#include "gpio.h"
 #include "pca.h"
 #include "adt.h"
 #include "lpm.h"
-
+#include "gpio.h"
 
 uint16_t timer=0;
 uint32_t pclk=0;
@@ -158,7 +157,7 @@ uint8_t Key_scale(void)
 	uint8_t res=0x00;
 	if(FALSE == Gpio_GetIO(0,2))
 	{
-		delay1ms(10);
+		delay1ms(50);
 		if(FALSE == Gpio_GetIO(0,2))
 		{
 			while(FALSE == Gpio_GetIO(0,2))	res|=0x01;
@@ -167,7 +166,7 @@ uint8_t Key_scale(void)
 	}
 	if(FALSE == Gpio_GetIO(0,1))
 	{
-		delay1ms(10);
+		delay1ms(50);
 		if(FALSE == Gpio_GetIO(0,1))
 		{
 			while(FALSE == Gpio_GetIO(0,1))	res|=0x02;
@@ -395,6 +394,8 @@ void App_AdvTimerInit(uint16_t u16Period, uint16_t u16CHA_PWMDuty, uint16_t u16C
 //	Gpio_SetFunc_TIM6_CHB_P03(0);
 	Gpio_InitIO(0,2,GpioDirOut);
 	Gpio_InitIO(0,3,GpioDirOut);
+	Gpio_SetFunc_TIM6_CHA_P02();
+	Gpio_SetFunc_TIM6_CHB_P03();
 	
     stcAdtBaseCntCfg.enCntMode = AdtSawtoothMode;                 //锯齿波模式
     stcAdtBaseCntCfg.enCntDir = AdtCntUp;
@@ -440,10 +441,10 @@ int32_t main(void)
 //	Gpio_config();
 //	Bt_config();
 //	Pca_config();
-	App_AdvTimerInit(0xC000, 0x4000, 0x8000);
+//	App_AdvTimerInit(0XFA0, 0x07D0, 0x07D0);	//4M/4000=1kHz
     while(1)
 	{	
-		//LED_switch();	//KEY、LED测试
+//		LED_switch();	//KEY、LED测试
 		
 //		Uart_SetTb8(UARTCH0,Even,u8RxData[0]);
 //		Uart_SendData(UARTCH0,step0[0]);
