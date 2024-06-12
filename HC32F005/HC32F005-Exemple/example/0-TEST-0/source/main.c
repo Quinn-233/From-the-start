@@ -1,34 +1,38 @@
 #include "ddl.h"
 #include "uart.h"
 #include "bt.h"
-#include "lpm.h"
 #include "gpio.h"
+#include "pca.h"
+#include "lpm.h"
+
 
 uint16_t timer=0;
 uint32_t pclk=0;
-
 uint8_t u8RxData[10];
 uint8_t u8Data[]="RusHHH!\n";
 uint8_t u8Buff[10]="";
-
 uint8_t step0[]="0\n";
 uint8_t step1[]="1\n";
 uint8_t step2[]="2\n";
 uint8_t step3[]="3\n";
 
+uint8_t num=1;
 
+static volatile uint32_t u32Cnt = 0;
+
+static volatile uint32_t u32PcaFlag = 0;
 /************************************************************
 * UART 
 *************************************************************/
 #if 1
-/************** 发送一个字节 *****************/
+/*------------- 发送一个字节 ----------------*/
 void Uart_SendByte(uint8_t u8Idx,uint8_t u8Data)
 {
 	Uart_SetTb8(u8Idx,Even,u8Data);	
 	Uart_SendData(u8Idx,u8Data);				
 	while(Uart_GetStatus(u8Idx, UartTxEmpty) == TRUE);
 }
-/************* 发送一个字符串*****************/
+/*------------ 发送一个字符串 ---------------*/
 void Uart_SendString(uint8_t u8Idx,uint8_t *str)
 {
 	uint8_t k=0;
@@ -38,7 +42,7 @@ void Uart_SendString(uint8_t u8Idx,uint8_t *str)
 		k++;
 	}while(*(str+k)!='\0');	//直至遇到字符串结束符 '\0'
 }
-/************ 接收中断回调函数 ***************/
+/*----------- 接收中断回调函数 --------------*/
 void RxIntCallback(void)
 {
 	Uart_SetTb8(UARTCH0,Even,step1[0]);
@@ -65,11 +69,11 @@ void RxIntCallback(void)
 //		u8RxCnt=0;//置0，方便下次重复以上操作
 //	}
 }
-/************ 错误中断回调函数 ***************/
+/*----------- 错误中断回调函数 --------------*/
 void ErrIntCallback(void)
 { 
 }
-/*********** UART初始化配置函数 **************/
+/*---------- UART初始化配置函数 -------------*/
 void Uart_config(void)
 { 
 	/*------- 结构体重命名 --------*/
@@ -128,59 +132,262 @@ void Uart_config(void)
     Uart_EnableFunc(UARTCH0,UartRx);	//串口0接收中断使能
 }
 #endif
-
 /************************************************************
 * GPIO 
 *************************************************************/
 #if 1
-/*********** GPIO初始化配置函数 **************/
+/*--------- GPIO初始化配置函数 ------------*/
 void Gpio_config(void)
 {
 	Gpio_InitIO(0,2,GpioDirIn);	//原理图为KEY1，丝印为BOTTOM2
     Gpio_InitIO(0,1,GpioDirIn);	//原理图为KEY2，丝印为BOTTOM1
 	
 	Gpio_InitIO(3,2,GpioDirOut);	//LED1
-	Gpio_SetIO(3,2,1);
+	Gpio_SetIO(3,2,0);
     Gpio_InitIO(0,3,GpioDirOut);	//LED2
-	Gpio_SetIO(0,3,1);
+	Gpio_SetIO(0,3,0);
 	Gpio_InitIO(3,4,GpioDirOut);	//LED3
-	Gpio_SetIO(3,4,1);
+	Gpio_SetIO(3,4,0);
     Gpio_InitIO(3,5,GpioDirOut);	//LED4
-	Gpio_SetIO(3,5,1);
+	Gpio_SetIO(3,5,0);
 }	
-/************* 按键检测函数 ******************/
+/*------------ 按键检测函数 ---------------*/
 uint8_t Key_scale(void)
 {
 	uint8_t res=0x00;
-	if(FALSE == Gpio_GetIO(0,2))	res|=0x01;
-	if(FALSE == Gpio_GetIO(0,1))	res|=0x02;
+	if(FALSE == Gpio_GetIO(0,2))
+	{
+		delay1ms(10);
+		if(FALSE == Gpio_GetIO(0,2))
+		{
+			while(FALSE == Gpio_GetIO(0,2))	res|=0x01;
+		}
+			
+	}
+	if(FALSE == Gpio_GetIO(0,1))
+	{
+		delay1ms(10);
+		if(FALSE == Gpio_GetIO(0,1))
+		{
+			while(FALSE == Gpio_GetIO(0,1))	res|=0x02;
+		}
+	}	
 	return res;
+}
+/*----------- LED灯切换函数 ---------------*/
+void LED_switch(void)
+{
+	switch(Key_scale())
+		{
+			case 0x01:
+				//Gpio_SetIO(3,2,1);
+				num++;
+				if(num == 5) num=1;
+				break;
+			case 0x02:
+				//Gpio_SetIO(0,3,1);
+				num--;
+				if(num == 0) num=4;
+				break;
+		}
+		switch(num)
+		{
+			case 1:
+				Gpio_SetIO(3,2,1);
+				Gpio_SetIO(0,3,0);
+				Gpio_SetIO(3,4,0);
+				Gpio_SetIO(3,5,0);
+				break;
+			case 2:
+				Gpio_SetIO(3,2,0);
+				Gpio_SetIO(0,3,1);
+				Gpio_SetIO(3,4,0);
+				Gpio_SetIO(3,5,0);
+				break;
+			case 3:
+				Gpio_SetIO(3,2,0);
+				Gpio_SetIO(0,3,0);
+				Gpio_SetIO(3,4,1);
+				Gpio_SetIO(3,5,0);
+				break;
+			case 4:
+				Gpio_SetIO(3,2,0);
+				Gpio_SetIO(0,3,0);
+				Gpio_SetIO(3,4,0);
+				Gpio_SetIO(3,5,1);
+				break;
+		}
+}
+#endif
+/************************************************************
+* BaseTimer 
+*************************************************************/
+#if 1
+/*----------- BT0中断服务函数 --------------*/
+void Bt1Int(void)
+{
+    if (TRUE == Bt_GetIntFlag(TIM0))
+    {
+        Bt_ClearIntFlag(TIM0);
+        //每0.1秒触发中断，一次高电平一次电平
+		//所以周期为0.2秒
+		if(u32Cnt == 0)
+		{
+			Gpio_SetIO(3,2,1);
+			u32Cnt++;
+		}else if(u32Cnt == 1)
+		{
+			Gpio_SetIO(3,2,0);
+			u32Cnt--;
+		}
+    }
+}
+/*---------- BT0初始化配置函数 -------------*/
+void Bt_config(void)
+{
+	stc_bt_config_t		stcConfig;	//
+	stc_clk_config_t	stcClkCfg;	//
+    uint16_t          	u16ArrData = 0x10000-25000;		//25000=(0.1*4000000)/16
+    uint16_t          	u16InitCntData = 0x10000-25000;	//25000=(0.1*4000000)/16
+    
+	//CLK INIT
+    stcClkCfg.enClkSrc  = ClkRCH;
+    stcClkCfg.enHClkDiv = ClkDiv1;
+    stcClkCfg.enPClkDiv = ClkDiv1;
+    Clk_Init(&stcClkCfg);
+	
+    //打开GPIO、BT外设时钟
+    Clk_SetPeripheralGate(ClkPeripheralGpio, TRUE);
+	Clk_SetPeripheralGate(ClkPeripheralBt, TRUE);
+	Gpio_InitIO(3,2,GpioDirOut);
+	Gpio_SetIO(3,2,0);
+	
+    stcConfig.pfnTim0Cb = Bt1Int;
+    //门控使能IO
+//	Gpio_SetFunc_TIM0_GATE_P35();
+//  Gpio_SetFunc_TIM1_GATE_P25();
+//  Gpio_SetFunc_TIM2_GATE_P02();
+	
+	//Bt初始化
+    stcConfig.enGateP = BtPositive;		//门控极性：高电平有效
+    stcConfig.enGate  = BtGateDisable;	//门控使能：无效
+    stcConfig.enPRS   = BtPCLKDiv16;	//预分频系数：16分频
+    stcConfig.enTog   = BtTogDisable;	//反转输出使能：无效
+    stcConfig.enCT    = BtTimer;		//定时/计数功能选择：定时
+    stcConfig.enMD    = BtMode2;		//计数模式配置：自动重装载16位计数器/定时器
+    Bt_Init(TIM0, &stcConfig);
+    
+    //TIM0中断使能
+    Bt_ClearIntFlag(TIM0);
+    Bt_EnableIrq(TIM0);
+    EnableNvic(TIM0_IRQn, 3, TRUE);
+    
+    //设置重载值和计数初值，启动计数
+    Bt_ARRSet(TIM0, u16ArrData);		//
+    Bt_Cnt16Set(TIM0, u16InitCntData);	//16位初值设置
+    Bt_Run(TIM0);   
+}
+#endif
+/************************************************************
+* PCA-PWM 
+*************************************************************/
+#if 1
+/*----------- PCA中断服务函数 --------------*/
+void PcaInt(void)
+{
+    if (TRUE == Pca_GetCntIntFlag())		//PCA计数器中断标志获取
+    {
+        Pca_ClearCntIntFlag();
+        u32PcaFlag |= 0x20;
+    }
+    if (TRUE == Pca_GetIntFlag(Module0))	//PCA中断标志获取
+    {
+        Pca_ClearIntFlag(Module0);
+        u32PcaFlag |= 0x01;
+    }
+    if (TRUE == Pca_GetIntFlag(Module1))	//PCA中断标志获取
+    {
+        Pca_ClearIntFlag(Module1);
+        u32PcaFlag |= 0x02;
+    }
+    if (TRUE == Pca_GetIntFlag(Module2))	//PCA中断标志获取
+    {
+        Pca_ClearIntFlag(Module2);
+        u32PcaFlag |= 0x04;
+    }
+    if (TRUE == Pca_GetIntFlag(Module3))	//PCA中断标志获取
+    {
+        Pca_ClearIntFlag(Module3);
+        u32PcaFlag |= 0x08;
+    }
+    if (TRUE == Pca_GetIntFlag(Module4))	//PCA中断标志获取
+    {
+        Pca_ClearIntFlag(Module4);
+        u32PcaFlag |= 0x10;
+    }    
+}
+/*---------- PCA初始化配置函数 -------------*/
+en_result_t Pca_config(void)
+{
+    stc_pca_config_t stcConfig;
+    stc_pca_capmodconfig_t stcModConfig;
+    en_result_t      enResult = Ok;
+    uint8_t          u8CcaplData = 0x20;
+    uint8_t          u8CcaphData = 0x80;
+    //uint32_t         u32Cnt;
+    
+	//PCA、GPIO外设时钟开启
+    Clk_SetPeripheralGate(ClkPeripheralPca, TRUE);
+    Clk_SetPeripheralGate(ClkPeripheralGpio, TRUE);
+	
+    Gpio_SetFunc_PCA_CH0_P34(0);	//P34-PCA-CH0输出
+    /******************PCA 配置结构体定义*********************/
+    stcConfig.enCIDL = IdleGoon; 		//休眠模式下启/停控制
+    stcConfig.enWDTE = PCAWDTDisable;	//WDT功能控制
+    stcConfig.enCPS  = PCAPCLKDiv32; 	//时钟分频及时钟源选择功能
+    stcConfig.pfnPcaCb = PcaInt;		//中断服务回调函数
+	Pca_Init(&stcConfig);
+    /**************PCA 捕获模式配置结构体定义*****************/
+    stcModConfig.enECOM = ECOMEnable;	//比较器功能控制：允许
+    stcModConfig.enCAPP = CAPPDisable;	//正沿捕获控制：禁止
+    stcModConfig.enCAPN = CAPNDisable;	//负沿捕获控制：禁止
+    stcModConfig.enMAT  = MATDisable;	//匹配控制：禁止
+    stcModConfig.enTOG  = TOGDisable;	//翻转控制：禁止
+    stcModConfig.enPWM  = PCAPWMEnable;	//脉宽调制控制：允许
+    
+    if (Ok != Pca_Init(&stcConfig))
+    {
+        enResult = Error;
+    }
+    if (Ok != Pca_CapModConfig(Module0, &stcModConfig))
+    {
+        enResult = Error;
+    }
+    Pca_CapDataLSet(Module0, u8CcaplData);
+    Pca_CapDataHSet(Module0, u8CcaphData);
+    Pca_Run();
+	
+    return enResult;
 }
 #endif
 
-
 int32_t main(void)
 {  
-//	Uart_config();
-	Gpio_config();
+	
+	Uart_config();
+//	Gpio_config();
+//	Bt_config();
+	Pca_config();
     while(1)
 	{	
-//		switch(Key_scale())
-//		{
-//			case 0x01:
-//				Gpio_SetIO(3,4,1);
-//				break;
-//			case 0x02:
-//				Gpio_SetIO(3,5,1);
-//				break;
-//		}
+		//LED_switch();	//KEY、LED测试
 		
 //		Uart_SetTb8(UARTCH0,Even,u8RxData[0]);
 //		Uart_SendData(UARTCH0,step0[0]);
 //		delay1ms(500);
 		
-//		sprintf(u8Buff, "%u\n", pclk);
-//		Uart_SendString(UARTCH0,u8Buff);
-//		delay1ms(500);
+		sprintf(u8Buff, "%u\n", pclk);
+		Uart_SendString(UARTCH0,u8Buff);
+		delay1ms(500);
 	}
 }

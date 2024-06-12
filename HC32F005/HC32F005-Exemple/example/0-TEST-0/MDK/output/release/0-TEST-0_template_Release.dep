@@ -19,7 +19,7 @@ I (..\..\..\driver\inc\clk.h)(0x66679A7D)
 I (..\..\..\driver\inc\interrupts_hc32f005.h)(0x66679A7D)
 I (..\..\..\driver\inc\gpio.h)(0x66679A7D)
 I (..\source\ddl_device.h)(0x66679A7E)
-F (..\source\main.c)(0x666838FE)(-c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\..\..\mcu\common -I ..\source -I ..\..\..\driver\inc-I.\RTE\_template_Release-IC:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\vboxuser\AppData\Local\Arm\Packs\HDSC\HC32F005\1.0.1\Device\Include-D__UVISION_VERSION="530" -D_RTE_ -D_RTE_-o .\output\release\main.o --omf_browse .\output\release\main.crf --depend .\output\release\main.d)
+F (..\source\main.c)(0x6668FB3B)(-c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\..\..\mcu\common -I ..\source -I ..\..\..\driver\inc-I.\RTE\_template_Release-IC:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\vboxuser\AppData\Local\Arm\Packs\HDSC\HC32F005\1.0.1\Device\Include-D__UVISION_VERSION="530" -D_RTE_ -D_RTE_-o .\output\release\main.o --omf_browse .\output\release\main.crf --depend .\output\release\main.d)
 I (..\..\..\driver\inc\ddl.h)(0x66679A7D)
 I (..\..\..\mcu\common\base_types.h)(0x66679A7F)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5E53505C)
@@ -39,6 +39,7 @@ I (..\..\..\driver\inc\gpio.h)(0x66679A7D)
 I (..\source\ddl_device.h)(0x66679A7E)
 I (..\..\..\driver\inc\uart.h)(0x66679A7D)
 I (..\..\..\driver\inc\bt.h)(0x66679A7D)
+I (..\..\..\driver\inc\pca.h)(0x66679A7D)
 I (..\..\..\driver\inc\lpm.h)(0x66679A7D)
 F (..\driver\src\adc.c)(0x66679A7D)(-c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\..\..\mcu\common -I ..\source -I ..\..\..\driver\inc-I.\RTE\_template_Release-IC:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\vboxuser\AppData\Local\Arm\Packs\HDSC\HC32F005\1.0.1\Device\Include-D__UVISION_VERSION="530" -D_RTE_ -D_RTE_-o .\output\release\adc.o --omf_browse .\output\release\adc.crf --depend .\output\release\adc.d)
 I (..\..\..\driver\inc\adc.h)(0x66679A7D)
