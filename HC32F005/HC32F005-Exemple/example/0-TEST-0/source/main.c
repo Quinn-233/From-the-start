@@ -42,6 +42,18 @@ void Uart_SendString(uint8_t u8Idx,uint8_t *str)
 		k++;
 	}while(*(str+k)!='\0');	//直至遇到字符串结束符 '\0'
 }
+/*----------- printf重定向函数 --------------*/
+int fputc(int ch, FILE *f)
+{
+
+    if (((uint8_t)ch) == '\n')
+    {
+        Uart_SendByte(UARTCH0,'\r');
+    }
+	Uart_SendByte(UARTCH0,ch);
+
+    return ch;
+}
 /*----------- 接收中断回调函数 --------------*/
 void RxIntCallback(void)
 {
@@ -74,7 +86,7 @@ void ErrIntCallback(void)
 { 
 }
 /*---------- UART初始化配置函数 -------------*/
-void Uart_config(void)
+void Uart_config(uint32_t Ubaud)
 { 
 	/*------- 结构体重命名 --------*/
     stc_uart_config_t  stcConfig;
@@ -115,7 +127,7 @@ void Uart_config(void)
 	Uart_Init(UARTCH0, &stcConfig);			//串口0初始化
 	/**************************配置波特率**************************/
     stcBaud.bDbaud = 0u;							//双倍波特率功能
-    stcBaud.u32Baud = 9600u;						//设置目标波特率
+    stcBaud.u32Baud = Ubaud;						//设置目标波特率
     stcBaud.u8Mode = UartMode3; 					//计算波特率需要模式参数
     pclk = Clk_GetPClkFreq();						//获得PCLK（4MHz）
     timer=Uart_SetBaudRate(UARTCH0,pclk,&stcBaud);	//计算波特率所需TIMER值
@@ -387,69 +399,63 @@ void Adt_config(uint16_t u16Period, uint16_t u16CHA_PWM, uint16_t u16CHB_PWM)
     DDL_ZERO_STRUCT(stcAdtTIM6ACfg);
     DDL_ZERO_STRUCT(stcAdtTIM6BCfg);
     
-    Clk_SetPeripheralGate(ClkPeripheralAdt, TRUE);    //ADT外设时钟使能
-    Clk_SetPeripheralGate(ClkPeripheralGpio, TRUE);
+    Clk_SetPeripheralGate(ClkPeripheralAdt, TRUE);	//ADT外设时钟使能
+    Clk_SetPeripheralGate(ClkPeripheralGpio, TRUE);	//GPIO使能		
 	
 	Gpio_InitIO(0,2,GpioDirOut);
 	Gpio_InitIO(0,3,GpioDirOut);
-	Gpio_SetFunc_TIM6_CHA_P02();
-	Gpio_SetFunc_TIM6_CHB_P03();
+	Gpio_SetFunc_TIM6_CHA_P02();	//ADTIM6-CHA：P02
+	Gpio_SetFunc_TIM6_CHB_P03();	//ADTIM6-CHB：P03
 	
-    stcAdtBaseCntCfg.enCntMode = AdtSawtoothMode;                 //锯齿波模式
-    stcAdtBaseCntCfg.enCntDir = AdtCntUp;
-    stcAdtBaseCntCfg.enCntClkDiv = AdtClkPClk0;                 /* 不分频 */
+    stcAdtBaseCntCfg.enCntMode = AdtSawtoothMode;	//锯齿波计数模式
+    stcAdtBaseCntCfg.enCntDir = AdtCntUp;			//递增计数
+    stcAdtBaseCntCfg.enCntClkDiv = AdtClkPClk0;		//分频系数0(4M)
+    Adt_Init(AdTIM6, &stcAdtBaseCntCfg);            //ADT载波、计数模式、时钟配置
     
-    Adt_Init(AdTIM6, &stcAdtBaseCntCfg);                      //ADT载波、计数模式、时钟配置
-    
-    Adt_SetPeriod(AdTIM6, u16Period);                         //周期设置
-    
+    Adt_SetPeriod(AdTIM6, u16Period);	//周期设置
     enAdtCompareA = AdtCompareA;
     Adt_SetCompareValue(AdTIM6, enAdtCompareA, u16CHA_PWM);  //通用比较基准值寄存器A设置
-    
     enAdtCompareB = AdtCompareB;
     Adt_SetCompareValue(AdTIM6, enAdtCompareB, u16CHB_PWM);  //通用比较基准值寄存器B设置
     
-    stcAdtTIM6ACfg.enCap = AdtCHxCompareOutput;            //比较输出
-    stcAdtTIM6ACfg.bOutEn = TRUE;                          //CHA输出使能
-    stcAdtTIM6ACfg.enPerc = AdtCHxPeriodLow;               //计数值与周期匹配时CHA电平保持不变
-    stcAdtTIM6ACfg.enCmpc = AdtCHxCompareHigh;             //计数值与比较值A匹配时，CHA电平翻转
-    stcAdtTIM6ACfg.enStaStp = AdtCHxStateSelSS;            //CHA起始结束电平由STACA与STPCA控制
-    stcAdtTIM6ACfg.enStaOut = AdtCHxPortOutLow;            //CHA起始电平为低
-    stcAdtTIM6ACfg.enStpOut = AdtCHxPortOutLow;            //CHA结束电平为低
+    stcAdtTIM6ACfg.enCap = AdtCHxCompareOutput;				//端口功能：比较输出
+    stcAdtTIM6ACfg.bOutEn = TRUE;                          	//CHA输出：使能
+    stcAdtTIM6ACfg.enPerc = AdtCHxPeriodLow;               	//计数值与周期匹配时CHA电平保持不变
+    stcAdtTIM6ACfg.enCmpc = AdtCHxCompareHigh;             	//计数值与比较值A匹配时，CHA电平翻转
+    stcAdtTIM6ACfg.enStaStp = AdtCHxStateSelSS;            	//CHA起始结束电平由STACA与STPCA控制
+    stcAdtTIM6ACfg.enStaOut = AdtCHxPortOutLow;            	//CHA起始电平为低
+    stcAdtTIM6ACfg.enStpOut = AdtCHxPortOutLow;            	//CHA结束电平为低
     Adt_CHxXPortConfig(AdTIM6, AdtCHxA, &stcAdtTIM6ACfg);   //端口CHA配置
     
-    stcAdtTIM6BCfg.enCap = AdtCHxCompareOutput;
-    stcAdtTIM6BCfg.bOutEn = TRUE;
-    stcAdtTIM6BCfg.enPerc = AdtCHxPeriodHigh;
-    stcAdtTIM6BCfg.enCmpc = AdtCHxCompareLow;
-    stcAdtTIM6BCfg.enStaStp = AdtCHxStateSelSS;
-    stcAdtTIM6BCfg.enStaOut = AdtCHxPortOutHigh;
-    stcAdtTIM6BCfg.enStpOut = AdtCHxPortOutHigh;
-        
-    Adt_CHxXPortConfig(AdTIM6, AdtCHxB, &stcAdtTIM6BCfg);    //端口CHB配置
+    stcAdtTIM6BCfg.enCap = AdtCHxCompareOutput;				//端口功能：比较输出
+    stcAdtTIM6BCfg.bOutEn = TRUE;							//CHA输出：使能
+    stcAdtTIM6BCfg.enPerc = AdtCHxPeriodHigh;				//计数值与周期匹配时CHA电平保持不变
+    stcAdtTIM6BCfg.enCmpc = AdtCHxCompareLow;				//计数值与比较值A匹配时，CHA电平翻转
+    stcAdtTIM6BCfg.enStaStp = AdtCHxStateSelSS;				//CHA起始结束电平由STACA与STPCA控制
+    stcAdtTIM6BCfg.enStaOut = AdtCHxPortOutHigh;			//CHA起始电平为低
+    stcAdtTIM6BCfg.enStpOut = AdtCHxPortOutHigh;			//CHA结束电平为低
+    Adt_CHxXPortConfig(AdTIM6, AdtCHxB, &stcAdtTIM6BCfg);   //端口CHB配置
 	
-	Adt_StartCount(AdTIM6); //AdvTimer6运行
+	Adt_StartCount(AdTIM6);	//AdvTimer6运行
 }
 #endif
 
 int32_t main(void)
 {  
-	
-//	Uart_config();
-//	Gpio_config();
+//	Uart_config(9600u);
+	Gpio_config();
 //	Bt_config();
 //	Pca_config();
 //	Adt_config(0XFA0, 0x07D0, 0x07D0);	//4M/4000=1kHz
     while(1)
 	{	
-//		LED_switch();	//KEY、LED测试
+		LED_switch();	//KEY、LED测试
 		
 //		Uart_SetTb8(UARTCH0,Even,u8RxData[0]);
 //		Uart_SendData(UARTCH0,step0[0]);
 //		delay1ms(500);
 		
-//		sprintf(u8Buff, "%u\n", pclk);
-//		Uart_SendString(UARTCH0,u8Buff);
+//		printf("%u\n",pclk);		
 //		delay1ms(500);
 	}
 }

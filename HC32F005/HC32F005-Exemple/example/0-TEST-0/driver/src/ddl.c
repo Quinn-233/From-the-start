@@ -228,17 +228,17 @@ FILE __stdout;
  ******************************************************************************
  ** \brief  Re-target putchar function
  ******************************************************************************/
-int fputc(int ch, FILE *f)
-{
+//int fputc(int ch, FILE *f)
+//{
 
-    if (((uint8_t)ch) == '\n')
-    {
-        Debug_Output('\r');
-    }
-    Debug_Output(ch);
+//    if (((uint8_t)ch) == '\n')
+//    {
+//        Debug_Output('\r');
+//    }
+//    Debug_Output(ch);
 
-    return ch;
-}
+//    return ch;
+//}
 #endif
 
 void _ttywrch(int c)
