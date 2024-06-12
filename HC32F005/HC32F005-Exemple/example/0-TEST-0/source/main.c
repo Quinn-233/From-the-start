@@ -8,6 +8,7 @@
 
 uint16_t timer=0;
 uint32_t pclk=0;
+uint8_t u8RxCnt=0;
 uint8_t u8RxData[10];
 uint8_t u8Data[]="RusHHH!\n";
 uint8_t u8Buff[10]="";
@@ -45,7 +46,6 @@ void Uart_SendString(uint8_t u8Idx,uint8_t *str)
 /*----------- printf重定向函数 --------------*/
 int fputc(int ch, FILE *f)
 {
-
     if (((uint8_t)ch) == '\n')
     {
         Uart_SendByte(UARTCH0,'\r');
@@ -57,29 +57,22 @@ int fputc(int ch, FILE *f)
 /*----------- 接收中断回调函数 --------------*/
 void RxIntCallback(void)
 {
-	Uart_SetTb8(UARTCH0,Even,step1[0]);
-	Uart_SendData(UARTCH0,step1[0]);
-	if(TRUE == Uart_GetStatus(UARTCH0,UartRxFull))
-	{
-		Uart_ClrStatus(UARTCH0,UartRxFull);
-		//u8RxData[1]=M0P_UART0->SBUF;
-		Uart_SetTb8(UARTCH0,Even,step2[0]);
-		Uart_SendData(UARTCH0,step2[0]);
-	}
+	printf("0\n");
 	
-//	//先存储在数组中
-//	Uart_ClrStatus(UARTCH0, UartRxFull);        //清掉接收中断标志位 置0，为下次继续接收做准备
-//	u8RxData[u8RxCnt] = Uart_ReceiveData(UARTCH0);   	//接收数据字节，把缓存寄存器的值存储在数组中
-//	Uart_SetTb8(UARTCH0,Even,u8RxData[u8RxCnt]);	//
-//	Uart_SendData(UARTCH0,u8RxData[u8RxCnt]);		//接收回显
-//	u8RxCnt++;			//依次存储
-//	
-//	//u8RxCnt=0;//置0，方便下次重复以上操作
-//	if(Uart_GetStatus(UARTCH0,UartRxFull))  // TC 发送完成为真，发送完成一个字节
-//	{
-//		Uart_ClrStatus(UARTCH0,UartRxFull); //清掉发送中断标志位。置0
-//		u8RxCnt=0;//置0，方便下次重复以上操作
-//	}
+	//先存储在数组中
+	Uart_ClrStatus(UARTCH0, UartRxFull);        //清掉接收中断标志位 置0，为下次继续接收做准备
+	u8RxData[u8RxCnt] = Uart_ReceiveData(UARTCH0);   	//接收数据字节，把缓存寄存器的值存储在数组中
+	Uart_SetTb8(UARTCH0,Even,u8RxData[u8RxCnt]);	//
+	Uart_SendData(UARTCH0,u8RxData[u8RxCnt]);		//接收回显
+	u8RxCnt++;			//依次存储
+	
+	//u8RxCnt=0;//置0，方便下次重复以上操作
+	if(Uart_GetStatus(UARTCH0,UartRxFull))  // TC 发送完成为真，发送完成一个字节
+	{
+		Uart_ClrStatus(UARTCH0,UartRxFull); //清掉发送中断标志位。置0
+		u8RxCnt=0;//置0，方便下次重复以上操作
+		Uart_SendString(UARTCH0,);
+	}
 }
 /*----------- 错误中断回调函数 --------------*/
 void ErrIntCallback(void)
@@ -99,18 +92,14 @@ void Uart_config(uint32_t Ubaud)
     DDL_ZERO_STRUCT(stcMulti);
     DDL_ZERO_STRUCT(stcBaud);
     DDL_ZERO_STRUCT(stcBtConfig);
-	/*------- 未知 --------*/
-//    Gpio_InitIO(T1_PORT,T1_PIN,GpioDirIn); 
-//    Gpio_InitIO(0,3,GpioDirOut);
-//    Gpio_SetIO(0,3,1);
 	/*----- TXD、RXD引脚配置 -----*/
-    //Gpio_InitIOExt(1,4,GpioDirOut,TRUE,FALSE,FALSE,FALSE);   
-    //Gpio_InitIOExt(1,5,GpioDirIn,TRUE,FALSE,FALSE,FALSE); 
-	Gpio_InitIO(1,4,GpioDirOut);   
-    Gpio_InitIO(1,5,GpioDirIn);
+    //Gpio_InitIOExt(3,5,GpioDirOut,TRUE,FALSE,FALSE,FALSE);   
+	//Gpio_InitIOExt(3,6,GpioDirIn,TRUE,FALSE,FALSE,FALSE); 
+	Gpio_InitIO(3,5,GpioDirOut);   
+    Gpio_InitIO(3,6,GpioDirIn);
 	
-    Gpio_SetFunc_UART0TX_P14();
-    Gpio_SetFunc_UART0RX_P15();
+    Gpio_SetFunc_UART0TX_P35();
+    Gpio_SetFunc_UART0RX_P36();
 	/*************************外部时钟使能**************************/
     Clk_SetPeripheralGate(ClkPeripheralBt,TRUE);	//模式0/2可以不使能
     Clk_SetPeripheralGate(ClkPeripheralUart0,TRUE);	//
@@ -442,14 +431,14 @@ void Adt_config(uint16_t u16Period, uint16_t u16CHA_PWM, uint16_t u16CHB_PWM)
 
 int32_t main(void)
 {  
-//	Uart_config(9600u);
-	Gpio_config();
+	Uart_config(9600u);
+	//Gpio_config();
 //	Bt_config();
 //	Pca_config();
 //	Adt_config(0XFA0, 0x07D0, 0x07D0);	//4M/4000=1kHz
     while(1)
 	{	
-		LED_switch();	//KEY、LED测试
+		//LED_switch();	//KEY、LED测试
 		
 //		Uart_SetTb8(UARTCH0,Even,u8RxData[0]);
 //		Uart_SendData(UARTCH0,step0[0]);
