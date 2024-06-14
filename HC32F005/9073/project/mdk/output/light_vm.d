@@ -1,0 +1,10 @@
+.\output\light_vm.o: ..\light_vm.c
+.\output\light_vm.o: ..\include\light_vm.h
+.\output\light_vm.o: ..\..\mcu\common\base_types.h
+.\output\light_vm.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\output\light_vm.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\output\light_vm.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\output\light_vm.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\output\light_vm.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\assert.h
+.\output\light_vm.o: ..\bsp\string_lights.h
+.\output\light_vm.o: ..\include\light_vm.h
