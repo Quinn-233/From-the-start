@@ -10,12 +10,10 @@ uint16_t timer=0;
 uint32_t pclk=0;
 uint8_t u8RxCnt=0;
 uint8_t u8RxData[10];
-uint8_t u8Data[]="RusHHH!\n";
 uint8_t u8Buff[10]="";
-uint8_t step0[]="0\n";
-uint8_t step1[]="1\n";
-uint8_t step2[]="2\n";
-uint8_t step3[]="3\n";
+uint8_t sTRUE[]="TRUE\n";
+uint8_t sFALSE[]="FALSE\n";
+
 
 uint8_t num=1;
 
@@ -51,28 +49,37 @@ int fputc(int ch, FILE *f)
         Uart_SendByte(UARTCH0,'\r');
     }
 	Uart_SendByte(UARTCH0,ch);
-
     return ch;
 }
 /*----------- 接收中断回调函数 --------------*/
 void RxIntCallback(void)
 {
-	printf("0\n");
-	
+	//printf("0\n");
 	//先存储在数组中
-	Uart_ClrStatus(UARTCH0, UartRxFull);        //清掉接收中断标志位 置0，为下次继续接收做准备
-	u8RxData[u8RxCnt] = Uart_ReceiveData(UARTCH0);   	//接收数据字节，把缓存寄存器的值存储在数组中
-	Uart_SetTb8(UARTCH0,Even,u8RxData[u8RxCnt]);	//
-	Uart_SendData(UARTCH0,u8RxData[u8RxCnt]);		//接收回显
+	//Uart_ClrStatus(UARTCH0, UartRxFull);        	//清掉接收中断标志位 置0，为下次继续接收做准备
+	//u8RxData[u8RxCnt] = M0P_UART0->SBUF;
+	u8RxData[u8RxCnt] = Uart_ReceiveData(UARTCH0);  //接收数据字节，把缓存寄存器的值存储在数组中
+	Uart_SendByte(UARTCH0,u8RxData[u8RxCnt]);		//接收回显
 	u8RxCnt++;			//依次存储
-	
+	if(strcmp((const char *)u8RxData[u8RxCnt],"\r") == 0) u8RxCnt=0;
+	//Uart_ClrStatus(UARTCH0, UartRxFull);
+	//printf("%d\n\n",u8RxCnt);
 	//u8RxCnt=0;//置0，方便下次重复以上操作
-	if(Uart_GetStatus(UARTCH0,UartRxFull))  // TC 发送完成为真，发送完成一个字节
-	{
-		Uart_ClrStatus(UARTCH0,UartRxFull); //清掉发送中断标志位。置0
-		u8RxCnt=0;//置0，方便下次重复以上操作
-		Uart_SendString(UARTCH0,);
-	}
+//	if(Uart_GetStatus(UARTCH0,UartRxFull))  // TC 发送完成为真，发送完成一个字节
+//	{
+//		Uart_ClrStatus(UARTCH0,UartRxFull); //清掉发送中断标志位。置0
+//		u8RxCnt=0;//置0，方便下次重复以上操作
+//		//Uart_SendString(UARTCH0,u8RxData);
+//	}
+//	if(Uart_GetStatus(UARTCH0,UartRxFull))
+//	{
+//		//printf("TRUE\n");
+//		Uart_SendString(UARTCH0,sTRUE);
+//	}else
+//	{
+//		//printf("FALSE\n");
+//		Uart_SendString(UARTCH0,sFALSE);
+//	}
 }
 /*----------- 错误中断回调函数 --------------*/
 void ErrIntCallback(void)
@@ -444,7 +451,8 @@ int32_t main(void)
 //		Uart_SendData(UARTCH0,step0[0]);
 //		delay1ms(500);
 		
+		printf("%d\n\n",u8RxCnt);
 //		printf("%u\n",pclk);		
-//		delay1ms(500);
+		delay1ms(1000);
 	}
 }
