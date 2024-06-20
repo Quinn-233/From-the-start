@@ -1,434 +1,0 @@
-Dependencies for Project 'project', Target 'project': (DO NOT MODIFY !)
-CompilerVersion: 5060750::V5.06 update 6 (build 750)::.\ARMCC
-F (..\main.c)(0x666BB5BF)(--c99 -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\..\mcu\common -I ..\..\stdperiph_driver\inc -I ..\include -I ..\bsp-I.\RTE\_project-IC:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\vboxuser\AppData\Local\Arm\Packs\HDSC\HC32F005\1.0.1\Device\Include-D__UVISION_VERSION="530" -D_RTE_ -D_RTE_ -DUSE_STDPERIPH_DRIVER-o .\output\main.o --omf_browse .\output\main.crf --depend .\output\main.d)
-I (..\..\mcu\common\hc32f005.h)(0x666A5370)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53505C)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_version.h)(0x5E8ED122)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5E8306C2)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5E8ED122)
-I (..\include\hc32f005_conf.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\bt.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\ddl.h)(0x666A5370)
-I (..\..\mcu\common\base_types.h)(0x666A5370)
-I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\assert.h)(0x5E53505A)
-I (..\..\mcu\common\system_hc32f005.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\clk.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\interrupts_hc32f005.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\gpio.h)(0x666A5370)
-I (..\include\ddl_device.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\flash.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\uart.h)(0x666A5370)
-I (..\include\main.h)(0x666A5370)
-I (..\bsp\systick.h)(0x666AB04D)
-I (..\bsp\key.h)(0x666A5370)
-I (..\bsp\com.h)(0x666A5370)
-I (..\bsp\disk.h)(0x666A5370)
-I (..\bsp\string_lights.h)(0x666BAEC8)
-I (..\include\light_vm.h)(0x666A5B73)
-I (..\include\light_event.h)(0x666A5370)
-I (..\include\light_effects.h)(0x666A5370)
-I (..\include\light_sdata.h)(0x666A5370)
-F (..\light_vm.c)(0x666A5B73)(--c99 -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\..\mcu\common -I ..\..\stdperiph_driver\inc -I ..\include -I ..\bsp-I.\RTE\_project-IC:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\vboxuser\AppData\Local\Arm\Packs\HDSC\HC32F005\1.0.1\Device\Include-D__UVISION_VERSION="530" -D_RTE_ -D_RTE_ -DUSE_STDPERIPH_DRIVER-o .\output\light_vm.o --omf_browse .\output\light_vm.crf --depend .\output\light_vm.d)
-I (..\include\light_vm.h)(0x666A5B73)
-I (..\..\mcu\common\base_types.h)(0x666A5370)
-I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\assert.h)(0x5E53505A)
-I (..\bsp\string_lights.h)(0x666BAEC8)
-F (..\light_effects.c)(0x666A5370)(--c99 -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\..\mcu\common -I ..\..\stdperiph_driver\inc -I ..\include -I ..\bsp-I.\RTE\_project-IC:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\vboxuser\AppData\Local\Arm\Packs\HDSC\HC32F005\1.0.1\Device\Include-D__UVISION_VERSION="530" -D_RTE_ -D_RTE_ -DUSE_STDPERIPH_DRIVER-o .\output\light_effects.o --omf_browse .\output\light_effects.crf --depend .\output\light_effects.d)
-I (..\..\mcu\common\hc32f005.h)(0x666A5370)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53505C)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_version.h)(0x5E8ED122)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5E8306C2)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5E8ED122)
-I (..\include\hc32f005_conf.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\bt.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\ddl.h)(0x666A5370)
-I (..\..\mcu\common\base_types.h)(0x666A5370)
-I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\assert.h)(0x5E53505A)
-I (..\..\mcu\common\system_hc32f005.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\clk.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\interrupts_hc32f005.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\gpio.h)(0x666A5370)
-I (..\include\ddl_device.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\flash.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\uart.h)(0x666A5370)
-I (..\bsp\systick.h)(0x666AB04D)
-I (..\bsp\malloc.h)(0x666A5370)
-I (..\include\light_effects.h)(0x666A5370)
-I (..\include\light_vm.h)(0x666A5B73)
-I (..\bsp\string_lights.h)(0x666BAEC8)
-I (..\include\light_sdata.h)(0x666A5370)
-I (..\bsp\disk.h)(0x666A5370)
-F (..\light_event.c)(0x666A5370)(--c99 -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\..\mcu\common -I ..\..\stdperiph_driver\inc -I ..\include -I ..\bsp-I.\RTE\_project-IC:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\vboxuser\AppData\Local\Arm\Packs\HDSC\HC32F005\1.0.1\Device\Include-D__UVISION_VERSION="530" -D_RTE_ -D_RTE_ -DUSE_STDPERIPH_DRIVER-o .\output\light_event.o --omf_browse .\output\light_event.crf --depend .\output\light_event.d)
-I (..\..\mcu\common\hc32f005.h)(0x666A5370)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53505C)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_version.h)(0x5E8ED122)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5E8306C2)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5E8ED122)
-I (..\include\hc32f005_conf.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\bt.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\ddl.h)(0x666A5370)
-I (..\..\mcu\common\base_types.h)(0x666A5370)
-I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\assert.h)(0x5E53505A)
-I (..\..\mcu\common\system_hc32f005.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\clk.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\interrupts_hc32f005.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\gpio.h)(0x666A5370)
-I (..\include\ddl_device.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\flash.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\uart.h)(0x666A5370)
-I (..\bsp\systick.h)(0x666AB04D)
-I (..\bsp\key.h)(0x666A5370)
-I (..\bsp\com.h)(0x666A5370)
-I (..\bsp\string_lights.h)(0x666BAEC8)
-I (..\include\light_vm.h)(0x666A5B73)
-I (..\include\light_effects.h)(0x666A5370)
-I (..\include\light_event.h)(0x666A5370)
-I (..\include\light_sdata.h)(0x666A5370)
-I (..\bsp\disk.h)(0x666A5370)
-F (..\light_sdata.c)(0x666A5370)(--c99 -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\..\mcu\common -I ..\..\stdperiph_driver\inc -I ..\include -I ..\bsp-I.\RTE\_project-IC:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\vboxuser\AppData\Local\Arm\Packs\HDSC\HC32F005\1.0.1\Device\Include-D__UVISION_VERSION="530" -D_RTE_ -D_RTE_ -DUSE_STDPERIPH_DRIVER-o .\output\light_sdata.o --omf_browse .\output\light_sdata.crf --depend .\output\light_sdata.d)
-I (..\include\light_sdata.h)(0x666A5370)
-I (..\bsp\disk.h)(0x666A5370)
-I (..\..\mcu\common\base_types.h)(0x666A5370)
-I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\assert.h)(0x5E53505A)
-I (..\include\light_effects.h)(0x666A5370)
-I (..\include\light_vm.h)(0x666A5B73)
-I (..\bsp\string_lights.h)(0x666BAEC8)
-I (..\..\stdperiph_driver\inc\flash.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\ddl.h)(0x666A5370)
-I (..\..\mcu\common\hc32f005.h)(0x666A5370)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_version.h)(0x5E8ED122)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5E8306C2)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5E8ED122)
-I (..\include\hc32f005_conf.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\bt.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\interrupts_hc32f005.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\clk.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\gpio.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\uart.h)(0x666A5370)
-I (..\..\mcu\common\system_hc32f005.h)(0x666A5370)
-I (..\include\ddl_device.h)(0x666A5370)
-I (..\bsp\systick.h)(0x666AB04D)
-F (..\bsp\systick.c)(0x666ABAD6)(--c99 -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\..\mcu\common -I ..\..\stdperiph_driver\inc -I ..\include -I ..\bsp-I.\RTE\_project-IC:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\vboxuser\AppData\Local\Arm\Packs\HDSC\HC32F005\1.0.1\Device\Include-D__UVISION_VERSION="530" -D_RTE_ -D_RTE_ -DUSE_STDPERIPH_DRIVER-o .\output\systick.o --omf_browse .\output\systick.crf --depend .\output\systick.d)
-I (..\..\mcu\common\hc32f005.h)(0x666A5370)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53505C)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_version.h)(0x5E8ED122)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5E8306C2)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5E8ED122)
-I (..\include\hc32f005_conf.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\bt.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\ddl.h)(0x666A5370)
-I (..\..\mcu\common\base_types.h)(0x666A5370)
-I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\assert.h)(0x5E53505A)
-I (..\..\mcu\common\system_hc32f005.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\clk.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\interrupts_hc32f005.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\gpio.h)(0x666A5370)
-I (..\include\ddl_device.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\flash.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\uart.h)(0x666A5370)
-I (..\bsp\systick.h)(0x666AB04D)
-I (..\bsp\key.h)(0x666A5370)
-I (..\include\light_event.h)(0x666A5370)
-I (..\include\light_vm.h)(0x666A5B73)
-I (..\bsp\string_lights.h)(0x666BAEC8)
-I (..\include\light_effects.h)(0x666A5370)
-F (..\bsp\malloc.c)(0x666A5370)(--c99 -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\..\mcu\common -I ..\..\stdperiph_driver\inc -I ..\include -I ..\bsp-I.\RTE\_project-IC:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\vboxuser\AppData\Local\Arm\Packs\HDSC\HC32F005\1.0.1\Device\Include-D__UVISION_VERSION="530" -D_RTE_ -D_RTE_ -DUSE_STDPERIPH_DRIVER-o .\output\malloc.o --omf_browse .\output\malloc.crf --depend .\output\malloc.d)
-I (..\bsp\malloc.h)(0x666A5370)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53505C)
-F (..\bsp\string_lights.c)(0x666B9BCB)(--c99 -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\..\mcu\common -I ..\..\stdperiph_driver\inc -I ..\include -I ..\bsp-I.\RTE\_project-IC:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\vboxuser\AppData\Local\Arm\Packs\HDSC\HC32F005\1.0.1\Device\Include-D__UVISION_VERSION="530" -D_RTE_ -D_RTE_ -DUSE_STDPERIPH_DRIVER-o .\output\string_lights.o --omf_browse .\output\string_lights.crf --depend .\output\string_lights.d)
-I (..\..\mcu\common\hc32f005.h)(0x666A5370)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53505C)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_version.h)(0x5E8ED122)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5E8306C2)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5E8ED122)
-I (..\include\hc32f005_conf.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\bt.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\ddl.h)(0x666A5370)
-I (..\..\mcu\common\base_types.h)(0x666A5370)
-I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\assert.h)(0x5E53505A)
-I (..\..\mcu\common\system_hc32f005.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\clk.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\interrupts_hc32f005.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\gpio.h)(0x666A5370)
-I (..\include\ddl_device.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\flash.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\uart.h)(0x666A5370)
-I (..\bsp\systick.h)(0x666AB04D)
-I (..\bsp\key.h)(0x666A5370)
-I (..\bsp\string_lights.h)(0x666BAEC8)
-I (..\include\light_vm.h)(0x666A5B73)
-F (..\bsp\key.c)(0x666BA9C9)(--c99 -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\..\mcu\common -I ..\..\stdperiph_driver\inc -I ..\include -I ..\bsp-I.\RTE\_project-IC:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\vboxuser\AppData\Local\Arm\Packs\HDSC\HC32F005\1.0.1\Device\Include-D__UVISION_VERSION="530" -D_RTE_ -D_RTE_ -DUSE_STDPERIPH_DRIVER-o .\output\key.o --omf_browse .\output\key.crf --depend .\output\key.d)
-I (..\..\mcu\common\hc32f005.h)(0x666A5370)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53505C)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_version.h)(0x5E8ED122)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5E8306C2)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5E8ED122)
-I (..\include\hc32f005_conf.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\bt.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\ddl.h)(0x666A5370)
-I (..\..\mcu\common\base_types.h)(0x666A5370)
-I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\assert.h)(0x5E53505A)
-I (..\..\mcu\common\system_hc32f005.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\clk.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\interrupts_hc32f005.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\gpio.h)(0x666A5370)
-I (..\include\ddl_device.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\flash.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\uart.h)(0x666A5370)
-I (..\bsp\key.h)(0x666A5370)
-F (..\bsp\com.c)(0x666A5370)(--c99 -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\..\mcu\common -I ..\..\stdperiph_driver\inc -I ..\include -I ..\bsp-I.\RTE\_project-IC:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\vboxuser\AppData\Local\Arm\Packs\HDSC\HC32F005\1.0.1\Device\Include-D__UVISION_VERSION="530" -D_RTE_ -D_RTE_ -DUSE_STDPERIPH_DRIVER-o .\output\com.o --omf_browse .\output\com.crf --depend .\output\com.d)
-I (..\..\mcu\common\hc32f005.h)(0x666A5370)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53505C)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_version.h)(0x5E8ED122)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5E8306C2)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5E8ED122)
-I (..\include\hc32f005_conf.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\bt.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\ddl.h)(0x666A5370)
-I (..\..\mcu\common\base_types.h)(0x666A5370)
-I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\assert.h)(0x5E53505A)
-I (..\..\mcu\common\system_hc32f005.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\clk.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\interrupts_hc32f005.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\gpio.h)(0x666A5370)
-I (..\include\ddl_device.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\flash.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\uart.h)(0x666A5370)
-I (..\bsp\com.h)(0x666A5370)
-F (..\bsp\disk.c)(0x666A5370)(--c99 -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\..\mcu\common -I ..\..\stdperiph_driver\inc -I ..\include -I ..\bsp-I.\RTE\_project-IC:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\vboxuser\AppData\Local\Arm\Packs\HDSC\HC32F005\1.0.1\Device\Include-D__UVISION_VERSION="530" -D_RTE_ -D_RTE_ -DUSE_STDPERIPH_DRIVER-o .\output\disk.o --omf_browse .\output\disk.crf --depend .\output\disk.d)
-I (..\..\mcu\common\hc32f005.h)(0x666A5370)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53505C)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_version.h)(0x5E8ED122)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5E8306C2)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5E8ED122)
-I (..\include\hc32f005_conf.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\bt.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\ddl.h)(0x666A5370)
-I (..\..\mcu\common\base_types.h)(0x666A5370)
-I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\assert.h)(0x5E53505A)
-I (..\..\mcu\common\system_hc32f005.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\clk.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\interrupts_hc32f005.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\gpio.h)(0x666A5370)
-I (..\include\ddl_device.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\flash.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\uart.h)(0x666A5370)
-I (..\bsp\disk.h)(0x666A5370)
-F (.\startup_hc32f005.s)(0x666A5370)(--cpu Cortex-M0+ -g --apcs=interwork -I.\RTE\_project-IC:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\vboxuser\AppData\Local\Arm\Packs\HDSC\HC32F005\1.0.1\Device\Include--pd "__UVISION_VERSION SETA 530" --pd "_RTE_ SETA 1" --pd "_RTE_ SETA 1"-o .\output\startup_hc32f005.o --depend .\output\startup_hc32f005.d)
-F (..\..\mcu\common\system_hc32f005.c)(0x666A5370)(--c99 -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\..\mcu\common -I ..\..\stdperiph_driver\inc -I ..\include -I ..\bsp-I.\RTE\_project-IC:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\vboxuser\AppData\Local\Arm\Packs\HDSC\HC32F005\1.0.1\Device\Include-D__UVISION_VERSION="530" -D_RTE_ -D_RTE_ -DUSE_STDPERIPH_DRIVER-o .\output\system_hc32f005.o --omf_browse .\output\system_hc32f005.crf --depend .\output\system_hc32f005.d)
-I (..\..\mcu\common\base_types.h)(0x666A5370)
-I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\assert.h)(0x5E53505A)
-I (..\..\mcu\common\hc32f005.h)(0x666A5370)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_version.h)(0x5E8ED122)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5E8306C2)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5E8ED122)
-I (..\include\hc32f005_conf.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\bt.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\ddl.h)(0x666A5370)
-I (..\..\mcu\common\system_hc32f005.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\clk.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\interrupts_hc32f005.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\gpio.h)(0x666A5370)
-I (..\include\ddl_device.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\flash.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\uart.h)(0x666A5370)
-F (..\..\stdperiph_driver\src\ddl.c)(0x666A5370)(--c99 -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\..\mcu\common -I ..\..\stdperiph_driver\inc -I ..\include -I ..\bsp-I.\RTE\_project-IC:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\vboxuser\AppData\Local\Arm\Packs\HDSC\HC32F005\1.0.1\Device\Include-D__UVISION_VERSION="530" -D_RTE_ -D_RTE_ -DUSE_STDPERIPH_DRIVER-o .\output\ddl.o --omf_browse .\output\ddl.crf --depend .\output\ddl.d)
-I (..\..\stdperiph_driver\inc\ddl.h)(0x666A5370)
-I (..\..\mcu\common\base_types.h)(0x666A5370)
-I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\assert.h)(0x5E53505A)
-I (..\..\mcu\common\hc32f005.h)(0x666A5370)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_version.h)(0x5E8ED122)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5E8306C2)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5E8ED122)
-I (..\include\hc32f005_conf.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\bt.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\interrupts_hc32f005.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\clk.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\flash.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\gpio.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\uart.h)(0x666A5370)
-I (..\..\mcu\common\system_hc32f005.h)(0x666A5370)
-I (..\include\ddl_device.h)(0x666A5370)
-F (..\..\stdperiph_driver\src\interrupts_hc32f005.c)(0x666A5370)(--c99 -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\..\mcu\common -I ..\..\stdperiph_driver\inc -I ..\include -I ..\bsp-I.\RTE\_project-IC:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\vboxuser\AppData\Local\Arm\Packs\HDSC\HC32F005\1.0.1\Device\Include-D__UVISION_VERSION="530" -D_RTE_ -D_RTE_ -DUSE_STDPERIPH_DRIVER-o .\output\interrupts_hc32f005.o --omf_browse .\output\interrupts_hc32f005.crf --depend .\output\interrupts_hc32f005.d)
-I (..\..\stdperiph_driver\inc\ddl.h)(0x666A5370)
-I (..\..\mcu\common\base_types.h)(0x666A5370)
-I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\assert.h)(0x5E53505A)
-I (..\..\mcu\common\hc32f005.h)(0x666A5370)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_version.h)(0x5E8ED122)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5E8306C2)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5E8ED122)
-I (..\include\hc32f005_conf.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\bt.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\interrupts_hc32f005.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\clk.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\flash.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\gpio.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\uart.h)(0x666A5370)
-I (..\..\mcu\common\system_hc32f005.h)(0x666A5370)
-I (..\include\ddl_device.h)(0x666A5370)
-F (..\..\stdperiph_driver\src\clk.c)(0x666A5370)(--c99 -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\..\mcu\common -I ..\..\stdperiph_driver\inc -I ..\include -I ..\bsp-I.\RTE\_project-IC:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\vboxuser\AppData\Local\Arm\Packs\HDSC\HC32F005\1.0.1\Device\Include-D__UVISION_VERSION="530" -D_RTE_ -D_RTE_ -DUSE_STDPERIPH_DRIVER-o .\output\clk.o --omf_browse .\output\clk.crf --depend .\output\clk.d)
-I (..\..\stdperiph_driver\inc\clk.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\ddl.h)(0x666A5370)
-I (..\..\mcu\common\base_types.h)(0x666A5370)
-I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\assert.h)(0x5E53505A)
-I (..\..\mcu\common\hc32f005.h)(0x666A5370)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_version.h)(0x5E8ED122)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5E8306C2)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5E8ED122)
-I (..\include\hc32f005_conf.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\bt.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\interrupts_hc32f005.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\flash.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\gpio.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\uart.h)(0x666A5370)
-I (..\..\mcu\common\system_hc32f005.h)(0x666A5370)
-I (..\include\ddl_device.h)(0x666A5370)
-F (..\..\stdperiph_driver\src\gpio.c)(0x666A5370)(--c99 -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\..\mcu\common -I ..\..\stdperiph_driver\inc -I ..\include -I ..\bsp-I.\RTE\_project-IC:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\vboxuser\AppData\Local\Arm\Packs\HDSC\HC32F005\1.0.1\Device\Include-D__UVISION_VERSION="530" -D_RTE_ -D_RTE_ -DUSE_STDPERIPH_DRIVER-o .\output\gpio.o --omf_browse .\output\gpio.crf --depend .\output\gpio.d)
-I (..\..\stdperiph_driver\inc\gpio.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\ddl.h)(0x666A5370)
-I (..\..\mcu\common\base_types.h)(0x666A5370)
-I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\assert.h)(0x5E53505A)
-I (..\..\mcu\common\hc32f005.h)(0x666A5370)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_version.h)(0x5E8ED122)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5E8306C2)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5E8ED122)
-I (..\include\hc32f005_conf.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\bt.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\interrupts_hc32f005.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\clk.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\flash.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\uart.h)(0x666A5370)
-I (..\..\mcu\common\system_hc32f005.h)(0x666A5370)
-I (..\include\ddl_device.h)(0x666A5370)
-F (..\..\stdperiph_driver\src\uart.c)(0x666A5370)(--c99 -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\..\mcu\common -I ..\..\stdperiph_driver\inc -I ..\include -I ..\bsp-I.\RTE\_project-IC:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\vboxuser\AppData\Local\Arm\Packs\HDSC\HC32F005\1.0.1\Device\Include-D__UVISION_VERSION="530" -D_RTE_ -D_RTE_ -DUSE_STDPERIPH_DRIVER-o .\output\uart.o --omf_browse .\output\uart.crf --depend .\output\uart.d)
-I (..\..\stdperiph_driver\inc\uart.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\ddl.h)(0x666A5370)
-I (..\..\mcu\common\base_types.h)(0x666A5370)
-I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\assert.h)(0x5E53505A)
-I (..\..\mcu\common\hc32f005.h)(0x666A5370)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_version.h)(0x5E8ED122)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5E8306C2)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5E8ED122)
-I (..\include\hc32f005_conf.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\bt.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\interrupts_hc32f005.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\clk.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\flash.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\gpio.h)(0x666A5370)
-I (..\..\mcu\common\system_hc32f005.h)(0x666A5370)
-I (..\include\ddl_device.h)(0x666A5370)
-F (..\..\stdperiph_driver\src\bt.c)(0x666A5370)(--c99 -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\..\mcu\common -I ..\..\stdperiph_driver\inc -I ..\include -I ..\bsp-I.\RTE\_project-IC:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\vboxuser\AppData\Local\Arm\Packs\HDSC\HC32F005\1.0.1\Device\Include-D__UVISION_VERSION="530" -D_RTE_ -D_RTE_ -DUSE_STDPERIPH_DRIVER-o .\output\bt.o --omf_browse .\output\bt.crf --depend .\output\bt.d)
-I (..\..\stdperiph_driver\inc\bt.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\ddl.h)(0x666A5370)
-I (..\..\mcu\common\base_types.h)(0x666A5370)
-I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\assert.h)(0x5E53505A)
-I (..\..\mcu\common\hc32f005.h)(0x666A5370)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_version.h)(0x5E8ED122)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5E8306C2)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5E8ED122)
-I (..\include\hc32f005_conf.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\clk.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\interrupts_hc32f005.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\flash.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\gpio.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\uart.h)(0x666A5370)
-I (..\..\mcu\common\system_hc32f005.h)(0x666A5370)
-I (..\include\ddl_device.h)(0x666A5370)
-F (..\..\stdperiph_driver\src\flash.c)(0x666A5370)(--c99 -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\..\mcu\common -I ..\..\stdperiph_driver\inc -I ..\include -I ..\bsp-I.\RTE\_project-IC:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\vboxuser\AppData\Local\Arm\Packs\HDSC\HC32F005\1.0.1\Device\Include-D__UVISION_VERSION="530" -D_RTE_ -D_RTE_ -DUSE_STDPERIPH_DRIVER-o .\output\flash.o --omf_browse .\output\flash.crf --depend .\output\flash.d)
-I (..\..\stdperiph_driver\inc\flash.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\ddl.h)(0x666A5370)
-I (..\..\mcu\common\base_types.h)(0x666A5370)
-I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53505C)
-I (C:\Keil_v5\ARM\ARMCC\include\assert.h)(0x5E53505A)
-I (..\..\mcu\common\hc32f005.h)(0x666A5370)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_version.h)(0x5E8ED122)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5E8306C2)
-I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5E8ED122)
-I (..\include\hc32f005_conf.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\bt.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\interrupts_hc32f005.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\clk.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\gpio.h)(0x666A5370)
-I (..\..\stdperiph_driver\inc\uart.h)(0x666A5370)
-I (..\..\mcu\common\system_hc32f005.h)(0x666A5370)
-I (..\include\ddl_device.h)(0x666A5370)
