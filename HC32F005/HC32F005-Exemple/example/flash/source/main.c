@@ -32,9 +32,9 @@ en_result_t FlashWriteTest(void)
 {
     en_result_t       enResult = Error;
     uint32_t          u32Addr  = 0x3ff0;
-    uint8_t           u8Data   = 0x5a;
-    uint16_t          u16Data  = 0x5a5a;
-    uint32_t          u32Data  = 0x5a5a5a5a;
+    uint8_t           u8Data   = 0x11;
+    uint16_t          u16Data  = 0x2222;
+    uint32_t          u32Data  = 0x33333333;
 
     Flash_Init(FlashInt, 0);
     
@@ -76,7 +76,7 @@ en_result_t FlashWriteTest(void)
         return enResult;
     }
 
-    u32Addr += 2;
+    u32Addr += 6;
     enResult = Flash_WriteWord(u32Addr, u32Data);
     if (Ok == enResult)
     {
