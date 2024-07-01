@@ -26,6 +26,8 @@ unsigned char check_index = 0;
 char test_command[] = {"enable\r\n"};
 char del_custom_flash_command[] = {"delcustomflash\r\n"};
 char mask_command[] = {"mask download\r\n"};
+short aha = 0;
+uint16_t kankan[150];
 ////extern bulbsShape_ymodem_t bulbsShape_ymodem_buf;
 // 初始化队列
 void initQueue(void)
@@ -300,9 +302,10 @@ static void xyzmodem_flush(void)
 ** 数据存入xyz.pkt
 ** xyz.bufp指向xyz.pkt
 **************************************/
+char c;
 static int xyzmodem_get_hdr(void)
 {
-    char c;
+    
     int res;
     bool hdr_found = false;
     int i, can_total, hdr_chars;
@@ -314,18 +317,21 @@ static int xyzmodem_get_hdr(void)
 
     if (xyz.tx_ack) {
 		// 发送 接收成功应答
-        cygacc_comm_if_putc(*xyz.__chan, ACK);
+        cygacc_comm_if_putc(*xyz.__chan, ACK);aha=4;
         xyz.tx_ack = false;
     }
 
     while (!hdr_found) {
+		
         res = cygacc_comm_if_getc_timeout(*xyz.__chan, &c);
+		//kankan[0]=c;
 		// 正在取数据
         if (res) {
             hdr_chars++;
             switch (c) {
                 // 准备128字节数据包
                 case SOH:
+					aha=1;
                     xyz.total_soh++;
                 // 准备1024字节数据包
                 case STX:
@@ -365,11 +371,13 @@ static int xyzmodem_get_hdr(void)
     /*------ 协议字段读取完毕，开始读取数据 ------*/
 	// 帧序号
     res = cygacc_comm_if_getc_timeout(*xyz.__chan, (char *)&xyz.blk);
+	//kankan[1]=xyz.blk;
     if (!res) {
         return xyzmodem_timeout;
     }
 	// 帧序号补码
     res = cygacc_comm_if_getc_timeout(*xyz.__chan, (char *)&xyz.cblk);
+	//kankan[2]=xyz.cblk;
     if (!res) {
         return xyzmodem_timeout;
     }
@@ -380,12 +388,14 @@ static int xyzmodem_get_hdr(void)
         res = cygacc_comm_if_getc_timeout(*xyz.__chan, &c);
         if (res) {
             xyz.pkt[i] = c;
+			//kankan[i+3]=c;
         } else {
             return xyzmodem_timeout;
         }
     }
 	// CRC高8位
     res = cygacc_comm_if_getc_timeout(*xyz.__chan, (char *) &xyz.crc1);
+	//kankan[131]=xyz.crc1;
     if (!res) {
         return xyzmodem_timeout;
     }
@@ -394,6 +404,7 @@ static int xyzmodem_get_hdr(void)
     if (xyz.crc_mode) {
         res = cygacc_comm_if_getc_timeout(*xyz.__chan,
                                           (char *)&xyz.crc2);
+		//kankan[132]=xyz.crc2;
         if (!res) {
             return xyzmodem_timeout;
         }
@@ -440,9 +451,10 @@ static int xyzmodem_get_hdr(void)
 **  *info：数据包参数结构体
 **  *err： 存放结果的数据包地址
 *************************************/
+int stat = 0;
 static int xyzmodem_stream_open(struct connection_info_t *info, int *err)
 {
-    int stat = 0;
+    
     int retries = XYZMODEM_MAX_RETRIES;					// 接收最大重试次数
     int crc_retries = XYZMODEM_MAX_RETRIES_WITH_CRC;	// CRC检测最大重试次数
     int dummy = 0;
@@ -495,7 +507,9 @@ static int xyzmodem_stream_open(struct connection_info_t *info, int *err)
                           &xyz.file_length, NULL, " ");
 #endif
 				// “可以应答ACK”标志位为真
+				//aha=4;
                 xyz.tx_ack = true;
+//				 cygacc_comm_if_putc(*xyz.__chan, (xyz.crc_mode ? 'C' : NAK));
             }
             xyz.next_blk = 1;
             xyz.len = 0;
@@ -797,7 +811,7 @@ int ymodem_download_mask(void)
 ////        }
 ////    } while (xyz.len != -1);
 	// 发送数据包相关信息
-	memcpy(ymodemBuff,xyz.pkt,sizeof(ymodemBuff));
+//	memcpy(ymodemBuff,xyz.pkt,sizeof(ymodemBuff));
 	
     xyzmodem_stream_close(&err);
 	

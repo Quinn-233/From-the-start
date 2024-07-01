@@ -8,6 +8,7 @@
 uint16_t timer=0;
 uint32_t pclk=0;
 
+uint8_t kan[150];
 uint8_t ymodemBuff[1024];
 uint8_t u8RxData[100];
 uint8_t u8RxData1[2]={0x55,0x00};
@@ -51,7 +52,9 @@ void RxIntCallback(void)
 	}
 	
 	if(ymodem_start_flag){ // 开启 ymodem 功能 所有数据都进入队列 在队列里进行处理
-		enQueue(Uart_ReceiveData(UARTCH1));
+		//enQueue(M0P_UART1->SBUF);
+		kan[u8RxCnt++]=M0P_UART1->SBUF;
+//		Uart_SendByte(UARTCH1,M0P_UART1->SBUF);
 	}
 //	if (!ymodem_start_flag) // 未开启 ymodem ，进行判断是否开启
 //	{
@@ -267,7 +270,7 @@ int32_t main(void)
 			wd_start(); // 打开看门狗
 			ymodem_start_flag=0;
 #endif
-			ymodem_start_flag=0;
+//			ymodem_start_flag=0;
 			ymodem_download_mask(); // 下载 9073 mask id
 //			Uart_SendString(UARTCH1,u8RxData);
 //			delay1ms(2000);

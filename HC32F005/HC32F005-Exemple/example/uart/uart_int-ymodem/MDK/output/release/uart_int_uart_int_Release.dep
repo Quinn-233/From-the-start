@@ -19,7 +19,7 @@ I (..\..\..\..\driver\inc\clk.h)(0x667D2CA9)
 I (..\..\..\..\driver\inc\interrupts_hc32f005.h)(0x667D2CA9)
 I (..\..\..\..\driver\inc\gpio.h)(0x667D2CA9)
 I (..\source\ddl_device.h)(0x667D2EC4)
-F (..\source\main.c)(0x66828328)(-c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\..\..\..\mcu\common -I ..\source -I ..\..\..\..\driver\inc-I.\RTE\_uart_int_Release-IC:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\vboxuser\AppData\Local\Arm\Packs\HDSC\HC32F005\1.0.1\Device\Include-D__UVISION_VERSION="530" -D_RTE_ -D_RTE_-o .\output\release\main.o --omf_browse .\output\release\main.crf --depend .\output\release\main.d)
+F (..\source\main.c)(0x6682AD75)(-c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\..\..\..\mcu\common -I ..\source -I ..\..\..\..\driver\inc-I.\RTE\_uart_int_Release-IC:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\vboxuser\AppData\Local\Arm\Packs\HDSC\HC32F005\1.0.1\Device\Include-D__UVISION_VERSION="530" -D_RTE_ -D_RTE_-o .\output\release\main.o --omf_browse .\output\release\main.crf --depend .\output\release\main.d)
 I (..\..\..\..\driver\inc\ddl.h)(0x667D2CA9)
 I (..\..\..\..\mcu\common\base_types.h)(0x66820EA3)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5E53505C)
@@ -40,7 +40,7 @@ I (..\source\ddl_device.h)(0x667D2EC4)
 I (..\..\..\..\driver\inc\uart.h)(0x668254CC)
 I (..\..\..\..\driver\inc\bt.h)(0x667D2CA9)
 I (..\..\..\..\driver\inc\lpm.h)(0x667D2CA9)
-I (..\..\..\..\driver\inc\xyzmodem.h)(0x66826ED2)
+I (..\..\..\..\driver\inc\xyzmodem.h)(0x6682A093)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5E53505C)
 F (..\..\..\..\driver\src\ddl.c)(0x667D2CA9)(-c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\..\..\..\mcu\common -I ..\source -I ..\..\..\..\driver\inc-I.\RTE\_uart_int_Release-IC:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\vboxuser\AppData\Local\Arm\Packs\HDSC\HC32F005\1.0.1\Device\Include-D__UVISION_VERSION="530" -D_RTE_ -D_RTE_-o .\output\release\ddl.o --omf_browse .\output\release\ddl.crf --depend .\output\release\ddl.d)
 I (..\..\..\..\driver\inc\ddl.h)(0x667D2CA9)
@@ -172,14 +172,14 @@ I (..\..\..\..\mcu\common\system_hc32f005.h)(0x667D2CAC)
 I (..\..\..\..\driver\inc\clk.h)(0x667D2CA9)
 I (..\..\..\..\driver\inc\interrupts_hc32f005.h)(0x667D2CA9)
 I (..\source\ddl_device.h)(0x667D2EC4)
-F (..\..\..\..\driver\src\xyzmodem.c)(0x66827809)(-c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\..\..\..\mcu\common -I ..\source -I ..\..\..\..\driver\inc-I.\RTE\_uart_int_Release-IC:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\vboxuser\AppData\Local\Arm\Packs\HDSC\HC32F005\1.0.1\Device\Include-D__UVISION_VERSION="530" -D_RTE_ -D_RTE_-o .\output\release\xyzmodem.o --omf_browse .\output\release\xyzmodem.crf --depend .\output\release\xyzmodem.d)
+F (..\..\..\..\driver\src\xyzmodem.c)(0x6682AC95)(-c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\..\..\..\mcu\common -I ..\source -I ..\..\..\..\driver\inc-I.\RTE\_uart_int_Release-IC:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\vboxuser\AppData\Local\Arm\Packs\HDSC\HC32F005\1.0.1\Device\Include-D__UVISION_VERSION="530" -D_RTE_ -D_RTE_-o .\output\release\xyzmodem.o --omf_browse .\output\release\xyzmodem.crf --depend .\output\release\xyzmodem.d)
 I (..\..\..\..\mcu\common\hc32f005.h)(0x667D2CAC)
 I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53505C)
 I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_version.h)(0x5E8ED122)
 I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5E8306C2)
 I (C:\Users\vboxuser\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5E8ED122)
-I (..\..\..\..\driver\inc\xyzmodem.h)(0x66826ED2)
+I (..\..\..\..\driver\inc\xyzmodem.h)(0x6682A093)
 I (..\..\..\..\mcu\common\base_types.h)(0x66820EA3)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5E53505C)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E53505C)
