@@ -12,3 +12,11 @@
 .\output\release\xyzmodem.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 .\output\release\xyzmodem.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\assert.h
 .\output\release\xyzmodem.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\output\release\xyzmodem.o: ..\..\..\..\driver\inc\uart.h
+.\output\release\xyzmodem.o: ..\..\..\..\driver\inc\ddl.h
+.\output\release\xyzmodem.o: ..\..\..\..\mcu\common\system_hc32f005.h
+.\output\release\xyzmodem.o: ..\..\..\..\driver\inc\clk.h
+.\output\release\xyzmodem.o: ..\..\..\..\driver\inc\ddl.h
+.\output\release\xyzmodem.o: ..\..\..\..\driver\inc\interrupts_hc32f005.h
+.\output\release\xyzmodem.o: ..\..\..\..\driver\inc\gpio.h
+.\output\release\xyzmodem.o: ..\source\ddl_device.h

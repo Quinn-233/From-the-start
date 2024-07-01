@@ -20,3 +20,5 @@
 .\output\release\main.o: ..\..\..\..\driver\inc\uart.h
 .\output\release\main.o: ..\..\..\..\driver\inc\bt.h
 .\output\release\main.o: ..\..\..\..\driver\inc\lpm.h
+.\output\release\main.o: ..\..\..\..\driver\inc\xyzmodem.h
+.\output\release\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h

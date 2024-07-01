@@ -8,7 +8,8 @@
 uint16_t timer=0;
 uint32_t pclk=0;
 
-uint8_t u8RxData[10];
+uint8_t ymodemBuff[1024];
+uint8_t u8RxData[100];
 uint8_t u8RxData1[2]={0x55,0x00};
 uint8_t u8String[]="RusHHH!\n";
 uint8_t u8Buff[100]="";
@@ -23,52 +24,62 @@ uint8_t u8RxCnt=0;
 uint8_t u8RxFlg=0;
 uint8_t CheckFlg=0;
 uint8_t num=0;
+uint8_t rx_flag=0;
 
 /*****************************************
 ** UART
 ******************************************/
 #if 1
-/****** 发送一个字节 ******/
-void Uart_SendByte(uint8_t u8Idx,uint8_t u8Data)
-{
-	Uart_SetTb8(u8Idx,Even,u8Data);	
-	Uart_SendData(u8Idx,u8Data);				//库函数的发送一个字节
-	while(Uart_GetStatus(u8Idx, UartTxEmpty) == TRUE);	//获取TXE的状态，一直等于FLASE=0，表示TX buffer非空
-}
-/****** 发送一个字符串 ******/
-void Uart_SendString(uint8_t u8Idx,uint8_t *str)
-{
-	uint8_t k=0;
-	do
-	{
-		Uart_SendByte(u8Idx,*(str+k));	//循环发送一个字节一个字节的发
-		k++;
-	}while(*(str+k)!='\0');//直至遇到字符串结束符 '\0'
-}
 /****** 接收中断回调函数 ******/
 void RxIntCallback(void)
 {
-//	u8RxData[1]=M0P_UART1->SBUF;
-//	u8Buff[u8RxCnt] = Uart_ReceiveData(UARTCH1);
-	u8Buff[u8RxCnt] = M0P_UART1->SBUF;
-	if(Uart_CheckEvenOrOdd(UARTCH1,Even,u8RxData[u8RxCnt])!=Ok)
-	{
-		CheckFlg = 1;//奇偶校验出错
+	if(!rx_flag){
+		
+		u8RxData[u8RxCnt] = Uart_ReceiveData(UARTCH1);
+		u8RxData[u8RxCnt] = M0P_UART1->SBUF;
+
+		u8RxCnt++;
+//		Uart_SendByte(UARTCH1,Uart_ReceiveData(UARTCH1));		//接收回显	
+		if(u8RxData[u8RxCnt-1] == '\n')
+		{
+			rx_flag = 1;
+			u8RxData[u8RxCnt] = '\0';
+			u8RxCnt = 0;
+			u8RxFlg = 1;
+//			Uart_SendString(UARTCH1,u8RxData);
+		}	
 	}
-	u8RxCnt++;
-//	Uart_SendByte(UARTCH1,Uart_ReceiveData(UARTCH1));		//接收回显	
-	if(u8Buff[u8RxCnt-1] == '\n')
-	{
-		u8Buff[u8RxCnt-1] = '\0';
-		u8RxCnt = 0;
-		u8RxFlg = 1;
-//		Uart_SendString(UARTCH1,u8Buff);
-	}	
+	
+	if(ymodem_start_flag){ // 开启 ymodem 功能 所有数据都进入队列 在队列里进行处理
+		enQueue(Uart_ReceiveData(UARTCH1));
+	}
+//	if (!ymodem_start_flag) // 未开启 ymodem ，进行判断是否开启
+//	{
+//		if(u8RxFlg == 1){
+//			u8RxFlg = 0;
+//			if((!strcmp(test_command,(char*)u8RxData)) && u8RxCnt<=20){
+//				ymodem_start_flag = 1;
+//				Uart_SendString(UARTCH1,(uint8_t*)"ok,please select image binary file\r\n");
+//			} else if ((!strcmp(del_custom_flash_command,(char*)u8RxData)) && u8RxCnt<=20) {
+//				ymodem_start_flag = 2;
+//				Uart_SendString(UARTCH1,(uint8_t*)"ok,Deleting\r\n");
+//			} else if ((!strcmp(mask_command,(char*)u8RxData)) && u8RxCnt<=20) {
+//				ymodem_start_flag = 3;
+//				Uart_SendString(UARTCH1,(uint8_t*)"ok,please select a mask file\r\n");
+//			} else{
+//				Uart_SendString(UARTCH1,(uint8_t*)"unrecognized command\r\n");
+//			}
+//		}
+//	}else { // 开启 ymodem 功能 所有数据都进入队列 在队列里进行处理
+//		enQueue(Uart_ReceiveData(UARTCH1));
+//	}
+	
+
 }
 /****** 错误中断回调函数 ******/
 void ErrIntCallback(void)
 { 
-	Uart_SendString(UARTCH1,"Error!\n");
+	Uart_SendString(UARTCH1,"UART_Error!\n");
 }
 /****** UART初始化函数 ******/
 void UART_Config(uint16_t uart_baund)
@@ -96,7 +107,8 @@ void UART_Config(uint16_t uart_baund)
 	/*----- 配置中断相关内容 -----*/
     stcUartIrqCb.pfnRxIrqCb = RxIntCallback;		//接收中断回调函数（写了，有）
     stcUartIrqCb.pfnTxIrqCb = NULL;					//发送中断回调函数（没写）
-    stcUartIrqCb.pfnRxErrIrqCb = ErrIntCallback;	//错误中断回调函数（写了，没有）
+//    stcUartIrqCb.pfnRxErrIrqCb = ErrIntCallback;	//错误中断回调函数（写了，没有）
+	stcUartIrqCb.pfnRxErrIrqCb = NULL;	//错误中断回调函数（写了，没有）
     stcConfig.pstcIrqCb = &stcUartIrqCb;			//配置中断服务函数
     stcConfig.bTouchNvic = TRUE;					//允许中断
 	/*----- 配置通讯相关内容 -----*/
@@ -133,7 +145,7 @@ void irq_uart_handle(){
    static unsigned char uart_ndma_irqsrc;
    uart_ndma_irqsrc = uart_ndmairq_get();
    if(uart_ndma_irqsrc)
-  {
+   {
        if(reg_uart_status1&FLD_UART_RX_BUF_IRQ)
        {
 #if UART_YMODEM_ENABLE
@@ -209,27 +221,81 @@ void main_loop (){
 
 int32_t main(void)
 {  
-    UART_Config(2400u);
+    UART_Config(9600u);
 	
     while(1)
 	{
-		if((!strcmp(test_command,(char*)u8Buff))&&check_index<=20){
-			ymodem_start_flag = 1;
-			Uart_SendString(UARTCH0,(uint8_t*)"ok,please select image binary file\r\n");
-		} else if ((!strcmp(del_custom_flash_command,(char*)check_buff))&&check_index<=20) {
-			ymodem_start_flag = 2;
-			Uart_SendString(UARTCH0,(uint8_t*)"ok,Deleting\r\n");
-		} else if ((!strcmp(mask_command,(char*)check_buff))&&check_index<=20) {
-			ymodem_start_flag = 3;
-			Uart_SendString(UARTCH0,(uint8_t*)"ok,please select a mask file\r\n");
-		} else{
-			Uart_SendString(UARTCH0,(uint8_t*)"unrecognized command\r\n");
+#if 1
+		if (!ymodem_start_flag) // 未开启 ymodem ，进行判断是否开启
+		{
+			if(u8RxFlg == 1){
+				u8RxFlg = 0;
+				if((!strcmp(test_command,(char*)u8RxData)) && u8RxCnt<=20){
+					ymodem_start_flag = 1;
+					Uart_SendString(UARTCH1,(uint8_t*)"ok,please select image binary file\r\n");
+				} else if ((!strcmp(del_custom_flash_command,(char*)u8RxData)) && u8RxCnt<=20) {
+					ymodem_start_flag = 2;
+					Uart_SendString(UARTCH1,(uint8_t*)"ok,Deleting\r\n");
+				} else if ((!strcmp(mask_command,(char*)u8RxData)) && u8RxCnt<=20) {
+					ymodem_start_flag = 3;
+					Uart_SendString(UARTCH1,(uint8_t*)"ok,please select a mask file\r\n");
+				} else{
+					Uart_SendString(UARTCH1,(uint8_t*)"unrecognized command\r\n");
+				}
+			}
 		}
+#endif
+	
+#if 0
+		delay1ms(2000);
+		Uart_SendByte(UARTCH1,'C');
+		
+		
+		if(u8RxFlg == 1){
+			u8RxFlg = 0;
+			
+			
+			Uart_SendByte(UARTCH1,ACK);
+		}
+#endif
+		
+#if 1
+		if(ymodem_start_flag == 1){
+#if EXTERNAL_FLASH_ENABLE
+			wd_stop(); // 关闭看门狗
+			ymodem_download(); // 下载出厂烧录区域的多媒体文件包 其中包括gif和bmp文件
+			wd_start(); // 打开看门狗
+			ymodem_start_flag=0;
+#endif
+			ymodem_start_flag=0;
+			ymodem_download_mask(); // 下载 9073 mask id
+//			Uart_SendString(UARTCH1,u8RxData);
+//			delay1ms(2000);
+//			Uart_SendByte(UARTCH1,'C');
+			
+		} else if (ymodem_start_flag == 2) {
+//			Erase_appoint_flash(0x20000,384);
+//		    u32 erase_addr = 0x20000;
+//		    for (u8 i = 0; i < 96; i++) { // 擦除128K-512
+//		         erase_addr = i * 0x1000;
+//		         FLASH_SectorErase(erase_addr);//扇区4K擦除
+//			}
+		} else if (ymodem_start_flag == 3) {
+//			wd_stop();
+//			ymodem_download_mask(); // 下载 9073 mask id
+//			wd_start();
+//			ymodem_start_flag=0;
+		}
+#endif	
 		
 		
 		
+//		sprintf(u8Buff, "ymodem_start_flag：%d\n", ymodem_start_flag);
+//		Uart_SendString(UARTCH1,u8Buff);
+//		delay1ms(500);
 		
-		
+//		Uart_SendString(UARTCH1,u8RxData);
+//		delay1ms(500);
 		
 //		sprintf(u8Buff, "CheckFlg：%d\n", CheckFlg);
 //		Uart_SendString(UARTCH1,u8Buff);

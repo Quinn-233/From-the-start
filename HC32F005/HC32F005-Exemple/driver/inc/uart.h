@@ -250,6 +250,9 @@ en_result_t Uart_SendData(uint8_t u8Idx, uint8_t u8Data);
 uint8_t Uart_ReceiveData(uint8_t u8Idx);
 
 //@} // UartGroup
+void Uart_SendByte(uint8_t u8Idx,uint8_t u8Data);
+void Uart_SendString(uint8_t u8Idx,uint8_t *str);
+
 
 #ifdef __cplusplus
 #endif

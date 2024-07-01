@@ -739,3 +739,20 @@ en_result_t Uart_Init(uint8_t u8Idx,
     return enRet;
 }
 //@} // UartGroup      
+/****** 发送一个字节 ******/
+void Uart_SendByte(uint8_t u8Idx,uint8_t u8Data)
+{
+	Uart_SetTb8(u8Idx,Even,u8Data);	
+	Uart_SendData(u8Idx,u8Data);				//库函数的发送一个字节
+	while(Uart_GetStatus(u8Idx, UartTxEmpty) == TRUE);	//获取TXE的状态，一直等于FLASE=0，表示TX buffer非空
+}
+/****** 发送一个字符串 ******/
+void Uart_SendString(uint8_t u8Idx,uint8_t *str)
+{
+	uint8_t k=0;
+	do
+	{
+		Uart_SendByte(u8Idx,*(str+k));	//循环发送一个字节一个字节的发
+		k++;
+	}while(*(str+k)!='\0');//直至遇到字符串结束符 '\0'
+}

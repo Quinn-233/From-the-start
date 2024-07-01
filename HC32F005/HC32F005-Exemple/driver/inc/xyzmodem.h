@@ -13,16 +13,16 @@
 /* Don't define this until the protocol support is in place */
 /*#define xyzmodem_zmodem 3 */
 
-#define xyzmodem_uartx UARTCH0
+#define xyzmodem_uartx UARTCH1
 
-#define xyzmodem_access   -1
-#define xyzmodem_noZmodem -2
-#define xyzmodem_timeout  -3
-#define xyzmodem_eof      -4
-#define xyzmodem_cancel   -5
-#define xyzmodem_frame    -6
-#define xyzmodem_cksum    -7
-#define xyzmodem_sequence -8
+#define xyzmodem_access   -1	// 
+#define xyzmodem_noZmodem -2	// 
+#define xyzmodem_timeout  -3	// 传输超时未响应
+#define xyzmodem_eof      -4	// 传输完成
+#define xyzmodem_cancel   -5	// 传输中止
+#define xyzmodem_frame    -6	// 帧序号检测出错
+#define xyzmodem_cksum    -7	// CRC检测出错
+#define xyzmodem_sequence -8	// 
 
 #define xyzmodem_close 1
 #define xyzmodem_abort 2
@@ -57,9 +57,9 @@
 
 #define rec_buff_Len    128
 struct connection_info_t {
-    char *filename;
-    int mode;
-    int chan;
+    char *filename;	// bin文件名
+    int mode;		// 传输长度模式
+    int chan;		//
 #ifdef CYGPKG_REDBOOT_NETWORKING
     struct sockaddr_in *server;
 #endif
@@ -68,14 +68,14 @@ struct connection_info_t {
 /* Data & state local to the protocol */
 struct _xyz {
     int *__chan;
-    u8 pkt[1024], *bufp;
-    u8 blk, cblk, crc1, crc2;
-    u8 next_blk;    /* Expected block */
-    int len, mode, total_retries;
-    int total_soh, total_stx, total_can;
-    bool crc_mode, at_eof, tx_ack;
+    u8 pkt[1024], *bufp;					// 存放数据的数组、数组地址指针
+    u8 blk, cblk, crc1, crc2;				// 帧序号、帧序号补码
+    u8 next_blk;    						// 期待的帧序号
+    int len, mode, total_retries;			// 数据最大长度、协议数据长度、总重试次数
+    int total_soh, total_stx, total_can;	// SOH总数、STX总数、CAN总数
+    bool crc_mode, at_eof, tx_ack;			//
 #ifdef USE_YMODEM_LENGTH
-    u32 file_length, read_length;
+    u32 file_length, read_length;			//
 #endif
 };
 extern unsigned int ymodem_start_flag;

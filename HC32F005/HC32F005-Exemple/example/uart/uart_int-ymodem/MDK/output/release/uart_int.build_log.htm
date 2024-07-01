@@ -17,7 +17,7 @@ Library Manager: ArmAr.exe V5.06 update 6 (build 750)
 Hex Converter:   FromElf.exe V5.06 update 6 (build 750)
 CPU DLL:         SARMCM3.DLL V5.30.0.0
 Dialog DLL:      DARMCM1.DLL V1.19.3.0
-Target DLL:      Segger\JL2CM3.dll V2.99.38.0
+Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.0.7.0
 Dialog DLL:      TARMCM1.DLL V1.14.2.0
  
 <h2>Project:</h2>
@@ -27,51 +27,7 @@ Project File Date:  07/01/2024
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 6 (build 750)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'uart_int_Release'
-compiling xyzmodem.c...
-..\..\..\..\driver\src\xyzmodem.c(140): warning:  #223-D: function "Uart_SendByte" declared implicitly
-  		Uart_SendByte(xyzmodem_uartx,'\r');
-..\..\..\..\driver\src\xyzmodem.c(140): error:  #20: identifier "UARTCH0" is undefined
-  		Uart_SendByte(xyzmodem_uartx,'\r');
-..\..\..\..\driver\src\xyzmodem.c(142): warning:  #223-D: function "Uart_SendByte" declared implicitly
-  	Uart_SendByte(xyzmodem_uartx,(unsigned char)data); // 使用串口直接发送
-..\..\..\..\driver\src\xyzmodem.c(142): error:  #20: identifier "UARTCH0" is undefined
-  	Uart_SendByte(xyzmodem_uartx,(unsigned char)data); // 使用串口直接发送
-..\..\..\..\driver\src\xyzmodem.c(351): warning:  #69-D: integer conversion resulted in truncation
-              CYGACC_CALL_IF_DELAY_US(250000);
-..\..\..\..\driver\src\xyzmodem.c(495): warning:  #69-D: integer conversion resulted in truncation
-              CYGACC_CALL_IF_DELAY_US(5 * 100000);
-..\..\..\..\driver\src\xyzmodem.c(525): warning:  #514-D: pointless comparison of unsigned integer with a negative constant
-                      (xyz.bufp[xyz.len - 1] == EOF) &&
-..\..\..\..\driver\src\xyzmodem.c(526): warning:  #514-D: pointless comparison of unsigned integer with a negative constant
-                      (xyz.bufp[xyz.len - 2] == EOF) &&
-..\..\..\..\driver\src\xyzmodem.c(527): warning:  #514-D: pointless comparison of unsigned integer with a negative constant
-                      (xyz.bufp[xyz.len - 3] == EOF)) {
-..\..\..\..\driver\src\xyzmodem.c(529): warning:  #514-D: pointless comparison of unsigned integer with a negative constant
-                          (xyz.bufp[xyz.len - 1] == EOF)) {
-..\..\..\..\driver\src\xyzmodem.c(657): warning:  #69-D: integer conversion resulted in truncation
-      CYGACC_CALL_IF_DELAY_US(250000);
-..\..\..\..\driver\src\xyzmodem.c(641): warning:  #550-D: variable "c"  was set but never used
-      int c;
-..\..\..\..\driver\src\xyzmodem.c(582): warning:  #177-D: function "xyzmodem_stream_read"  was declared but never referenced
-  static int xyzmodem_stream_read(char *buf, int size, int *err)
-..\..\..\..\driver\src\xyzmodem.c: 11 warnings, 2 errors
-compiling main.c...
-..\source\main.c(130): warning:  #223-D: function "uart_ndmairq_get" declared implicitly
-     uart_ndma_irqsrc = uart_ndmairq_get();
-..\source\main.c(133): error:  #20: identifier "reg_uart_status1" is undefined
-         if(reg_uart_status1&FLD_UART_RX_BUF_IRQ)
-..\source\main.c(133): error:  #20: identifier "FLD_UART_RX_BUF_IRQ" is undefined
-         if(reg_uart_status1&FLD_UART_RX_BUF_IRQ)
-..\source\main.c(178): error:  #20: identifier "ymodem_start_flag" is undefined
-     if(ymodem_start_flag == 1){
-..\source\main.c(198): warning:  #223-D: function "wd_stop" declared implicitly
-         wd_stop();
-..\source\main.c(199): warning:  #223-D: function "ymodem_download_mask" declared implicitly
-          ymodem_download_mask(); // 下载 9073 mask id
-..\source\main.c(200): warning:  #223-D: function "wd_start" declared implicitly
-          wd_start();
-..\source\main.c: 4 warnings, 3 errors
-".\output\release\uart_int.axf" - 5 Error(s), 15 Warning(s).
+".\output\release\uart_int.axf" - 0 Error(s), 0 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -94,7 +50,6 @@ Package Vendor: HDSC
 <h2>Collection of Component Files used:</h2>
 
    * Component: ARM::CMSIS:CORE:5.4.0
-Target not created.
 Build Time Elapsed:  00:00:00
 </pre>
 </body>
