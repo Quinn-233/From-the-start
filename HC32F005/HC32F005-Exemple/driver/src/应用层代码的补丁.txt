@@ -1,0 +1,76 @@
+@@ -67,6 +72,53 @@ _attribute_ram_code_ void irq_uart_handle()
++   // NDMA 串口接收程序
++   static unsigned char uart_ndma_irqsrc;
++   uart_ndma_irqsrc = uart_ndmairq_get();
++   if(uart_ndma_irqsrc)
++   {
++       if(reg_uart_status1&FLD_UART_RX_BUF_IRQ)
++       {
++#if UART_YMODEM_ENABLE
++           if (!ymodem_start_flag) // 未开启 ymodem ，进行判断是否开启
++           {
++               u8 check=uart_ndma_read_byte();
++               check_buff[(check_index%20)] = check;
++               check_index++;
++               if(check_index>=0xff)
++                   check_index=0;
++               if(check=='\n'){ // 一次传输结束，开始验证
++                   if((!strcmp(test_command,(char*)check_buff))&&check_index<=20) {
++                       ymodem_start_flag = 1;
++                       myprint("ok,please select image binary file\r\n");
++                   } else if ((!strcmp(del_custom_flash_command,(char*)check_buff))&&check_index<=20) {
++                       ymodem_start_flag = 2;
++                       myprint("ok,Deleting\r\n");
++                   } else if ((!strcmp(mask_command,(char*)check_buff))&&check_index<=20) {
++                       ymodem_start_flag = 3;
++                       myprint("ok,please select a mask file\r\n");
++                   } else{
++                       myprint("unrecognized command\r\n");
++                   }
++                   check_index=0;
++                   // 清空 check_buff
++                   for (int i = 0; i < 20; ++i)
++                   {
++                       check_buff[i] = 0;
++                   }
++               }
++               // u8 check=uart_ndma_read_byte();
++               // deQueue(&check);
++               // if(check=='S'){
++               //  myprint("hello world\r\n");
++               //  ymodem_start_flag=1;
++               // }
++           } else { // 开启 ymodem 功能 所有数据都进入队列 在队列里进行处理
++               enQueue(uart_ndma_read_byte());
++           }
++#endif
++       }
++   }
+
+
+@@ -522,7 +625,14 @@ void main_loop ()
++   if(ymodem_start_flag == 1){
++#if EXTERNAL_FLASH_ENABLE
++        wd_stop(); // 关闭看门狗
++        ymodem_download(); // 下载出厂烧录区域的多媒体文件包 其中包括gif和bmp文件
++        wd_start(); // 打开看门狗
++        ymodem_start_flag=0;
++#endif
++    } else if (ymodem_start_flag == 2) {
++        // Erase_appoint_flash(0x20000,384);
++       // u32 erase_addr = 0x20000;
++       // for (u8 i = 0; i < 96; i++) { // 擦除128K-512
++       //     erase_addr = i * 0x1000;
++       //     FLASH_SectorErase(erase_addr);//扇区4K擦除
++       // }
++#if EXTERNAL_FLASH_ENABLE
++        FLASH_ChipErase(); // 擦除整个外部 flash 芯片
++        myprint("\r\nDelete complete");
++#endif
++        ymodem_start_flag=0;
++    } else if (ymodem_start_flag == 3) {
++       wd_stop();
++        ymodem_download_mask(); // 下载 9073 mask id
++        wd_start();
++        ymodem_start_flag=0;
++   }

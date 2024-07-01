@@ -1,42 +1,42 @@
 /*******************************************************************************
-* Copyright (C) 2017, Huada Semiconductor Co.,Ltd All rights reserved.    
+* Copyright (C) 2017, Huada Semiconductor Co.,Ltd All rights reserved.
 *
-* This software is owned and published by: 
+* This software is owned and published by:
 * Huada Semiconductor Co.,Ltd ("HDSC").
 *
-* BY DOWNLOADING, INSTALLING OR USING THIS SOFTWARE, YOU AGREE TO BE BOUND 
+* BY DOWNLOADING, INSTALLING OR USING THIS SOFTWARE, YOU AGREE TO BE BOUND
 * BY ALL THE TERMS AND CONDITIONS OF THIS AGREEMENT.
 *
-* This software contains source code for use with HDSC 
-* components. This software is licensed by HDSC to be adapted only 
-* for use in systems utilizing HDSC components. HDSC shall not be 
-* responsible for misuse or illegal use of this software for devices not 
-* supported herein. HDSC is providing this software "AS IS" and will 
-* not be responsible for issues arising from incorrect user implementation 
-* of the software.  
+* This software contains source code for use with HDSC
+* components. This software is licensed by HDSC to be adapted only
+* for use in systems utilizing HDSC components. HDSC shall not be
+* responsible for misuse or illegal use of this software for devices not
+* supported herein. HDSC is providing this software "AS IS" and will
+* not be responsible for issues arising from incorrect user implementation
+* of the software.
 *
 * Disclaimer:
 * HDSC MAKES NO WARRANTY, EXPRESS OR IMPLIED, ARISING BY LAW OR OTHERWISE,
-* REGARDING THE SOFTWARE (INCLUDING ANY ACOOMPANYING WRITTEN MATERIALS), 
-* ITS PERFORMANCE OR SUITABILITY FOR YOUR INTENDED USE, INCLUDING, 
-* WITHOUT LIMITATION, THE IMPLIED WARRANTY OF MERCHANTABILITY, THE IMPLIED 
-* WARRANTY OF FITNESS FOR A PARTICULAR PURPOSE OR USE, AND THE IMPLIED 
-* WARRANTY OF NONINFRINGEMENT.  
-* HDSC SHALL HAVE NO LIABILITY (WHETHER IN CONTRACT, WARRANTY, TORT, 
-* NEGLIGENCE OR OTHERWISE) FOR ANY DAMAGES WHATSOEVER (INCLUDING, WITHOUT 
-* LIMITATION, DAMAGES FOR LOSS OF BUSINESS PROFITS, BUSINESS INTERRUPTION, 
-* LOSS OF BUSINESS INFORMATION, OR OTHER PECUNIARY LOSS) ARISING FROM USE OR 
-* INABILITY TO USE THE SOFTWARE, INCLUDING, WITHOUT LIMITATION, ANY DIRECT, 
-* INDIRECT, INCIDENTAL, SPECIAL OR CONSEQUENTIAL DAMAGES OR LOSS OF DATA, 
-* SAVINGS OR PROFITS, 
-* EVEN IF Disclaimer HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. 
+* REGARDING THE SOFTWARE (INCLUDING ANY ACOOMPANYING WRITTEN MATERIALS),
+* ITS PERFORMANCE OR SUITABILITY FOR YOUR INTENDED USE, INCLUDING,
+* WITHOUT LIMITATION, THE IMPLIED WARRANTY OF MERCHANTABILITY, THE IMPLIED
+* WARRANTY OF FITNESS FOR A PARTICULAR PURPOSE OR USE, AND THE IMPLIED
+* WARRANTY OF NONINFRINGEMENT.
+* HDSC SHALL HAVE NO LIABILITY (WHETHER IN CONTRACT, WARRANTY, TORT,
+* NEGLIGENCE OR OTHERWISE) FOR ANY DAMAGES WHATSOEVER (INCLUDING, WITHOUT
+* LIMITATION, DAMAGES FOR LOSS OF BUSINESS PROFITS, BUSINESS INTERRUPTION,
+* LOSS OF BUSINESS INFORMATION, OR OTHER PECUNIARY LOSS) ARISING FROM USE OR
+* INABILITY TO USE THE SOFTWARE, INCLUDING, WITHOUT LIMITATION, ANY DIRECT,
+* INDIRECT, INCIDENTAL, SPECIAL OR CONSEQUENTIAL DAMAGES OR LOSS OF DATA,
+* SAVINGS OR PROFITS,
+* EVEN IF Disclaimer HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 * YOU ASSUME ALL RESPONSIBILITIES FOR SELECTION OF THE SOFTWARE TO ACHIEVE YOUR
-* INTENDED RESULTS, AND FOR THE INSTALLATION OF, USE OF, AND RESULTS OBTAINED 
-* FROM, THE SOFTWARE.  
+* INTENDED RESULTS, AND FOR THE INSTALLATION OF, USE OF, AND RESULTS OBTAINED
+* FROM, THE SOFTWARE.
 *
-* This software may be replicated in part or whole for the licensed use, 
-* with the restriction that this Disclaimer and Copyright notice must be 
-* included with each copy of this software, whether used in part or whole, 
+* This software may be replicated in part or whole for the licensed use,
+* with the restriction that this Disclaimer and Copyright notice must be
+* included with each copy of this software, whether used in part or whole,
 * at all times.
 */
 /******************************************************************************/
@@ -73,7 +73,7 @@
 #ifndef FALSE
   /** Value is false (boolean_t type) */
   #define FALSE       ((boolean_t) 0u)
-#endif  
+#endif
 
 #if defined (__ICCARM__)
 #define __WEAKDEF            __WEAK __ATTRIBUTES
@@ -94,18 +94,62 @@
 /** Returns the dimension of an array */
 #define ARRAY_SZ( X )  (sizeof(X) / sizeof((X)[0]))
 
+#define XOR(a, b)   ((!(a) && (b)) || ((a) && !(b)))
+
 #ifdef __DEBUG_ASSERT
 	#define ASSERT(x) do{ assert((x)> 0u) ; }while(0);
 #else
 	#define ASSERT(x) {}
 #endif
+
+#define     __I     volatile const          /*!< defines 'read only' permissions      */
+#define     __O     volatile                /*!< defines 'write only' permissions     */
+#define     __IO    volatile                /*!< defines 'read / write' permissions   */
+
 /******************************************************************************
  * Global type definitions
  ******************************************************************************/
 
+typedef int32_t s32;
+typedef int16_t s16;
+typedef int8_t s8;
+
+typedef const int32_t sc32;  /*!< Read Only */
+typedef const int16_t sc16;  /*!< Read Only */
+typedef const int8_t sc8;   /*!< Read Only */
+
+typedef __IO int32_t vs32;
+typedef __IO int16_t vs16;
+typedef __IO int8_t vs8;
+
+typedef __I int32_t vsc32;  /*!< Read Only */
+typedef __I int16_t vsc16;  /*!< Read Only */
+typedef __I int8_t vsc8;   /*!< Read Only */
+
+typedef uint32_t u32;
+typedef uint16_t u16;
+typedef uint8_t u8;
+
+typedef const uint32_t uc32;  /*!< Read Only */
+typedef const uint16_t uc16;  /*!< Read Only */
+typedef const uint8_t uc8;   /*!< Read Only */
+
+typedef __IO uint32_t vu32;
+typedef __IO uint16_t vu16;
+typedef __IO uint8_t vu8;
+
+typedef __I uint32_t vuc32;  /*!< Read Only */
+typedef __I uint16_t vuc16;  /*!< Read Only */
+typedef __I uint8_t vuc8;   /*!< Read Only */
+
+typedef enum {RESET = 0, SET = !RESET} FlagStatus, ITStatus;
+
+typedef enum {DISABLE = 0, ENABLE = !DISABLE} FunctionalState;
+#define IS_FUNCTIONAL_STATE(STATE) (((STATE) == DISABLE) || ((STATE) == ENABLE))
+
 /** logical datatype (only values are TRUE and FALSE) */
 typedef uint8_t      boolean_t;
-  
+
 /** single precision floating point number (4 byte) */
 typedef float        float32_t;
 
