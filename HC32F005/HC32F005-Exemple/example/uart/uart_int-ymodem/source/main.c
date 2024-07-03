@@ -52,32 +52,10 @@ void RxIntCallback(void)
 	}
 	
 	if(ymodem_start_flag){ // 开启 ymodem 功能 所有数据都进入队列 在队列里进行处理
-		//enQueue(M0P_UART1->SBUF);
-		kan[u8RxCnt++]=M0P_UART1->SBUF;
+		enQueue(M0P_UART1->SBUF);
+//		kan[u8RxCnt++]=M0P_UART1->SBUF;
 //		Uart_SendByte(UARTCH1,M0P_UART1->SBUF);
 	}
-//	if (!ymodem_start_flag) // 未开启 ymodem ，进行判断是否开启
-//	{
-//		if(u8RxFlg == 1){
-//			u8RxFlg = 0;
-//			if((!strcmp(test_command,(char*)u8RxData)) && u8RxCnt<=20){
-//				ymodem_start_flag = 1;
-//				Uart_SendString(UARTCH1,(uint8_t*)"ok,please select image binary file\r\n");
-//			} else if ((!strcmp(del_custom_flash_command,(char*)u8RxData)) && u8RxCnt<=20) {
-//				ymodem_start_flag = 2;
-//				Uart_SendString(UARTCH1,(uint8_t*)"ok,Deleting\r\n");
-//			} else if ((!strcmp(mask_command,(char*)u8RxData)) && u8RxCnt<=20) {
-//				ymodem_start_flag = 3;
-//				Uart_SendString(UARTCH1,(uint8_t*)"ok,please select a mask file\r\n");
-//			} else{
-//				Uart_SendString(UARTCH1,(uint8_t*)"unrecognized command\r\n");
-//			}
-//		}
-//	}else { // 开启 ymodem 功能 所有数据都进入队列 在队列里进行处理
-//		enQueue(Uart_ReceiveData(UARTCH1));
-//	}
-	
-
 }
 /****** 错误中断回调函数 ******/
 void ErrIntCallback(void)
@@ -115,7 +93,7 @@ void UART_Config(uint16_t uart_baund)
     stcConfig.pstcIrqCb = &stcUartIrqCb;			//配置中断服务函数
     stcConfig.bTouchNvic = TRUE;					//允许中断
 	/*----- 配置通讯相关内容 -----*/
-    stcConfig.enRunMode = UartMode3;		//测试项，更改此处来转换4种模式测试
+    stcConfig.enRunMode = UartMode1;		//测试项，更改此处来转换4种模式测试
     stcMulti.enMulti_mode = UartNormal;		//测试项，更改此处来转换多主机模式，mode2/3才有多主机模式
     stcConfig.pstcMultiMode = &stcMulti;	//配置正常或多机工作模式
 	/*----- 配置波特率 -----*/
@@ -224,7 +202,9 @@ void main_loop (){
 
 int32_t main(void)
 {  
-    UART_Config(9600u);
+    UART_Config(4800u);
+	system_led_init();
+	
 	
     while(1)
 	{
@@ -270,8 +250,13 @@ int32_t main(void)
 			wd_start(); // 打开看门狗
 			ymodem_start_flag=0;
 #endif
-//			ymodem_start_flag=0;
+				
+			
 			ymodem_download_mask(); // 下载 9073 mask id
+			ymodem_start_flag=0;
+//			deQueue(u8Buff);
+//			Uart_SendString(UARTCH1,u8Buff);
+			
 //			Uart_SendString(UARTCH1,u8RxData);
 //			delay1ms(2000);
 //			Uart_SendByte(UARTCH1,'C');

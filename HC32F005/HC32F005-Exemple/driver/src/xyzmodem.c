@@ -18,7 +18,7 @@ unsigned int ymo_front;
 unsigned int ymo_rear;
 unsigned int ymodem_start_flag;
 
-uint8_t buff[50];
+uint8_t buff[150];
 // 队列缓存区
 __attribute__((aligned(4))) unsigned char rec_buff[rec_buff_Len] = {0};
 unsigned char check_buff[20] = {0};
@@ -29,13 +29,13 @@ char mask_command[] = {"mask download\r\n"};
 short aha = 0;
 uint16_t kankan[150];
 ////extern bulbsShape_ymodem_t bulbsShape_ymodem_buf;
-// 初始化队列
+/************** 初始化队列 **************/
 void initQueue(void)
 {
     ymo_front = 0;
     ymo_rear = 0;
 }
-// 判断队空 1:队空
+/*************** 判断队空 ***************/
 u8 isQueueEmpty()
 {
     if (ymo_front == ymo_rear) {
@@ -235,7 +235,7 @@ static char convert_charac_to_lower(char c)
 bool parse_num(char *s, u32 *val, char **es, char *delim)
 {
     bool first = true;
-    int radix = 10;
+    int radix = 16;
     char c;
     u32 result = 0;
     int digit;
@@ -244,20 +244,23 @@ bool parse_num(char *s, u32 *val, char **es, char *delim)
     while (*s == ' ') {
         s++;
     }
+//	Uart_SendByte(UARTCH1,*s);
     while (*s) {
         // 判断开头数据是不是十六进制数
-        if (first && (s[0] == '0') && (convert_charac_to_lower(s[1]) == 'x')) {
-            radix = 16;
-            s += 2;
-        }
+//        if (first && (s[0] == '0') && (convert_charac_to_lower(s[1]) == 'x')) {
+//            radix = 16;
+//            s += 2;
+//        }
+//		Uart_SendByte(UARTCH1,*s);
         first = false;
-        // 数据逐位转换成十六进制数
+        // 数据逐位转换成十六进制数Uart_SendByte(UARTCH1,radix);
         c = *s++;
         digit = convert_ascii_to_hex(c);
         // 判断数据是否有效（数据为数字/字母 & 开头数据有效）
         if (is_hex(c) && (digit < radix)) {
             // 小端模式排列结果
             result = (result * radix) + digit;
+//			Uart_SendByte(UARTCH1,result);
         } else {
             if (delim != (char *)0) {
                 dp = delim;
@@ -274,7 +277,7 @@ bool parse_num(char *s, u32 *val, char **es, char *delim)
             return false;
         }
     }
-
+//	Uart_SendByte(UARTCH1,result);
     *val = result;
     if (es != (char **)0) {
         *es = s;
@@ -302,10 +305,10 @@ static void xyzmodem_flush(void)
 ** 数据存入xyz.pkt
 ** xyz.bufp指向xyz.pkt
 **************************************/
-char c;
+
 static int xyzmodem_get_hdr(void)
 {
-    
+    char c;
     int res;
     bool hdr_found = false;
     int i, can_total, hdr_chars;
@@ -317,14 +320,15 @@ static int xyzmodem_get_hdr(void)
 
     if (xyz.tx_ack) {
 		// 发送 接收成功应答
-        cygacc_comm_if_putc(*xyz.__chan, ACK);aha=4;
+//		Uart_SendByte(UARTCH1,'6');
+        cygacc_comm_if_putc(*xyz.__chan, ACK);
         xyz.tx_ack = false;
     }
 
     while (!hdr_found) {
 		
         res = cygacc_comm_if_getc_timeout(*xyz.__chan, &c);
-		//kankan[0]=c;
+		kankan[0]=c;
 		// 正在取数据
         if (res) {
             hdr_chars++;
@@ -366,18 +370,21 @@ static int xyzmodem_get_hdr(void)
             CYGACC_CALL_IF_DELAY_US(250000);
             return xyzmodem_timeout;
         }
+//		Uart_SendByte(UARTCH1,c);
     }
-
+	
     /*------ 协议字段读取完毕，开始读取数据 ------*/
 	// 帧序号
     res = cygacc_comm_if_getc_timeout(*xyz.__chan, (char *)&xyz.blk);
-	//kankan[1]=xyz.blk;
+	kankan[1]=xyz.blk;
+
     if (!res) {
         return xyzmodem_timeout;
     }
 	// 帧序号补码
     res = cygacc_comm_if_getc_timeout(*xyz.__chan, (char *)&xyz.cblk);
-	//kankan[2]=xyz.cblk;
+	kankan[2]=xyz.cblk;
+
     if (!res) {
         return xyzmodem_timeout;
     }
@@ -388,14 +395,17 @@ static int xyzmodem_get_hdr(void)
         res = cygacc_comm_if_getc_timeout(*xyz.__chan, &c);
         if (res) {
             xyz.pkt[i] = c;
-			//kankan[i+3]=c;
+			kankan[i+3]=c;
+
         } else {
             return xyzmodem_timeout;
         }
     }
+//	Uart_SendString(UARTCH1,xyz.pkt);
 	// CRC高8位
     res = cygacc_comm_if_getc_timeout(*xyz.__chan, (char *) &xyz.crc1);
-	//kankan[131]=xyz.crc1;
+	kankan[131]=xyz.crc1;
+
     if (!res) {
         return xyzmodem_timeout;
     }
@@ -404,14 +414,22 @@ static int xyzmodem_get_hdr(void)
     if (xyz.crc_mode) {
         res = cygacc_comm_if_getc_timeout(*xyz.__chan,
                                           (char *)&xyz.crc2);
-		//kankan[132]=xyz.crc2;
+		kankan[132]=xyz.crc2;
+
         if (!res) {
             return xyzmodem_timeout;
         }
     }
-
+	
+	
+//	Uart_SendByte(UARTCH1,xyz.blk);
+//	Uart_SendByte(UARTCH1,xyz.cblk);
+////	Uart_SendByte(UARTCH1,xyz.pkt[i]);
+//	Uart_SendByte(UARTCH1,xyz.crc1);	
+//	Uart_SendByte(UARTCH1,xyz.crc2);	
+	
     /*------ 读取数据完毕，检测数据有效性 ------*/
-	// 帧序号有效性检测
+	// 帧序号有效性检测Uart_SendByte(UARTCH1,'6');
     if ((xyz.blk ^ xyz.cblk) != (u8)0xFF) {
         // uart_test_data3 = (u8)ymo_front;
         // uart_test_data4 = (u8)ymo_rear;
@@ -426,7 +444,7 @@ static int xyzmodem_get_hdr(void)
         xyzmodem_flush();
         return xyzmodem_frame;
     }
-    // CRC有效性检测
+    // CRC有效性检测Uart_SendByte(UARTCH1,'7');
     if (xyz.crc_mode) {
         cksum = cyg_crc16(xyz.pkt, xyz.len); // 每次对收到的包进行 crc 校验
         if (cksum != ((xyz.crc1 << 8) | xyz.crc2)) {
@@ -443,6 +461,8 @@ static int xyzmodem_get_hdr(void)
         }
     }
 	/*------ 如果运行到这（无任何return异常），则数据包有效 ------*/
+//	Uart_SendByte(UARTCH1,'8');
+	
     return 0;
 }
 
@@ -451,10 +471,10 @@ static int xyzmodem_get_hdr(void)
 **  *info：数据包参数结构体
 **  *err： 存放结果的数据包地址
 *************************************/
-int stat = 0;
+
 static int xyzmodem_stream_open(struct connection_info_t *info, int *err)
 {
-    
+    int stat = 0;
     int retries = XYZMODEM_MAX_RETRIES;					// 接收最大重试次数
     int crc_retries = XYZMODEM_MAX_RETRIES_WITH_CRC;	// CRC检测最大重试次数
     int dummy = 0;
@@ -489,27 +509,34 @@ static int xyzmodem_stream_open(struct connection_info_t *info, int *err)
 //        xyz.next_blk = 1;
 //        return 0;
 //    }
-
+//	CYGACC_CALL_IF_DELAY_US(500);
 	/*------ 在接收重试次数内 ------*/
     while (retries-- > 0) {
 		// 开始解析数据包
         stat = xyzmodem_get_hdr();
+//		Uart_SendByte(UARTCH1,stat);
 		// 数据包有效
         if (stat == 0) {
             // 若该数据包是第一帧包（ymodem）
             if (xyz.blk == 0) {
 #ifdef USE_YMODEM_LENGTH
-                // 跳过文件名数据
+                // 跳过文件名数据Uart_SendByte(UARTCH1,*xyz.bufp);
                 while (*xyz.bufp++) {
                 }
+//				Uart_SendByte(UARTCH1,*xyz.bufp++);
+//				Uart_SendByte(UARTCH1,*xyz.bufp--);
 				// 由十六进制数据解析出文件大小
                 parse_num((char *)xyz.bufp,
                           &xyz.file_length, NULL, " ");
+//				Uart_SendByte(UARTCH1,xyz.file_length);
+//				Uart_SendByte(UARTCH1,convert_ascii_to_hex(*xyz.bufp));
 #endif
 				// “可以应答ACK”标志位为真
 				//aha=4;
-                xyz.tx_ack = true;
-//				 cygacc_comm_if_putc(*xyz.__chan, (xyz.crc_mode ? 'C' : NAK));
+				xyz.tx_ack = true;
+//				Uart_SendByte(UARTCH1,xyz.tx_ack);
+//				cygacc_comm_if_putc(*xyz.__chan, ACK);
+//				cygacc_comm_if_putc(*xyz.__chan, (xyz.crc_mode ? 'C' : NAK));
             }
             xyz.next_blk = 1;
             xyz.len = 0;
@@ -521,6 +548,7 @@ static int xyzmodem_stream_open(struct connection_info_t *info, int *err)
 
             CYGACC_CALL_IF_DELAY_US(5 * 100000);
 			// 向上位机请求重新发送
+//			Uart_SendByte(UARTCH1,xyz.crc_mode);
             cygacc_comm_if_putc(*xyz.__chan,
                                 (xyz.crc_mode ? 'C' : NAK));
             xyz.total_retries++;
@@ -546,18 +574,18 @@ static int xyzmodem_retry(int *stat)
             xyz.tx_ack = true;
             xyz.next_blk = (xyz.next_blk + 1) & 0xFF;
 
-            /* Data blocks can be padded with ^Z (EOF) characters */
-            /* This code tries to detect and remove them */
-            if ((xyz.mode == xyzmodem_xmodem ||
-                    xyz.file_length == 0) &&
-                    (xyz.bufp[xyz.len - 1] == EOF) &&
-                    (xyz.bufp[xyz.len - 2] == EOF) &&
-                    (xyz.bufp[xyz.len - 3] == EOF)) {
-                while (xyz.len &&
-                        (xyz.bufp[xyz.len - 1] == EOF)) {
-                    xyz.len--;
-                }
-            }
+//            /* Data blocks can be padded with ^Z (EOF) characters */
+//            /* This code tries to detect and remove them */
+//            if ((xyz.mode == xyzmodem_xmodem ||
+//                    xyz.file_length == 0) &&
+//                    (xyz.bufp[xyz.len - 1] == EOF) &&
+//                    (xyz.bufp[xyz.len - 2] == EOF) &&
+//                    (xyz.bufp[xyz.len - 3] == EOF)) {
+//                while (xyz.len &&
+//                        (xyz.bufp[xyz.len - 1] == EOF)) {
+//                    xyz.len--;
+//                }
+//            }
 
 #ifdef USE_YMODEM_LENGTH
             /*
@@ -570,8 +598,7 @@ static int xyzmodem_retry(int *stat)
                     xyz.file_length != 0) {
                 xyz.read_length += xyz.len;
                 if (xyz.read_length > xyz.file_length) {
-                    xyz.len -= xyz.read_length -
-                               xyz.file_length;
+                    xyz.len -= xyz.read_length - xyz.file_length;
                 }
             }
 #endif
@@ -607,6 +634,12 @@ static int xyzmodem_retry(int *stat)
     return 0;
 }
 
+/************ 传输数据包 ************
+**
+**  *buf：
+**  size：
+**  *err：
+*************************************/
 static int xyzmodem_stream_read(char *buf, int size, int *err)
 {
     int stat, total, len;
@@ -659,7 +692,7 @@ static int xyzmodem_stream_read(char *buf, int size, int *err)
 ************************************/
 static void xyzmodem_stream_close(int *err)
 {
-#if 1
+#if 0
 	sprintf(buff,"mode %s, %d(SOH)/%d(STX)/%d(CAN) packets, %d retries\n",
 	xyz.crc_mode ? "CRC" : "Cksum",
 	xyz.total_soh, xyz.total_stx,
@@ -790,6 +823,13 @@ int ymodem_download_mask(void)
     info.mode = xyzmodem_ymodem;		// 传输模式为 ymodem
 	
     res = xyzmodem_stream_open(&info, &err);	// 开始接收文件
+//	Uart_SendByte(UARTCH1,res);
+//	if (xyz.tx_ack) {
+//		// 发送 接收成功应答
+////		Uart_SendByte(UARTCH1,'6');
+//        cygacc_comm_if_putc(*xyz.__chan, ACK);aha=4;
+//        xyz.tx_ack = false;
+//    }
 	// 数据包出错
     if (res) {
         Uart_SendString(xyzmodem_uartx,(uint8_t*)"error open ymodem!\n");
@@ -798,6 +838,7 @@ int ymodem_download_mask(void)
     // 擦除目标 flash
     Erase_mask_flash();
 	// 当
+	res = xyzmodem_stream_read((char*)ymodemBuff, sizeof(xyz.pkt), &err);
     /* when stat >= 0 */
 ////    do {
 ////        if ((res = xyzmodem_stream_read((char*)bulbsShape_ymodem_buf.ymodem_switch_buf, sizeof(xyz.pkt), &err)) > 0) {
@@ -814,18 +855,14 @@ int ymodem_download_mask(void)
 //	memcpy(ymodemBuff,xyz.pkt,sizeof(ymodemBuff));
 	
     xyzmodem_stream_close(&err);
-	
     xyzmodem_stream_terminate(false, &getcxmodem);
-
-    // uart_irq_rx_enable(uart);
-    // printk("Total Size = %d Bytes\n", offset);
 
 ////    return offset;
 
 close:
     xyzmodem_stream_close(&err);
     xyzmodem_stream_terminate(false, &getcxmodem);
-    // uart_irq_rx_enable(uart);
+
 
     return -1;
 }

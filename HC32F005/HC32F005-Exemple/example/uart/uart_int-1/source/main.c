@@ -10,7 +10,7 @@ uint32_t pclk=0;
 uint8_t u8RxData[10];
 uint8_t u8RxData1[2]={0x55,0x00};
 uint8_t u8String[]="RusHHH!\n";
-uint8_t u8Buff[100]="";
+uint8_t u8Buff[150];
 
 uint8_t step0[]="0\n";
 uint8_t step1[]="1\n";
@@ -23,26 +23,53 @@ uint8_t u8RxFlg=0;
 uint8_t CheckFlg=0;
 uint8_t num=0;
 
-/****************** 发送一个字节 **********************/
-void Uart_SendByte(uint8_t u8Idx,uint8_t u8Data)
+#define rec_buff_Len 50
+unsigned int ymo_front;
+unsigned int ymo_rear;
+__attribute__((aligned(4))) unsigned char rec_buff[rec_buff_Len] = {0};
+// 初始化队列
+void initQueue(void)
 {
-	Uart_SetTb8(u8Idx,Even,u8Data);	
-	Uart_SendData(u8Idx,u8Data);				//库函数的发送一个字节
-	while(Uart_GetStatus(u8Idx, UartTxEmpty) == TRUE);	//获取TXE的状态，一直等于FLASE=0，表示TX buffer非空
+    ymo_front = 0;
+    ymo_rear = 0;
 }
-/***************** 发送一个字符串 **********************/
-void Uart_SendString(uint8_t u8Idx,uint8_t *str)
+// 判断队空 1:队空
+u8 isQueueEmpty()
 {
-	uint8_t k=0;
-	do
-	{
-		Uart_SendByte(u8Idx,*(str+k));	//循环发送一个字节一个字节的发
-		k++;
-	}while(*(str+k)!='\0');//直至遇到字符串结束符 '\0'
+    if (ymo_front == ymo_rear) {
+        return 1;
+    } else {
+        return 0;
+    }
 }
+/*************** 进队函数 ***************/
+u8 enQueue(u8 x)
+{
+    // 判断队是否已满
+    if ((ymo_rear + 1) % rec_buff_Len == ymo_front) {
+        return 0;
+    }
+    ymo_rear = (ymo_rear + 1) % rec_buff_Len;
+    rec_buff[ymo_rear] = x;
+    return 1;
+}
+/*************** 出队函数 ***************/
+u8 deQueue(u8* value_addr)
+{
+    if (ymo_front == ymo_rear) {
+        return 0;
+    }
+    ymo_front = (ymo_front + 1) % rec_buff_Len;
+    *value_addr = rec_buff[ymo_front];
+    return 1;
+}
+
+
+
 /************ 接收中断回调函数 ************/
 void RxIntCallback(void)
 {
+#if 0
 //	u8RxData[1]=M0P_UART1->SBUF;
 //	u8Buff[u8RxCnt] = Uart_ReceiveData(UARTCH1);
 	u8Buff[u8RxCnt] = M0P_UART1->SBUF;
@@ -58,7 +85,15 @@ void RxIntCallback(void)
 		u8RxCnt = 0;
 		u8RxFlg = 1;
 //		Uart_SendString(UARTCH1,u8Buff);
-	}	
+	}
+#endif
+#if 1
+	enQueue(M0P_UART1->SBUF);
+//	u8Buff[u8RxCnt++] = M0P_UART1->SBUF;
+//	Uart_SendByte(UARTCH1,Uart_ReceiveData(UARTCH1));
+//	deQueue(u8RxData);
+//	Uart_SendString(UARTCH1,u8RxData);
+#endif	
 }
 /************ 错误中断回调函数 ************/
 void ErrIntCallback(void)
@@ -118,12 +153,24 @@ void UART_Config(uint16_t uart_baund)
     Uart_EnableFunc(UARTCH1,UartRx);	//串口1接收中断使能
 }
 
+
+
+
 int32_t main(void)
 {  
-    UART_Config(2400u);
-	
+    UART_Config(4800u);
+	initQueue();
+	for(i=0;i<150;i++){
+		u8Buff[i]=0;
+	}
     while(1)
 	{
+//		deQueue(u8Buff);
+//		Uart_SendString(UARTCH1,u8Buff);
+		Uart_SendData(UARTCH1,'C');
+		delay1ms(2000);
+		
+#if 0
 		if(u8RxFlg)
 		{
 			u8RxFlg = 0;
@@ -146,9 +193,12 @@ int32_t main(void)
 			}
 		}
 
-		sprintf(u8Buff, "CheckFlg：%d\n", CheckFlg);
 		Uart_SendString(UARTCH1,u8Buff);
 		delay1ms(500);
+		
+//		sprintf(u8Buff, "CheckFlg：%d\n", CheckFlg);
+//		Uart_SendString(UARTCH1,u8Buff);
+//		delay1ms(500);
 		
 //		Uart_SetTb8(UARTCH1,Even,u8RxData[0]);
 //		Uart_SendData(UARTCH1,u8RxData[0]);
@@ -163,6 +213,11 @@ int32_t main(void)
 		
 //		Uart_SendString(UARTCH1,u8String);
 //		delay1ms(500);
+#endif
+
+
+
+
 	}
 }
 
