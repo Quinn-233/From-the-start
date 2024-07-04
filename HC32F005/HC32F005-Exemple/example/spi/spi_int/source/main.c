@@ -159,7 +159,7 @@ int32_t main(void)
     stc_spi_config_t  SPIConfig;
     uint8_t   i,j;
     
-    Clk_SwitchTo(ClkXTH);
+//    Clk_SwitchTo(ClkXTH);
     Clk_SetPeripheralGate(ClkPeripheralSpi,TRUE); //SPI外设时钟打开
     
     Gpio_InitIO(T1_PORT, T1_PIN, GpioDirOut);
@@ -172,7 +172,7 @@ int32_t main(void)
     
     Spi_SetCS(TRUE);
     //配置SPI
-    SPIConfig.bCPHA = Spicphafirst;
+    SPIConfig.bCPHA = Spicphasecond;
     SPIConfig.bCPOL = Spicpollow;
     SPIConfig.bIrqEn = TRUE;
     SPIConfig.bMasterMode = SpiMaster;
@@ -182,47 +182,55 @@ int32_t main(void)
     Spi_Init(&SPIConfig);
     
     //操作FM25640
-    for(i=3;i<8;i++)
-    {
-        Buff[i] = i+0x10;
-    }
-    
-    Buff[0] = 0x06;
-    Spi_SetCS(FALSE);
-    WriteData(&Buff[0],1);
-    Spi_SetCS(TRUE);
-    
-    Buff[0] = 0x02;        //写命令
-    Buff[1] = 0x00;        //写地址
-    Buff[2] = 0x00;
-    Spi_SetCS(FALSE);
-    WriteData(&Buff[0],8); //发送命令和数据
-    Spi_SetCS(TRUE);
+//    for(i=3;i<8;i++)
+//    {
+//        Buff[i] = i+0x10;
+//    }
+    Buff[0] = 0x03;
+	Buff[1] = 0x00;
+	Buff[2] = 0x00;
+	Buff[3] = 0x00;
+	
+//    Buff[0] = 0x06;
+//    Spi_SetCS(FALSE);
+//    WriteData(&Buff[0],1);
+//    Spi_SetCS(TRUE);
+//    
+//    Buff[0] = 0x02;        //写命令
+//    Buff[1] = 0x00;        //写地址
+//    Buff[2] = 0x00;
+//    Spi_SetCS(FALSE);
+//    WriteData(&Buff[0],8); //发送命令和数据
+//    Spi_SetCS(TRUE);
 
-    delay1ms(2000);     
-    
-    Buff[0] = 0x03;        //读命令
-    Buff[1] = 0x00;        //地址
-    Buff[2] = 0x00;
-    Spi_SetCS(FALSE);
-    WriteData(&Buff[0],3); //发送读命令
-    ReadData(&Buff[13],5); //收数据
-    Spi_SetCS(TRUE);
-    
-    j=0;
-    for(i=3;i<8;i++)   
-    {
-        if(Buff[10+i] == Buff[i])
-        {
-            j++;
-        }
-    }
-    if(j == 5)
-    {
-        Gpio_SetIO(T1_PORT, T1_PIN, 1);  //P32 置高
-    }
+//    delay1ms(2000);     
+//    
+//    Buff[0] = 0x03;        //读命令
+//    Buff[1] = 0x00;        //地址
+//    Buff[2] = 0x00;
+//    Spi_SetCS(FALSE);
+//    WriteData(&Buff[0],3); //发送读命令
+//    ReadData(&Buff[13],5); //收数据
+//    Spi_SetCS(TRUE);
+//    
+//    j=0;
+//    for(i=3;i<8;i++)   
+//    {
+//        if(Buff[10+i] == Buff[i])
+//        {
+//            j++;
+//        }
+//    }
+//    if(j == 5)
+//    {
+//        Gpio_SetIO(T1_PORT, T1_PIN, 1);  //P32 置高
+//    }
 
-    while(1);
+    while(1){
+		Spi_SetCS(FALSE);
+		WriteData(&Buff[0],4);
+		Spi_SetCS(TRUE);
+	}
 }
 
 /******************************************************************************

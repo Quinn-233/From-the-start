@@ -1,12 +1,14 @@
 #include "ddl.h"
 #include "spi.h"
 #include "flash.h"
+#include "flash_spi.h"
 #include "gpio.h"
 
 #define     T1_PORT                 (3)
 #define     T1_PIN                  (2)
 
 uint8_t bIrq,bIrqData,Buff[20]; 
+uint8_t RxBuff[50];
 
 static void SpiCallBack(void)
 {
@@ -28,15 +30,24 @@ void WriteData(uint8_t *sendstr,uint8_t sendlen)
     {
         u32TimeOut = 1000;
         M0P_SPI->DATA = *(sendstr + i);
-        while(u32TimeOut--)
-        {
-            if(1 == bIrq)
-            {
-                break;
-            }
-        }
-        bIrq = 0;
+		delay100us(10);
+//        while(u32TimeOut--)
+//        {
+//            if(1 == bIrq)
+//            {
+//                break;
+//            }
+//        }
+//        bIrq = 0;
     }
+//	for(i=0;i<sendlen;i++)
+//    {
+//        M0P_SPI->DATA = *(sendstr + i);
+////		delay100us(1);
+////		M0P_SPI->STAT_f.SPIF=1;
+////		M0P_SPI->STAT_f.SPIF=0;
+////        while(FALSE == Spi_GetStatus(SpiIf));
+//    }
 
 }
 
@@ -80,9 +91,9 @@ void SPI_Cofig(void)
     
     Spi_SetCS(TRUE);
     //配置SPI
-    SPIConfig.bCPHA = Spicphafirst;
+    SPIConfig.bCPHA = Spicphasecond;
     SPIConfig.bCPOL = Spicpollow;
-    SPIConfig.bIrqEn = TRUE;
+    SPIConfig.bIrqEn = FALSE;
     SPIConfig.bMasterMode = SpiMaster;
     SPIConfig.u8BaudRate = SpiClkDiv2;
     SPIConfig.pfnIrqCb = SpiCallBack;
@@ -93,8 +104,39 @@ void SPI_Cofig(void)
 int32_t main(void)
 {
 	uint8_t i,j;
-	SPI_Cofig();
+	SPI_Config();
+	
+#if 1
+	Buff[0]=0x11;
+	Buff[1]=0x22;
+	Buff[2]=0x33;
+	Buff[3]=0x44;
 
+//	CSN_L;
+//	
+
+//	
+//	CSN_H;
+	
+	SPI_WritePage(&Buff[0],0x000000,4);	
+	delay1ms(20);
+	SPI_ReadByte(&RxBuff[0],0x000000,4);
+	
+	
+	
+//	Spi_SetCS(FALSE);
+
+////	Spi_SendData(Buff[0]);
+//    WriteData(&Buff[0],4);
+
+//    Spi_SetCS(TRUE);
+
+	while(1){
+
+	}
+#endif
+	
+#if 0
     //操作FM25640
     for(i=3;i<8;i++){
         Buff[i] = i+0x10;
@@ -137,6 +179,7 @@ int32_t main(void)
     }
 
     while(1);
+#endif
 }
 
 /******************************************************************************

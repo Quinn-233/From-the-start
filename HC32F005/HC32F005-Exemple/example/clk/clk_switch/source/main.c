@@ -58,8 +58,8 @@
 /******************************************************************************
  * Local pre-processor symbols/macros ('#define')
  ******************************************************************************/
-#define SK_SW2_INIT()       Gpio_InitIO(3, 3, GpioDirIn);
-#define SK_SW2_GET()        Gpio_GetIO(3,3)
+#define SK_SW2_INIT()       Gpio_InitIO(3, 4, GpioDirIn);
+#define SK_SW2_GET()        Gpio_GetIO(3,4)
 
 /******************************************************************************
  * Global variable definitions (declared in header file with 'extern')
@@ -93,65 +93,66 @@
  ** check Pxx to verify the clock frequency.
  **
  ******************************************************************************/
+ volatile uint32_t u32Val = 0;
 int32_t main(void)
 {
-    volatile uint32_t u32Val = 0;
-    //SW2控制程序是否继续运行
-    SK_SW2_INIT();
-    while (TRUE == SK_SW2_GET());
-    //设置P24为HCLK输出
-    Gpio_SetFunc_HCLKOUT_P24();
-    u32Val = Clk_GetHClkFreq();
     
-    //系统时钟频率设置与切换
-    //RCH 4MHz
-    Clk_SwitchTo(ClkRCL);
-    Clk_SetRCHFreq(ClkFreq4Mhz);
-    Clk_SwitchTo(ClkRCH);
-    u32Val = Clk_GetHClkFreq();
+    //SW2控制程序是否继续运行
+//    SK_SW2_INIT();
+//    while (TRUE == SK_SW2_GET());
+//    //设置P24为HCLK输出
+//    Gpio_SetFunc_HCLKOUT_P24();
+//    u32Val = Clk_GetHClkFreq();
+    
+//    //系统时钟频率设置与切换
+//    //RCH 4MHz
+//    Clk_SwitchTo(ClkRCL);
+//    Clk_SetRCHFreq(ClkFreq4Mhz);
+//    Clk_SwitchTo(ClkRCH);
+//    u32Val = Clk_GetHClkFreq();
 
-    //RCH 8MHz
-    Clk_SwitchTo(ClkRCL);
-    Clk_SetRCHFreq(ClkFreq8Mhz);
-    Clk_SwitchTo(ClkRCH);
-    u32Val = Clk_GetHClkFreq();
+//    //RCH 8MHz
+//    Clk_SwitchTo(ClkRCL);
+//    Clk_SetRCHFreq(ClkFreq8Mhz);
+//    Clk_SwitchTo(ClkRCH);
+//    u32Val = Clk_GetHClkFreq();
 
-    //RCH 16MHz
-    Clk_SwitchTo(ClkRCL);
-    Clk_SetRCHFreq(ClkFreq16Mhz);
-    Clk_SwitchTo(ClkRCH);
-    u32Val = Clk_GetHClkFreq();
+//    //RCH 16MHz
+//    Clk_SwitchTo(ClkRCL);
+//    Clk_SetRCHFreq(ClkFreq16Mhz);
+//    Clk_SwitchTo(ClkRCH);
+//    u32Val = Clk_GetHClkFreq();
 
-    //RCH 22.12MHz
-    Clk_SwitchTo(ClkRCL);
-    Clk_SetRCHFreq(ClkFreq22_12Mhz);
-    Clk_SwitchTo(ClkRCH);
-    u32Val = Clk_GetHClkFreq();
+//    //RCH 22.12MHz
+//    Clk_SwitchTo(ClkRCL);
+//    Clk_SetRCHFreq(ClkFreq22_12Mhz);
+//    Clk_SwitchTo(ClkRCH);
+//    u32Val = Clk_GetHClkFreq();
 
-    //RCH 24MHz
-    Clk_SwitchTo(ClkRCL);
-    Clk_SetRCHFreq(ClkFreq24Mhz);
-    Clk_SwitchTo(ClkRCH);
-    u32Val = Clk_GetHClkFreq();
+//    //RCH 24MHz
+//    Clk_SwitchTo(ClkRCL);
+//    Clk_SetRCHFreq(ClkFreq24Mhz);
+//    Clk_SwitchTo(ClkRCH);
+//    u32Val = Clk_GetHClkFreq();
 
     //XTH
     Clk_SwitchTo(ClkXTH);
     u32Val = Clk_GetHClkFreq();
     
-    //RCL   38.4K
-    Clk_SetRCLFreq(ClkFreq38_4K);
-    Clk_SwitchTo(ClkRCL);
-    u32Val = Clk_GetHClkFreq();
+//    //RCL   38.4K
+//    Clk_SetRCLFreq(ClkFreq38_4K);
+//    Clk_SwitchTo(ClkRCL);
+//    u32Val = Clk_GetHClkFreq();
 
-    //RCL 32768
-    Clk_SetRCLFreq(ClkFreq32768);
-    u32Val = Clk_GetHClkFreq();
+//    //RCL 32768
+//    Clk_SetRCLFreq(ClkFreq32768);
+//    u32Val = Clk_GetHClkFreq();
 
-    ///< \todo check 2nd version 
-    Clk_SwitchTo(ClkRCL);
-    Clk_SetRCHFreq(ClkFreq4Mhz);
-    Clk_SwitchTo(ClkRCH);
-    u32Val = Clk_GetHClkFreq();
+//    ///< \todo check 2nd version 
+//    Clk_SwitchTo(ClkRCL);
+//    Clk_SetRCHFreq(ClkFreq4Mhz);
+//    Clk_SwitchTo(ClkRCH);
+//    u32Val = Clk_GetHClkFreq();
 
     while (1);
 

@@ -1,4 +1,143 @@
 #include "flash_spi.h"
+
+#if 1
+void SPI_Delay(uint32_t nCount)
+{
+  for(; nCount != 0; nCount--);
+}
+
+void SPI_Config(void)
+{
+	Clk_SetPeripheralGate(ClkPeripheralGpio, TRUE);
+	Gpio_InitIOExt(SPI_PORT_CSN, SPI_PIN_CSN, GpioDirOut, 0, 0, 0, 0);
+	Gpio_SetIO(SPI_PORT_CSN, SPI_PIN_CSN, 1);
+	Gpio_InitIOExt(SPI_PORT_SCK, SPI_PIN_SCK, GpioDirOut, 0, 0, 0, 0);
+	Gpio_SetIO(SPI_PORT_SCK, SPI_PIN_SCK, 0);
+	Gpio_InitIOExt(SPI_PORT_MISO, SPI_PIN_MISO, GpioDirIn, 0, 0, 0, 0);
+//	Gpio_SetIO(SPI_PORT_MISO, SPI_PIN_MISO, 0);
+	Gpio_InitIOExt(SPI_PORT_MOSI, SPI_PIN_MOSI, GpioDirOut, 0, 0, 0, 0);
+	Gpio_SetIO(SPI_PORT_MOSI, SPI_PIN_MOSI, 0);
+}
+
+static void SPI_SendCMD(uint8_t CMD)
+{
+	uint8_t bit_ctr;
+	uint8_t buff = CMD;
+	for(bit_ctr=0; bit_ctr<8; bit_ctr++) 
+	{
+		// SPI-MOSI发数据
+		if(buff & 0x80) MOSI_H; 		        
+		else MOSI_L;
+		SCK_H; 
+		SPI_Delay(0xff);
+		buff = buff << 1;           
+		SCK_L; 
+		SPI_Delay(0xff);           		 
+	}
+}
+
+uint8_t SPI_WritePage(uint8_t *TxData, uint64_t Addr, uint16_t sendlen)
+{		
+	uint8_t bit_ctr, i, res;
+	uint8_t buff[3];
+	
+	buff[0] = (Addr&0xff0000) >> 16;
+	buff[1] = (Addr&0x00ff00) >> 8;
+	buff[2] = (Addr&0x0000ff) >> 0;
+	
+	if(sendlen <= 256){
+		CSN_L;
+		SPI_SendCMD(ZD25X_WriteEnable);
+		CSN_H;
+		
+		CSN_L;
+		SPI_SendCMD(ZD25X_PageProgram);
+		for(i=0; i<3; i++){
+			for(bit_ctr=0; bit_ctr<8; bit_ctr++){
+				if(buff[i] & 0x80) MOSI_H; 		        
+				else MOSI_L;
+				SCK_H; 
+				SPI_Delay(0xff);
+				buff[i] = buff[i] << 1;           
+				SCK_L; 
+				SPI_Delay(0xff);           		 
+			}
+		}
+	
+		for(i=0; i<sendlen; i++){
+			for(bit_ctr=0; bit_ctr<8; bit_ctr++) 
+			{
+				if(*(TxData+i) & 0x80) MOSI_H; 		        
+				else MOSI_L;
+				SCK_H; 
+				SPI_Delay(0xff);
+				*(TxData+i) = (*(TxData+i) << 1);           
+				SCK_L; 
+				SPI_Delay(0xff);           		 
+			}
+		}
+		CSN_H;
+		
+		CSN_L;
+		SPI_SendCMD(ZD25X_WriteDisable);
+		CSN_H;
+		
+		res = 0;
+	}else{
+		res = -1;
+	}
+
+	return res;
+}
+
+/********** 读取flash数据 ***********
+**
+**  *RxData
+************************************/
+void SPI_ReadByte(uint8_t *RxData, uint64_t Addr, uint8_t readlen)
+{		
+	uint8_t bit_ctr, i;
+	uint8_t buff[3];
+
+	buff[0] = (Addr&0xff0000) >> 16;
+	buff[1] = (Addr&0x00ff00) >> 8;
+	buff[2] = (Addr&0x0000ff) >> 0;
+	
+	CSN_L;
+	
+	SPI_SendCMD(ZD25X_ReadData);
+	for(i=0; i<3; i++){
+		for(bit_ctr=0; bit_ctr<8; bit_ctr++){
+			if(buff[i] & 0x80) MOSI_H; 		        
+			else MOSI_L;
+			SCK_H; 
+			SPI_Delay(0xff);
+			buff[i] = buff[i] << 1;           
+			SCK_L; 
+			SPI_Delay(0xff);           		 
+		}
+	}
+	for(i=0; i<readlen; i++){
+		for(bit_ctr=0; bit_ctr<8; bit_ctr++) 
+		{
+			SCK_H; 
+			SPI_Delay(0xff);         
+			if(READ_MISO){
+				*(RxData+i) = *(RxData+i) << 1;
+				*(RxData+i) = (*(RxData+i) | 0x01); 
+			}
+			SCK_L; 
+			SPI_Delay(0xff);
+		}
+	}
+	
+	CSN_H;
+}
+#endif
+
+
+
+
 #if 0
 //SPI_HandleTypeDef ZD25_Handle;
 //SPI句柄结构变量声明

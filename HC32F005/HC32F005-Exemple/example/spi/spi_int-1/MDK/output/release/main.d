@@ -19,3 +19,5 @@
 .\output\release\main.o: ..\source\ddl_device.h
 .\output\release\main.o: ..\..\..\..\driver\inc\spi.h
 .\output\release\main.o: ..\..\..\..\driver\inc\flash.h
+.\output\release\main.o: ..\source\flash_spi.h
+.\output\release\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
