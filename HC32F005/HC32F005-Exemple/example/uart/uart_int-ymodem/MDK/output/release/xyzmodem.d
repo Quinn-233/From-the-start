@@ -20,3 +20,4 @@
 .\output\release\xyzmodem.o: ..\..\..\..\driver\inc\interrupts_hc32f005.h
 .\output\release\xyzmodem.o: ..\..\..\..\driver\inc\gpio.h
 .\output\release\xyzmodem.o: ..\source\ddl_device.h
+.\output\release\xyzmodem.o: ..\..\..\..\driver\inc\flash.h

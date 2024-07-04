@@ -195,85 +195,80 @@
         <Ww>
           <count>0</count>
           <WinNumber>2</WinNumber>
-          <ItemText>rec_buff[ymo_rear]</ItemText>
+          <ItemText>rec_buff[0]</ItemText>
         </Ww>
         <Ww>
           <count>1</count>
           <WinNumber>2</WinNumber>
-          <ItemText>rec_buff[0]</ItemText>
+          <ItemText>rec_buff[1]</ItemText>
         </Ww>
         <Ww>
           <count>2</count>
           <WinNumber>2</WinNumber>
-          <ItemText>rec_buff[1]</ItemText>
+          <ItemText>rec_buff[2]</ItemText>
         </Ww>
         <Ww>
           <count>3</count>
           <WinNumber>2</WinNumber>
-          <ItemText>rec_buff[2]</ItemText>
+          <ItemText>rec_buff[3]</ItemText>
         </Ww>
         <Ww>
           <count>4</count>
           <WinNumber>2</WinNumber>
-          <ItemText>rec_buff[3]</ItemText>
+          <ItemText>rec_buff[4]</ItemText>
         </Ww>
         <Ww>
           <count>5</count>
           <WinNumber>2</WinNumber>
-          <ItemText>rec_buff[4]</ItemText>
+          <ItemText>rec_buff[5]</ItemText>
         </Ww>
         <Ww>
           <count>6</count>
           <WinNumber>2</WinNumber>
-          <ItemText>rec_buff[5]</ItemText>
+          <ItemText>rec_buff[6]</ItemText>
         </Ww>
         <Ww>
           <count>7</count>
           <WinNumber>2</WinNumber>
-          <ItemText>rec_buff[6]</ItemText>
+          <ItemText>rec_buff[7]</ItemText>
         </Ww>
         <Ww>
           <count>8</count>
           <WinNumber>2</WinNumber>
-          <ItemText>rec_buff[7]</ItemText>
+          <ItemText>rec_buff[8]</ItemText>
         </Ww>
         <Ww>
           <count>9</count>
           <WinNumber>2</WinNumber>
-          <ItemText>rec_buff[8]</ItemText>
+          <ItemText>rec_buff[9]</ItemText>
         </Ww>
         <Ww>
           <count>10</count>
           <WinNumber>2</WinNumber>
-          <ItemText>rec_buff[9]</ItemText>
+          <ItemText>rec_buff[10]</ItemText>
         </Ww>
         <Ww>
           <count>11</count>
           <WinNumber>2</WinNumber>
-          <ItemText>rec_buff[10]</ItemText>
+          <ItemText>rec_buff[11]</ItemText>
         </Ww>
         <Ww>
           <count>12</count>
           <WinNumber>2</WinNumber>
-          <ItemText>rec_buff[11]</ItemText>
+          <ItemText>rec_buff[12]</ItemText>
         </Ww>
         <Ww>
           <count>13</count>
           <WinNumber>2</WinNumber>
-          <ItemText>rec_buff[12]</ItemText>
+          <ItemText>rec_buff[13]</ItemText>
         </Ww>
         <Ww>
           <count>14</count>
           <WinNumber>2</WinNumber>
-          <ItemText>rec_buff[13]</ItemText>
-        </Ww>
-        <Ww>
-          <count>15</count>
-          <WinNumber>2</WinNumber>
           <ItemText>rec_buff[14]</ItemText>
         </Ww>
         <Ww>
-          <count>16</count>
+          <count>15</count>
           <WinNumber>2</WinNumber>
           <ItemText>rec_buff[15]</ItemText>
         </Ww>

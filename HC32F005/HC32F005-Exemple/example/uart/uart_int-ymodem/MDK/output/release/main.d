@@ -22,3 +22,4 @@
 .\output\release\main.o: ..\..\..\..\driver\inc\lpm.h
 .\output\release\main.o: ..\..\..\..\driver\inc\xyzmodem.h
 .\output\release\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\output\release\main.o: ..\..\..\..\driver\inc\flash.h

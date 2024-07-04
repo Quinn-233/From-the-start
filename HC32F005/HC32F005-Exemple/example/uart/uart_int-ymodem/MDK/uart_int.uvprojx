@@ -448,6 +448,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\..\..\driver\src\xyzmodem.c</FilePath>
             </File>
+            <File>
+              <FileName>flash.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\driver\src\flash.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

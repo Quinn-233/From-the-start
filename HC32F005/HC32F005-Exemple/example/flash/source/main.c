@@ -103,7 +103,9 @@ en_result_t FlashWriteTest(void)
 int32_t main(void)
 {
     volatile uint8_t u8TestFlag = 0;
-    
+	Flash_ChipErase();
+//	Flash_Init(FlashInt, 0);
+//    Flash_SectorErase(0x3ff0);
     if(Ok != FlashWriteTest())
     {
         u8TestFlag |= 0x01;

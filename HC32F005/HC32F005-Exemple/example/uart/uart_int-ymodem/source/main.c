@@ -4,6 +4,7 @@
 #include "lpm.h"
 #include "gpio.h"
 #include "xyzmodem.h"
+#include "flash.h"
 
 uint16_t timer=0;
 uint32_t pclk=0;
@@ -116,6 +117,23 @@ void UART_Config(uint16_t uart_baund)
     Uart_EnableFunc(UARTCH1,UartRx);	//串口1接收中断使能
 }
 #endif
+static volatile uint32_t u32FlashTestFlag   = 0;
+void FlashInt(void)
+{
+    if (TRUE == Flash_GetIntFlag(flash_int0))
+    {
+        Flash_ClearIntFlag(flash_int0);
+        u32FlashTestFlag |= 0x01;
+        Flash_DisableIrq(flash_int0);
+    }
+    if (TRUE == Flash_GetIntFlag(flash_int1))
+    {
+        Flash_ClearIntFlag(flash_int1);
+        u32FlashTestFlag |= 0x02;
+        Flash_DisableIrq(flash_int1);
+    }
+      
+ }
 
 /*****************************************
 ** UART-Ymodem
@@ -203,8 +221,8 @@ void main_loop (){
 int32_t main(void)
 {  
     UART_Config(4800u);
-	system_led_init();
-	
+//	system_led_init();
+	Flash_Init(FlashInt, 0);
 	
     while(1)
 	{
@@ -227,39 +245,10 @@ int32_t main(void)
 				}
 			}
 		}
-#endif
-	
-#if 0
-		delay1ms(2000);
-		Uart_SendByte(UARTCH1,'C');
-		
-		
-		if(u8RxFlg == 1){
-			u8RxFlg = 0;
-			
-			
-			Uart_SendByte(UARTCH1,ACK);
-		}
-#endif
-		
-#if 1
-		if(ymodem_start_flag == 1){
-#if EXTERNAL_FLASH_ENABLE
-			wd_stop(); // 关闭看门狗
-			ymodem_download(); // 下载出厂烧录区域的多媒体文件包 其中包括gif和bmp文件
-			wd_start(); // 打开看门狗
-			ymodem_start_flag=0;
-#endif
-				
-			
+
+		if(ymodem_start_flag == 1){		
 			ymodem_download_mask(); // 下载 9073 mask id
 			ymodem_start_flag=0;
-//			deQueue(u8Buff);
-//			Uart_SendString(UARTCH1,u8Buff);
-			
-//			Uart_SendString(UARTCH1,u8RxData);
-//			delay1ms(2000);
-//			Uart_SendByte(UARTCH1,'C');
 			
 		} else if (ymodem_start_flag == 2) {
 //			Erase_appoint_flash(0x20000,384);
@@ -274,8 +263,18 @@ int32_t main(void)
 //			wd_start();
 //			ymodem_start_flag=0;
 		}
-#endif	
-		
+#else
+//		delay1ms(2000);
+//		Uart_SendByte(UARTCH1,'C');
+//		
+//		
+//		if(u8RxFlg == 1){
+//			u8RxFlg = 0;
+//			
+//			Uart_SendByte(UARTCH1,ACK);
+//		}
+		Flash_SectorErase(0x7e00);
+#endif
 		
 		
 //		sprintf(u8Buff, "ymodem_start_flag：%d\n", ymodem_start_flag);

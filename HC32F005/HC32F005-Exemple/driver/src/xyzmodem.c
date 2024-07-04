@@ -2,10 +2,11 @@
 #include "xyzmodem.h"
 #include "stddef.h"
 #include "uart.h"
+#include "flash.h"
 //#include "driver_W25LX10.h"
 //#include "external_flash.h"
 
-extern uint8_t ymodemBuff[1024];
+extern uint8_t ymodemBuff[rec_buff_Len];
 
 #if UART_YMODEM_ENABLE
 static int xyzmodem_stream_open(struct connection_info_t *info, int *err);
@@ -336,27 +337,29 @@ static int xyzmodem_get_hdr(void)
                 // 准备128字节数据包
                 case SOH:
 					aha=1;
-                    xyz.total_soh++;
+                    xyz.total_soh++;		// stream_close时统计数据
                 // 准备1024字节数据包
                 case STX:
                     if (c == STX) {
-                        xyz.total_stx++;
+                        xyz.total_stx++;// stream_close时统计数据
                     }
-                    hdr_found = true;
+                    hdr_found = true;	// 找到帧头	
                     break;
                 // 传输中止
                 case CAN:
-                    xyz.total_can++;
+                    xyz.total_can++;			// stream_close时统计数据
+					// 连续接收到3次CAN视为传输中止
                     if (++can_total == XYZMODEM_CAN_COUNT) {
-                        return xyzmodem_cancel;
+                        return xyzmodem_cancel;	// 返回“传输中止”
                     }
                     break;
                 // 传输完成
                 case EOT:
                     /* EOT only supported if no noise */
+					// 单独接收到EOT视为传输结束
                     if (hdr_chars == 1) {
-                        cygacc_comm_if_putc(*xyz.__chan, ACK);
-                        return xyzmodem_eof;
+                        cygacc_comm_if_putc(*xyz.__chan, ACK);	// 发送ACK
+                        return xyzmodem_eof;					// 返回“传输结束”
                     }
                     break;
 
@@ -366,9 +369,9 @@ static int xyzmodem_get_hdr(void)
             }
         } else {
             /* Data stream timed out */
-            xyzmodem_flush();   /* Toss any current input */
-            CYGACC_CALL_IF_DELAY_US(250000);
-            return xyzmodem_timeout;
+            xyzmodem_flush();					// 等待队列清空
+            CYGACC_CALL_IF_DELAY_US(250000);	// 延时
+            return xyzmodem_timeout;			// 返回“超时”
         }
 //		Uart_SendByte(UARTCH1,c);
     }
@@ -390,7 +393,7 @@ static int xyzmodem_get_hdr(void)
     }
 	// 文件数据
     xyz.len = (c == SOH) ? 128 : 1024;
-    xyz.bufp = xyz.pkt;
+    xyz.bufp = xyz.pkt;	// 原数据指针给xyz.bufp
     for (i = 0; i < xyz.len; i++) {
         res = cygacc_comm_if_getc_timeout(*xyz.__chan, &c);
         if (res) {
@@ -466,18 +469,20 @@ static int xyzmodem_get_hdr(void)
     return 0;
 }
 
-/************** 开始传输 *************
+/************* 读取帧头包 ************
 **
 **  *info：数据包参数结构体
 **  *err： 存放结果的数据包地址
 *************************************/
-
+int retries = XYZMODEM_MAX_RETRIES;
 static int xyzmodem_stream_open(struct connection_info_t *info, int *err)
 {
     int stat = 0;
-    int retries = XYZMODEM_MAX_RETRIES;					// 接收最大重试次数
+    					// 接收最大重试次数
     int crc_retries = XYZMODEM_MAX_RETRIES_WITH_CRC;	// CRC检测最大重试次数
     int dummy = 0;
+	uint32_t i;
+	uint32_t          u32Addr  = 0x7e00;
 
 #ifdef xyzmodem_zmodem
     if (info->mode == xyzmodem_zmodem) {
@@ -556,6 +561,13 @@ static int xyzmodem_stream_open(struct connection_info_t *info, int *err)
         if (stat == xyzmodem_cancel) {
             break;
         }
+//		if(xyz.blk == xyz.cblk){
+//			xyzmodem_stream_read((char*)ymodemBuff, sizeof(xyz.pkt), NULL);
+//			for(i=0;i<1024;i++){
+//				
+//				Flash_WriteByte(u32Addr++, ymodemBuff[i]);
+//			}
+//		}
     }
     *err = stat;
 
@@ -569,10 +581,12 @@ static int xyzmodem_stream_open(struct connection_info_t *info, int *err)
 static int xyzmodem_retry(int *stat)
 {
     *stat = xyzmodem_get_hdr();
+	// 解包成功
     if (*stat == 0) {
+		// 第二包到来
         if (xyz.blk == xyz.next_blk) {
-            xyz.tx_ack = true;
-            xyz.next_blk = (xyz.next_blk + 1) & 0xFF;
+            xyz.tx_ack = true;	// 可以ACK
+            xyz.next_blk = (xyz.next_blk + 1) & 0xFF;	// 准备下一包帧序号
 
 //            /* Data blocks can be padded with ^Z (EOF) characters */
 //            /* This code tries to detect and remove them */
@@ -594,15 +608,18 @@ static int xyzmodem_retry(int *stat)
              * Only do this for Y-modem (and Z-modem should it ever
              * be supported since it can fall back to Y-modem mode).
              */
+			 // 不是xmodem模式 && 文件大小不为0
             if (xyz.mode != xyzmodem_xmodem &&
                     xyz.file_length != 0) {
-                xyz.read_length += xyz.len;
+					// xyz.len=数据包长
+					xyz.read_length += xyz.len;
                 if (xyz.read_length > xyz.file_length) {
                     xyz.len -= xyz.read_length - xyz.file_length;
                 }
             }
 #endif
             return BREAK;
+		// 还是帧头包
         } else if (xyz.blk == ((xyz.next_blk - 1) & 0xFF)) {
             /* Just re-ACK this so sender will get on with it */
             cygacc_comm_if_putc(*xyz.__chan, ACK);
@@ -615,7 +632,7 @@ static int xyzmodem_retry(int *stat)
     if (*stat == xyzmodem_cancel) {
         return BREAK;
     }
-
+	// 收到EOT
     if (*stat == xyzmodem_eof) {
         cygacc_comm_if_putc(*xyz.__chan, ACK);
         if (xyz.mode == xyzmodem_ymodem) {
@@ -634,7 +651,7 @@ static int xyzmodem_retry(int *stat)
     return 0;
 }
 
-/************ 传输数据包 ************
+/************ 读取数据包 ************
 **
 **  *buf：
 **  size：
@@ -650,6 +667,7 @@ static int xyzmodem_stream_read(char *buf, int size, int *err)
     stat = xyzmodem_cancel;
     /* Try and get 'size' bytes into the buffer */
     while (!xyz.at_eof && (size > 0)) {
+		// 上一包的帧头包接收成功
         if (xyz.len == 0) {
             retries = XYZMODEM_MAX_RETRIES;
             while (retries-- > 0) {
@@ -660,20 +678,22 @@ static int xyzmodem_stream_read(char *buf, int size, int *err)
                     continue;
                 }
             }
-
+			// 解析数据包异常 or 接收到EOT结束指令
             // if (stat < 0) {
             if (stat < 0 || xyz.at_eof) {
                 *err = stat;
                 xyz.len = -1;
-                return total;
+                return total;	// total=0
             }
         }
+		
         /* Don't "read" data from the EOF protocol package */
         if (!xyz.at_eof) {
             len = xyz.len;
             if (size < len) {
-                len = size;
+                len = size;	//指定数据大小
             }
+			// 按指定数据大小取数据
             memcpy(buf, xyz.bufp, len);
             size -= len;
             buf += len;
@@ -745,9 +765,9 @@ void Erase_gif_bmp_flash(void)
 #endif
 
 // 擦除存储 mask id 的扇区
-void Erase_mask_flash(void)
+void Erase_mask_flash(uint32_t u32SectorAddr)
 {
-////    flash_erase_sector(FLASH_ADR_LTSTR_MASK_ID);
+	Flash_SectorErase(u32SectorAddr);
 }
 
 #if EXTERNAL_FLASH_ENABLE
@@ -815,6 +835,11 @@ int ymodem_download_mask(void)
     // u32 offset = 0x3800;
     int err = 0;
     int res;
+	en_result_t       enResult = Error;
+	#define FLASH_ADR_LTSTR_MASK_ID	0x7e00
+    uint32_t u32Addr = FLASH_ADR_LTSTR_MASK_ID;
+	uint16_t i=0;
+	uint32_t offset=FLASH_ADR_LTSTR_MASK_ID;
 	
     struct connection_info_t info;		// 初始化info结构体
     initQueue();						// 初始化循环队列
@@ -836,10 +861,29 @@ int ymodem_download_mask(void)
         goto close;
     }
     // 擦除目标 flash
-    Erase_mask_flash();
+//    Erase_mask_flash(u32Addr);
+//	for(i=0;i<128;i++){
+//		enResult = Flash_WriteByte(u32Addr++, 0x88);
+//	}
 	// 当
-	res = xyzmodem_stream_read((char*)ymodemBuff, sizeof(xyz.pkt), &err);
+//	res = xyzmodem_stream_read((char*)ymodemBuff, sizeof(xyz.pkt), &err);
+	
     /* when stat >= 0 */
+	
+    do {
+        if ((res = xyzmodem_stream_read((char*)ymodemBuff, sizeof(xyz.len), &err)) > 0) {
+            if ((offset + res) < FLASH_ADR_LTSTR_MASK_ID || (offset + res) >= (FLASH_ADR_LTSTR_MASK_ID + 0x1000)) {
+                Erase_mask_flash(FLASH_ADR_LTSTR_MASK_ID);
+                Uart_SendString(UARTCH1,"write error\r\n");
+                break;
+            }			
+			for(i=0;i<(sizeof(xyz.len));i++){
+				enResult = Flash_WriteByte(u32Addr++, ymodemBuff[i]);
+			}
+            offset += res;
+        }
+    } while (xyz.len != -1);
+	
 ////    do {
 ////        if ((res = xyzmodem_stream_read((char*)bulbsShape_ymodem_buf.ymodem_switch_buf, sizeof(xyz.pkt), &err)) > 0) {
 ////            if ((offset + res) < FLASH_ADR_LTSTR_MASK_ID || (offset + res) >= (FLASH_ADR_LTSTR_MASK_ID + 0x1000)) {

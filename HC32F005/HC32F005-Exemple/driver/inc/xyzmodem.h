@@ -46,12 +46,12 @@
 #define XYZMODEM_MAX_RETRIES_WITH_CRC   10
 #define XYZMODEM_CAN_COUNT              3     /* Wait for 3 CAN before quit */
 
-#define CYGNUM_CALL_IF_SET_COMM_ID_QUERY_CURRENT
-#define CYGACC_CALL_IF_SET_CONSOLE_COMM(x)
+//#define CYGNUM_CALL_IF_SET_COMM_ID_QUERY_CURRENT
+//#define CYGACC_CALL_IF_SET_CONSOLE_COMM(x)
 
-#define diag_vprintf vprintf
-#define diag_printf printf
-#define diag_vsprintf vsprintf
+//#define diag_vprintf vprintf
+//#define diag_printf printf
+//#define diag_vsprintf vsprintf
 
 #define CYGACC_CALL_IF_DELAY_US(x) udelay(x)
 
@@ -60,9 +60,9 @@ struct connection_info_t {
     char *filename;	// bin文件名
     int mode;		// 传输长度模式
     int chan;		//
-#ifdef CYGPKG_REDBOOT_NETWORKING
-    struct sockaddr_in *server;
-#endif
+//#ifdef CYGPKG_REDBOOT_NETWORKING
+//    struct sockaddr_in *server;
+//#endif
 };
 
 /* Data & state local to the protocol */
